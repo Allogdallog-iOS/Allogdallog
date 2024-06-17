@@ -11,6 +11,9 @@
 		35459A982BF5E64D0049A19C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35459A972BF5E64D0049A19C /* ContentView.swift */; };
 		35459A9A2BF5E64F0049A19C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35459A992BF5E64F0049A19C /* Assets.xcassets */; };
 		35459A9E2BF5E64F0049A19C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35459A9D2BF5E64F0049A19C /* Preview Assets.xcassets */; };
+		358537792C20214500D65E23 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358537782C20214500D65E23 /* Home.swift */; };
+		3585377B2C20215000D65E23 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377A2C20215000D65E23 /* Calendar.swift */; };
+		3585377D2C20216100D65E23 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377C2C20216100D65E23 /* MyPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +23,9 @@
 		35459A992BF5E64F0049A19C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35459A9B2BF5E64F0049A19C /* Allogdallog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Allogdallog.entitlements; sourceTree = "<group>"; };
 		35459A9D2BF5E64F0049A19C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		358537782C20214500D65E23 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3585377A2C20215000D65E23 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		3585377C2C20216100D65E23 /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,9 @@
 			children = (
 				35459A952BF5E64D0049A19C /* AllogdallogApp.swift */,
 				35459A972BF5E64D0049A19C /* ContentView.swift */,
+				35C256E32C00681A00718555 /* Models */,
+				35C256E22C0067FB00718555 /* ViewModels */,
+				3545AA772BF5E99700516D3F /* Views */,
 				35459A992BF5E64F0049A19C /* Assets.xcassets */,
 				35459A9B2BF5E64F0049A19C /* Allogdallog.entitlements */,
 				35459A9C2BF5E64F0049A19C /* Preview Content */,
@@ -67,6 +76,30 @@
 				35459A9D2BF5E64F0049A19C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3545AA772BF5E99700516D3F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				358537782C20214500D65E23 /* Home.swift */,
+				3585377A2C20215000D65E23 /* Calendar.swift */,
+				3585377C2C20216100D65E23 /* MyPage.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		35C256E22C0067FB00718555 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		35C256E32C00681A00718555 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +172,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3585377D2C20216100D65E23 /* MyPage.swift in Sources */,
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
+				358537792C20214500D65E23 /* Home.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
+				3585377B2C20215000D65E23 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
