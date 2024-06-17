@@ -14,6 +14,7 @@
 		358537792C20214500D65E23 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358537782C20214500D65E23 /* Home.swift */; };
 		3585377B2C20215000D65E23 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377A2C20215000D65E23 /* Calendar.swift */; };
 		3585377D2C20216100D65E23 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377C2C20216100D65E23 /* MyPage.swift */; };
+		35F095FA2C202C4000B52913 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 35F095F92C202C4000B52913 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		358537782C20214500D65E23 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3585377A2C20215000D65E23 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		3585377C2C20216100D65E23 /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
+		35F095F92C202C4000B52913 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 		35459A892BF5E64D0049A19C = {
 			isa = PBXGroup;
 			children = (
+				35F095F92C202C4000B52913 /* .gitignore */,
 				35459A942BF5E64D0049A19C /* Allogdallog */,
 				35459A932BF5E64D0049A19C /* Products */,
 			);
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35459A9E2BF5E64F0049A19C /* Preview Assets.xcassets in Resources */,
+				35F095FA2C202C4000B52913 /* .gitignore in Resources */,
 				35459A9A2BF5E64F0049A19C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
