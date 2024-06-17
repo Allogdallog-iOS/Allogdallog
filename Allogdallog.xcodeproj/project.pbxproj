@@ -44,6 +44,7 @@
 		35459A892BF5E64D0049A19C = {
 			isa = PBXGroup;
 			children = (
+				35F095F92C202C4000B52913 /* .gitignore */,
 				35459A942BF5E64D0049A19C /* Allogdallog */,
 				35459A932BF5E64D0049A19C /* Products */,
 			);
@@ -60,7 +61,6 @@
 		35459A942BF5E64D0049A19C /* Allogdallog */ = {
 			isa = PBXGroup;
 			children = (
-				35F095F92C202C4000B52913 /* .gitignore */,
 				35459A952BF5E64D0049A19C /* AllogdallogApp.swift */,
 				35459A972BF5E64D0049A19C /* ContentView.swift */,
 				35C256E32C00681A00718555 /* Models */,
