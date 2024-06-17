@@ -43,6 +43,7 @@ struct CircularButton: View {
     var userName: String
     
     var body: some View {
+        // 친구 연동 필요
         VStack {
             Button(action: {
                 
