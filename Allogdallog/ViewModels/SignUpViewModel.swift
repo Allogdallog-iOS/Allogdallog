@@ -38,7 +38,7 @@ class SignUpViewModel: ObservableObject {
             
             self?.uploadProfileImage(uid: uid, image: profileImage) { url in
                 guard let url = url else {
-                    self?.errorMessage = "Failed to upload profile image. "
+                    self?.errorMessage = "프로필 이미지 등록에 실패하였습니다"
                     return
                 }
             
