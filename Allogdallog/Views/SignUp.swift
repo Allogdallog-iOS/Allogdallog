@@ -23,51 +23,77 @@ struct SignUp: View {
                     .resizable()
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
-                    .padding(.horizontal)
             } else {
                 Button(action: {
                     viewModel.isImagePickerPresented.toggle()
                 }) {
-                    Circle()
-                        .frame(width: 100, height: 100)
-                        .foregroundStyle(.gray)
+                    ZStack {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .foregroundStyle(.myLightGray)
+                        Image(systemName: "photo.badge.plus.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30)
+                            .offset(x: 35, y: 35)
+                            .foregroundStyle(.gray)
+    
+                    }
                 }
-                .padding(.horizontal)
             }
             
             TextField("이메일", text: $viewModel.email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.myLightGray)
+                )
             SecureField("비밀번호", text: $viewModel.password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.myLightGray)
+                )
             TextField("닉네임", text: $viewModel.nickname)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.myLightGray)
+                )
             
             Button(action: {
                 viewModel.signUp()
             }) {
                 Text("회원가입")
                     .padding()
-                    .background(Color.blue)
+                    .frame(maxWidth: .infinity)
+                    .background(.black)
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     
             }
-            .padding()
             
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
-                    .padding()
+            } else {
+                Text(" ")
             }
         }
+        .padding(.horizontal)
         .sheet(isPresented: $viewModel.isImagePickerPresented) {
             ImagePicker(image: $viewModel.profileImage, isPresented: $viewModel.isImagePickerPresented)
         }
     }
 }
+
 
 #Preview {
     SignUp()
