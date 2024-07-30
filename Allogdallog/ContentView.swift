@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
     
-    @State private var index = 0
-    
     var body: some View {
-        SignUp()
+        SignIn()
+    }
 }
 
 #Preview {

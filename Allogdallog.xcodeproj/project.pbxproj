@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		353367112C215919003C561C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 353367102C215919003C561C /* GoogleService-Info.plist */; };
-		353367132C2173C6003C561C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 353367122C2173C6003C561C /* .gitignore */; };
 		353367162C2175B4003C561C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 353367152C2175B4003C561C /* FirebaseAnalytics */; };
 		35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35459A952BF5E64D0049A19C /* AllogdallogApp.swift */; };
 		35459A982BF5E64D0049A19C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35459A972BF5E64D0049A19C /* ContentView.swift */; };
@@ -17,6 +16,7 @@
 		358537792C20214500D65E23 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358537782C20214500D65E23 /* Home.swift */; };
 		3585377B2C20215000D65E23 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377A2C20215000D65E23 /* Calendar.swift */; };
 		3585377D2C20216100D65E23 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377C2C20216100D65E23 /* MyPage.swift */; };
+		35A5118B2C58D9EB00DA8668 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 35A5118A2C58D9EB00DA8668 /* .gitignore */; };
 		35D259AB2C3D325C0052127B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259AA2C3D325C0052127B /* User.swift */; };
 		35D259AD2C3D35620052127B /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259AC2C3D35620052127B /* SignIn.swift */; };
 		35D259BF2C3D3E590052127B /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 35D259BE2C3D3E590052127B /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -49,12 +49,11 @@
 		35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F42C3D3ECF0052127B /* SignUp.swift */; };
 		35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F62C3D3EE50052127B /* SignUpViewModel.swift */; };
 		35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F82C3D5E400052127B /* ImagePicker.swift */; };
-		35F095FA2C202C4000B52913 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 35F095F92C202C4000B52913 /* .gitignore */; };
+		35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		353367102C215919003C561C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		353367122C2173C6003C561C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		35459A922BF5E64D0049A19C /* Allogdallog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allogdallog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35459A952BF5E64D0049A19C /* AllogdallogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllogdallogApp.swift; sourceTree = "<group>"; };
 		35459A972BF5E64D0049A19C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,12 +63,13 @@
 		358537782C20214500D65E23 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3585377A2C20215000D65E23 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		3585377C2C20216100D65E23 /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
+		35A5118A2C58D9EB00DA8668 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		35D259AA2C3D325C0052127B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35D259AC2C3D35620052127B /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		35D259F42C3D3ECF0052127B /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		35D259F62C3D3EE50052127B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		35D259F82C3D5E400052127B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		35F095F92C202C4000B52913 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +114,9 @@
 		35459A892BF5E64D0049A19C = {
 			isa = PBXGroup;
 			children = (
+				35A5118A2C58D9EB00DA8668 /* .gitignore */,
 				35459A942BF5E64D0049A19C /* Allogdallog */,
 				35459A932BF5E64D0049A19C /* Products */,
-				359942E32C366D66007D5E07 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,20 +164,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		359942E32C366D66007D5E07 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				353367122C2173C6003C561C /* .gitignore */,
-				35F095F92C202C4000B52913 /* .gitignore */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		35C256E22C0067FB00718555 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				35D259F62C3D3EE50052127B /* SignUpViewModel.swift */,
 				35D259F82C3D5E400052127B /* ImagePicker.swift */,
+				35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -281,9 +273,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				353367132C2173C6003C561C /* .gitignore in Resources */,
+				35A5118B2C58D9EB00DA8668 /* .gitignore in Resources */,
 				35459A9E2BF5E64F0049A19C /* Preview Assets.xcassets in Resources */,
-				35F095FA2C202C4000B52913 /* .gitignore in Resources */,
 				35459A9A2BF5E64F0049A19C /* Assets.xcassets in Resources */,
 				353367112C215919003C561C /* GoogleService-Info.plist in Resources */,
 			);
@@ -304,6 +295,7 @@
 				35D259AD2C3D35620052127B /* SignIn.swift in Sources */,
 				35D259AB2C3D325C0052127B /* User.swift in Sources */,
 				35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */,
+				35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */,
 				35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */,
 				3585377B2C20215000D65E23 /* Calendar.swift in Sources */,
 			);

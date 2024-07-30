@@ -20,6 +20,7 @@ class SignUpViewModel: ObservableObject {
     @Published var profileImage: UIImage? = nil
     @Published var errorMessage: String? = nil
     @Published var isImagePickerPresented: Bool = false
+    @Published var signUpComplete: Bool = false
     
     private var db = Firestore.firestore()
     
@@ -53,6 +54,7 @@ class SignUpViewModel: ObservableObject {
                         self?.errorMessage = error.localizedDescription
                     } else {
                         //회원가입 완료
+                        self?.signUpComplete = true
                     }
                 }
             }
