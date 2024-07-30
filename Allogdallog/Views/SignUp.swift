@@ -10,9 +10,11 @@ import SwiftUI
 struct SignUp: View {
     
     @StateObject private var viewModel = SignUpViewModel()
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 25) {
+            Spacer()
             
             Text("회원가입")
                 .font(.title2)
@@ -38,12 +40,12 @@ struct SignUp: View {
                             .frame(width: 30)
                             .offset(x: 35, y: 35)
                             .foregroundStyle(.gray)
-    
                     }
                 }
             }
             
             TextField("이메일", text: $viewModel.email)
+                .textInputAutocapitalization(.never)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
@@ -52,6 +54,7 @@ struct SignUp: View {
                         .stroke(.myLightGray)
                 )
             SecureField("비밀번호", text: $viewModel.password)
+                .textInputAutocapitalization(.never)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
@@ -86,11 +89,18 @@ struct SignUp: View {
             } else {
                 Text(" ")
             }
+            
+            Spacer()
         }
         .padding(.horizontal)
         .sheet(isPresented: $viewModel.isImagePickerPresented) {
             ImagePicker(image: $viewModel.profileImage, isPresented: $viewModel.isImagePickerPresented)
         }
+        .onReceive(viewModel.$signUpComplete, perform: { complete in
+            if complete {
+                dismiss()
+            }
+        })
     }
 }
 

@@ -11,8 +11,13 @@ struct User: Codable, Identifiable {
     
     var id: String
     var email: String
-    var nickname: String
+    var nickname: String = ""
     var profileImageUrl: String?
+    
+    init(id: String, email: String) {
+        self.id = id
+        self.email = email
+    }
     
     init(id: String, email: String, nickname: String, profileImageUrl: String? = nil) {
         self.id = id

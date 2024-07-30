@@ -1,17 +1,5 @@
-<<<<<<< Updated upstream
-# Created by https://www.toptal.com/developers/gitignore/api/xcode,swift
-# Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift
-=======
-# Created by https://www.toptal.com/developers/gitignore/api/xcode,swift,cocoapods,firebase
-# Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift,cocoapods,firebase
-
-### CocoaPods ###
-## CocoaPods GitIgnore Template
-
-# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
-#           - Also handy if you have a large number of dependant pods
-#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
-Pods/
+# Created by https://www.toptal.com/developers/gitignore/api/xcode,swift,firebase
+# Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift,firebase
 
 ### Firebase ###
 .idea
@@ -21,7 +9,6 @@ Pods/
 ### Firebase Patch ###
 .runtimeconfig.json
 .firebase/
->>>>>>> Stashed changes
 
 ### Swift ###
 # Xcode
@@ -120,8 +107,5 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-<<<<<<< Updated upstream
-# End of https://www.toptal.com/developers/gitignore/api/xcode,swift
-=======
-# End of https://www.toptal.com/developers/gitignore/api/xcode,swift,cocoapods,firebase
->>>>>>> Stashed changes
+# End of https://www.toptal.com/developers/gitignore/api/xcode,swift,firebase
+
