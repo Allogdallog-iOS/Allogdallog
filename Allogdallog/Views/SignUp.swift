@@ -21,10 +21,16 @@ struct SignUp: View {
                 .fontWeight(.semibold)
             
             if let image = viewModel.profileImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
+                Button(action: {
+                    viewModel.isImagePickerPresented.toggle()
+                }) {
+                    ZStack {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    }
+                }
             } else {
                 Button(action: {
                     viewModel.isImagePickerPresented.toggle()
@@ -33,7 +39,7 @@ struct SignUp: View {
                         Image(systemName: "person.circle.fill")
                             .resizable()
                             .frame(width: 100, height: 100)
-                            .foregroundStyle(.myLightGray)
+                            .foregroundStyle(Color.myLightGray)
                         Image(systemName: "photo.badge.plus.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
