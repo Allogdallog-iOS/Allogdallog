@@ -51,31 +51,11 @@ struct SignUp: View {
             }
             
             TextField("이메일", text: $viewModel.email)
-                .textInputAutocapitalization(.never)
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.myLightGray)
-                )
+                .customTextFieldStyle(height: 50)
             SecureField("비밀번호", text: $viewModel.password)
-                .textInputAutocapitalization(.never)
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.myLightGray)
-                )
+                .customTextFieldStyle(height: 50)
             TextField("닉네임", text: $viewModel.nickname)
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.myLightGray)
-                )
+                .customTextFieldStyle(height: 50)
             
             Button(action: {
                 viewModel.signUp()

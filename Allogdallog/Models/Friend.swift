@@ -7,11 +7,18 @@
 
 import Foundation
 
-struct Friend: Identifiable {
+struct Friend: Identifiable, Codable {
     
     var id: String
     var nickname: String = ""
     var postUploaded: Bool = false
     var profileImageUrl: String?
+    
+    init(id: String, nickname: String, postUploaded: Bool = false, profileImageUrl: String) {
+        self.id = id
+        self.nickname = nickname
+        self.postUploaded = postUploaded
+        self.profileImageUrl = profileImageUrl
+    }
     
 }

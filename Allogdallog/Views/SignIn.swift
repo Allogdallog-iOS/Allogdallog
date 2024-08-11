@@ -12,6 +12,7 @@ struct SignIn: View {
     @State private var email = ""
     @State private var password = ""
     @StateObject private var viewModel = SignInViewModel()
+    @StateObject private var userViewModel = UserViewModel()
     
     var body: some View {
         NavigationStack {
@@ -23,24 +24,9 @@ struct SignIn: View {
                     .fontWeight(.semibold)
                 
                 TextField("이메일", text: $viewModel.email)
-                    .textInputAutocapitalization(.never)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.myLightGray)
-                    )
+                    .customTextFieldStyle(height: 50)
                 SecureField("비밀번호", text: $viewModel.password)
-                    .textInputAutocapitalization(.never)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.myLightGray)
-                    )
-                
+                    .customTextFieldStyle(height: 50)
                 Button(action: {
                     viewModel.signIn()
                 }) {

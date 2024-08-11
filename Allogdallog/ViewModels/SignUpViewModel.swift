@@ -18,6 +18,7 @@ class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var nickname: String = ""
     @Published var profileImage: UIImage? = nil
+    @Published var friends: [Friend] = []
     @Published var errorMessage: String? = nil
     @Published var isImagePickerPresented: Bool = false
     @Published var signUpComplete: Bool = false
@@ -25,10 +26,15 @@ class SignUpViewModel: ObservableObject {
     private var db = Firestore.firestore()
     
     func signUp() {
-        guard !email.isEmpty, !password.isEmpty, !nickname.isEmpty, let profileImage = profileImage else {
+        guard !email.isEmpty, !password.isEmpty, !nickname.isEmpty else {
             errorMessage = "모든 항목을 기입해주세요"
             return
         }
+        
+        let defaultProfileImage = UIImage(systemName: "person.circle.fill")!.withTintColor(.myLightGray, renderingMode: .alwaysOriginal)
+        let profileImageToUpload = profileImage ?? defaultProfileImage
+        
+        
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             if let error = error {
                 self?.errorMessage = error.localizedDescription
@@ -37,13 +43,13 @@ class SignUpViewModel: ObservableObject {
             
             guard let uid = authResult?.user.uid else { return }
             
-            self?.uploadProfileImage(uid: uid, image: profileImage) { url in
+            self?.uploadProfileImage(uid: uid, image: profileImageToUpload) { url in
                 guard let url = url else {
                     self?.errorMessage = "프로필 이미지 등록에 실패하였습니다"
                     return
                 }
             
-                let user = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString)
+                let user = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString, friends: [])
                 self?.saveUserToFirestore(user: user)
                 
                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
