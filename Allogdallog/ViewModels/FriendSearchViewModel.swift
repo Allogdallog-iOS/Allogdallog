@@ -38,14 +38,23 @@ class FriendSearchViewModel: ObservableObject {
                     guard
                         let id = data["id"] as? String,
                         let email = data["email"] as? String,
-                        let nickname = data["nickname"] as? String
+                        let nickname = data["nickname"] as? String,
+                        id != self.user.id
                     else {
                         return nil
                     }
                     let profileImageUrl = data["profileImageUrl"] as? String
                     let friendsData = data["friends"] as? [[String: Any]] ?? []
                     let friends = friendsData.compactMap { Friend(id: $0["id"] as! String, nickname: $0["nickname"] as! String, postUploaded: $0["postUploaded"] as! Bool, profileImageUrl: $0["profileImageUrl"] as? String ?? "") }
-                    return User(id: id, email: email, nickname: nickname, profileImageUrl: profileImageUrl, friends: friends)
+                    
+                    let receivedRequests = (data["receivedRequests"] as? [[String: Any]] ?? []).compactMap { requestData in
+                        FriendRequest(id: requestData["id"] as? String ?? "",
+                        fromUserId: requestData["fromUserId"] as? String ?? "",
+                        toUserId: requestData["toUserId"] as? String ?? "",
+                        status: FriendRequestStatus(rawValue: requestData["status"] as? String ?? "") ?? .pending)
+                    }
+                    
+                    return User(id: id, email: email, nickname: nickname, profileImageUrl: profileImageUrl, friends: friends, receivedRequests: receivedRequests)
                 }
             }
     }
@@ -91,6 +100,10 @@ class FriendSearchViewModel: ObservableObject {
     }
     
     func sendFriendRequest (toUser: User) {
+        guard !hasSentRequest(toUser: toUser) else {
+            print("Friend request already sent")
+            return
+        }
         let requestId = UUID().uuidString
         let friendRequest = FriendRequest(id: requestId, fromUserId: user.id, toUserId: toUser.id, status: .pending)
         
@@ -118,11 +131,25 @@ class FriendSearchViewModel: ObservableObject {
                             print("Error updating sent requests: \(error)")
                     }
                 }
+                
+                let toUserRef = self.db.collection("users").document(toUser.id)
+                toUserRef.updateData([
+                    "receivedRequests": FieldValue.arrayUnion([[
+                        "id": friendRequest.id,
+                        "fromUserId": friendRequest.fromUserId,
+                        "toUserId": friendRequest.toUserId,
+                        "status": friendRequest.status.rawValue
+                    ]])
+                ]) { error in
+                    if let error = error {
+                        print("Error updating received requests: \(error)")
+                    }
+                }
             }
         }
     }
     
     func hasSentRequest(toUser user: User) -> Bool {
-        return user.sentRequests.contains(where: { $0.toUserId == user.id && $0.status == .pending })
+        return user.receivedRequests.contains(where: { $0.fromUserId == self.user.id && $0.status == .pending })
     }
 }

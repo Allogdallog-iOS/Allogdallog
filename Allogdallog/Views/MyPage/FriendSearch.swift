@@ -61,18 +61,21 @@ struct FriendSearch: View {
                             
                             if viewModel.hasSentRequest(toUser: user) {
                                 Text("요청됨")
+                                    .font(.caption)
                                     .padding()
-                                    .background(Color.gray)
-                                    .foregroundStyle(.white)
+                                    .frame(height: 30)
+                                    .background(.myLightGray)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                             } else {
                                 Button(action: {
                                     viewModel.sendFriendRequest(toUser: user)
                                 }) {
                                     Text("친구 신청")
-                                        .font(.callout)
+                                        .font(.caption)
                                         .padding()
                                         .frame(height: 30)
+                                        .background(.black)
+                                        .foregroundStyle(.white)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                             }
