@@ -11,14 +11,14 @@ struct Friend: Identifiable, Codable {
     
     var id: String
     var nickname: String = ""
-    var postUploaded: Bool = false
     var profileImageUrl: String?
+    var postUploaded: Bool = false
     
-    init(id: String, nickname: String, postUploaded: Bool = false, profileImageUrl: String) {
+    init(id: String, nickname: String, profileImageUrl: String, postUploaded: Bool = false) {
         self.id = id
         self.nickname = nickname
-        self.postUploaded = postUploaded
         self.profileImageUrl = profileImageUrl
+        self.postUploaded = postUploaded
     }
     
 }
