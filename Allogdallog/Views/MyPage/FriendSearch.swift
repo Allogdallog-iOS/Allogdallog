@@ -25,7 +25,7 @@ struct FriendSearch: View {
             
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.searchResults) { user in
+                    ForEach(viewModel.searchResults, id: \.id) { user in
                         HStack {
                             if let imageUrl = user.profileImageUrl, let url = URL(string: imageUrl) {
                                 AsyncImage(url: url) { phase in
@@ -59,7 +59,18 @@ struct FriendSearch: View {
                             
                             Spacer()
                             
-                            if viewModel.hasSentRequest(toUser: user) {
+                            if viewModel.isFriend(userId: user.id) {
+                                Button(action: {
+                                    viewModel.unfriend(friend: Friend(id: user.id, nickname: user.nickname, profileImageUrl: user.profileImageUrl ?? "", postUploaded: user.postUploaded))
+                                }) {
+                                    Text("친구 끊기")
+                                        .font(.caption)
+                                        .padding()
+                                        .frame(height: 30)
+                                        .background(.myLightGray)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
+                            } else if viewModel.hasSentRequest(toUser: user) {
                                 Text("요청됨")
                                     .font(.caption)
                                     .padding()

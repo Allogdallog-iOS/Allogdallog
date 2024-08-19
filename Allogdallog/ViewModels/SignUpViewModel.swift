@@ -18,7 +18,6 @@ class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var nickname: String = ""
     @Published var profileImage: UIImage? = nil
-    @Published var friends: [Friend] = []
     @Published var errorMessage: String? = nil
     @Published var isImagePickerPresented: Bool = false
     @Published var signUpComplete: Bool = false
@@ -49,7 +48,7 @@ class SignUpViewModel: ObservableObject {
                     return
                 }
             
-                let user = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString, friends: [])
+                let user = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString, friends: [], postUploaded: false, selectedUser: uid)
                 self?.saveUserToFirestore(user: user)
                 
                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()

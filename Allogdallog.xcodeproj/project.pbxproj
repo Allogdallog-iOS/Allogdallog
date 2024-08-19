@@ -211,14 +211,30 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		35A511B22C7322A500DA8668 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		35A511B42C7322C500DA8668 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				35A511972C648D3400DA8668 /* FriendsListViewModel.swift */,
+				35A5119D2C64ABAA00DA8668 /* FriendSearchViewModel.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		35C256E22C0067FB00718555 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				35A511B42C7322C500DA8668 /* MyPage */,
+				35A511B22C7322A500DA8668 /* Home */,
 				35D259F62C3D3EE50052127B /* SignUpViewModel.swift */,
 				35D259F82C3D5E400052127B /* ImagePicker.swift */,
 				35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */,
-				35A511972C648D3400DA8668 /* FriendsListViewModel.swift */,
-				35A5119D2C64ABAA00DA8668 /* FriendSearchViewModel.swift */,
 				35A511B02C6600CA00DA8668 /* UserViewModel.swift */,
 			);
 			path = ViewModels;

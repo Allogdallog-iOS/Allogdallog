@@ -15,7 +15,18 @@ struct Home: View {
     
     var body: some View {
         VStack {
-            MyFriends()
+            if let user = userViewModel.user {
+                MyFriends(user: user)
+            } else {
+                Text("데이터를 불러오는 중입니다.")
+                    .onAppear {
+                        if let userId = Auth.auth().currentUser?.uid {
+                            userViewModel.fetchUser(userId: userId)
+                        } else {
+                            print("User is not logged in")
+                        }
+                    }
+            }
             TabView(selection: $index) {
                 VStack {
                     if let user = userViewModel.user {
@@ -36,7 +47,20 @@ struct Home: View {
                     Label("홈", systemImage: "house.fill")
                 }
                 .tag(1)
-                Calendar()
+                VStack {
+                    if let user = userViewModel.user {
+                        FriendsList(user: user)
+                    } else {
+                        Text("데이터를 불러오는 중입니다.")
+                            .onAppear {
+                                if let userId = Auth.auth().currentUser?.uid {
+                                    userViewModel.fetchUser(userId: userId)
+                                } else {
+                                    print("User is not logged in")
+                                }
+                            }
+                    }
+                }
                     .tabItem {
                         Label("캘린더", systemImage: "calendar")
                     }

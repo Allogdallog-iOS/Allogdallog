@@ -17,16 +17,10 @@ struct User: Codable, Identifiable {
     var friends: [Friend]
     var sentRequests: [FriendRequest]
     var receivedRequests: [FriendRequest]
+    var postUploaded: Bool
+    var selectedUser: String
     
-    init(id: String, email: String, friends: [Friend] = [], sentRequests: [FriendRequest] = [], receivedRequests: [FriendRequest] = []) {
-        self.id = id
-        self.email = email
-        self.friends = friends
-        self.sentRequests = sentRequests
-        self.receivedRequests = receivedRequests
-    }
-    
-    init(id: String, email: String, nickname: String, profileImageUrl: String? = nil, friends: [Friend] = [], sentRequests: [FriendRequest] = [], receivedRequests: [FriendRequest] = []) {
+    init(id: String, email: String, nickname: String = "", profileImageUrl: String? = nil, friends: [Friend] = [], sentRequests: [FriendRequest] = [], receivedRequests: [FriendRequest] = [], postUploaded: Bool = false, selectedUser: String = "") {
         self.id = id
         self.email = email
         self.nickname = nickname
@@ -34,5 +28,7 @@ struct User: Codable, Identifiable {
         self.friends = friends
         self.sentRequests = sentRequests
         self.receivedRequests = receivedRequests
+        self.postUploaded = postUploaded
+        self.selectedUser = selectedUser
     }
 }
