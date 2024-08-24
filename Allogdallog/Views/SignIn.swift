@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SignIn: View {
     
@@ -38,7 +39,18 @@ struct SignIn: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10.0))
                 }
                 .navigationDestination(isPresented: $viewModel.isLoggedIn) {
-                    Home()
+                    if let user = userViewModel.user {
+                        Home(user: user)
+                    } else {
+                        Text("데이터를 불러오는 중입니다.")
+                            .onAppear {
+                                if let userId = Auth.auth().currentUser?.uid {
+                                    userViewModel.fetchUser(userId: userId)
+                                } else {
+                                    print("User is not logged in")
+                                }
+                            }
+                    }
                 }
                 
                 NavigationLink(value: "SignUp") {
