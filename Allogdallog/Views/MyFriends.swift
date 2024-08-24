@@ -8,19 +8,64 @@
 import SwiftUI
 
 struct MyFriends: View {
-    @StateObject private var viewModel: FriendsListViewModel
-    @State private var selectedUser: String?
-    
-    init(user: User) {
-        _viewModel = StateObject(wrappedValue: FriendsListViewModel(user: user))
-    }
+    @EnvironmentObject private var viewModel: HomeViewModel
+    //@EnvironmentObject var viewModel.user.selectedUser: SelectedUserId
+    //@State private var selectedUser: String?
+
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
+                    Button(action : {
+                        viewModel.user.selectedUser = viewModel.user.id
+                    }) {
+                        VStack {
+                            if let imageUrl = viewModel.user.profileImageUrl, let url = URL(string: imageUrl) {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case.empty:
+                                        Image(systemName: "person.circle")
+                                            .circularImage(size: 50)
+                                            .overlay(
+                                                Circle().stroke(viewModel.user.selectedUser == viewModel.user.id ? Color.blue : Color.clear, lineWidth: 2)
+                                            )
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .circularImage(size: 50)
+                                            .overlay(
+                                                Circle().stroke(viewModel.user.selectedUser == viewModel.user.id ? Color.blue : Color.clear, lineWidth: 2)
+                                            )
+                                    case .failure:
+                                        Image(systemName: "person.circle")
+                                            .circularImage(size: 50)
+                                            .overlay(
+                                                Circle().stroke(viewModel.user.selectedUser == viewModel.user.id ? Color.blue : Color.clear, lineWidth: 2)
+                                            )
+                                    @unknown default:
+                                        Image(systemName: "person.circle")
+                                            .circularImage(size: 50)
+                                            .overlay(
+                                                Circle().stroke(viewModel.user.selectedUser == viewModel.user.id ? Color.blue : Color.clear, lineWidth: 2)
+                                            )
+                                    }
+                                }
+                            } else {
+                                Image(systemName: "person.circle")
+                                    .circularImage(size: 50)
+                                    .overlay(
+                                        Circle().stroke(viewModel.user.selectedUser == viewModel.user.id ? Color.blue : Color.clear, lineWidth: 2)
+                                    )
+                            }
+                            
+                            Text("나")
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                        }
+                    }
                     ForEach(viewModel.user.friends) { friend in
                         Button(action: {
-                            selectedUser = friend.id
+                            viewModel.user.selectedUser = friend.id
                         }) {
                             VStack {
                                 if let imageUrl = friend.profileImageUrl, let url = URL(string: imageUrl) {
@@ -30,26 +75,26 @@ struct MyFriends: View {
                                             Image(systemName: "person.circle")
                                                 .circularImage(size: 50)
                                                 .overlay(
-                                                    Circle().stroke(selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 4)
+                                                    Circle().stroke(viewModel.user.selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 2)
                                                 )
                                         case .success(let image):
                                             image
                                                 .resizable()
                                                 .circularImage(size: 50)
                                                 .overlay(
-                                                    Circle().stroke(selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 4)
+                                                    Circle().stroke(viewModel.user.selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 2)
                                                 )
                                         case .failure:
                                             Image(systemName: "person.circle")
                                                 .circularImage(size: 50)
                                                 .overlay(
-                                                    Circle().stroke(selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 4)
+                                                    Circle().stroke(viewModel.user.selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 2)
                                                 )
                                         @unknown default:
                                             Image(systemName: "person.circle")
                                                 .circularImage(size: 50)
                                                 .overlay(
-                                                    Circle().stroke(selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 4)
+                                                    Circle().stroke(viewModel.user.selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 2)
                                                 )
                                         }
                                     }
@@ -57,7 +102,7 @@ struct MyFriends: View {
                                     Image(systemName: "person.circle")
                                         .circularImage(size: 50)
                                         .overlay(
-                                            Circle().stroke(selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 4)
+                                            Circle().stroke(viewModel.user.selectedUser == friend.id ? Color.blue : Color.clear, lineWidth: 2)
                                         )
                                 }
                                 
@@ -69,8 +114,9 @@ struct MyFriends: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.vertical)
             }
-            .padding(.vertical)
+            Divider()
         }
     }
 }

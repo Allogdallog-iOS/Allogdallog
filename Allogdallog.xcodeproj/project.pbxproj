@@ -30,6 +30,8 @@
 		35A511AD2C65DEE400DA8668 /* MyFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511AC2C65DEE400DA8668 /* MyFriends.swift */; };
 		35A511AF2C65F01400DA8668 /* CircularImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511AE2C65F01400DA8668 /* CircularImageModifier.swift */; };
 		35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511B02C6600CA00DA8668 /* UserViewModel.swift */; };
+		35A511B72C786E0400DA8668 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511B62C786E0400DA8668 /* HomeViewModel.swift */; };
+		35A511B92C7877E100DA8668 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511B82C7877E100DA8668 /* Post.swift */; };
 		35D259AD2C3D35620052127B /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259AC2C3D35620052127B /* SignIn.swift */; };
 		35D259BF2C3D3E590052127B /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 35D259BE2C3D3E590052127B /* FirebaseAnalyticsOnDeviceConversion */; };
 		35D259C12C3D3E590052127B /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 35D259C02C3D3E590052127B /* FirebaseAnalyticsSwift */; };
@@ -88,6 +90,8 @@
 		35A511AC2C65DEE400DA8668 /* MyFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriends.swift; sourceTree = "<group>"; };
 		35A511AE2C65F01400DA8668 /* CircularImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageModifier.swift; sourceTree = "<group>"; };
 		35A511B02C6600CA00DA8668 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		35A511B62C786E0400DA8668 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		35A511B82C7877E100DA8668 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		35D259AA2C3D325C0052127B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35D259AC2C3D35620052127B /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		35D259F42C3D3ECF0052127B /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -179,13 +183,12 @@
 		3545AA772BF5E99700516D3F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				35A511B52C78671400DA8668 /* Modifier */,
 				35A511AA2C65DE5600DA8668 /* Home */,
 				35A511AB2C65DE8400DA8668 /* MyPage */,
 				3585377A2C20215000D65E23 /* Calendar.swift */,
 				35D259AC2C3D35620052127B /* SignIn.swift */,
 				35D259F42C3D3ECF0052127B /* SignUp.swift */,
-				35A5119B2C64A11400DA8668 /* CustomTextModifier.swift */,
-				35A511AE2C65F01400DA8668 /* CircularImageModifier.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 		35A511B22C7322A500DA8668 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				35A511B62C786E0400DA8668 /* HomeViewModel.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -225,6 +229,15 @@
 				35A5119D2C64ABAA00DA8668 /* FriendSearchViewModel.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		35A511B52C78671400DA8668 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				35A5119B2C64A11400DA8668 /* CustomTextModifier.swift */,
+				35A511AE2C65F01400DA8668 /* CircularImageModifier.swift */,
+			);
+			name = Modifier;
 			sourceTree = "<group>";
 		};
 		35C256E22C0067FB00718555 /* ViewModels */ = {
@@ -246,6 +259,7 @@
 				35D259AA2C3D325C0052127B /* User.swift */,
 				35A511922C5B606A00DA8668 /* Friend.swift */,
 				35A5119F2C65D16800DA8668 /* FriendRequest.swift */,
+				35A511B82C7877E100DA8668 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,6 +378,7 @@
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
+				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
 				35A511AF2C65F01400DA8668 /* CircularImageModifier.swift in Sources */,
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
 				358537792C20214500D65E23 /* Home.swift in Sources */,
@@ -374,6 +389,7 @@
 				35A511912C5B604100DA8668 /* FriendsList.swift in Sources */,
 				35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */,
 				35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */,
+				35A511B72C786E0400DA8668 /* HomeViewModel.swift in Sources */,
 				35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */,
 				35A511932C5B606A00DA8668 /* Friend.swift in Sources */,
 				35A5118D2C5A313D00DA8668 /* DailyRecord.swift in Sources */,

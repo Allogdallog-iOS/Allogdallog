@@ -11,38 +11,25 @@ import FirebaseAuth
 struct Home: View {
     
     @StateObject private var userViewModel = UserViewModel()
+    @StateObject private var viewModel: HomeViewModel
     @State private var index = 0
     
+    init(user: User) {
+        _viewModel = StateObject(wrappedValue: HomeViewModel(user: user))
+    }
+    
     var body: some View {
-        VStack {
-            if let user = userViewModel.user {
-                MyFriends(user: user)
-            } else {
-                Text("데이터를 불러오는 중입니다.")
-                    .onAppear {
-                        if let userId = Auth.auth().currentUser?.uid {
-                            userViewModel.fetchUser(userId: userId)
-                        } else {
-                            print("User is not logged in")
-                        }
-                    }
-            }
+        
+        VStack(alignment: .leading) {
+            MyFriends()
             TabView(selection: $index) {
                 VStack {
-                    if let user = userViewModel.user {
-                        FriendSearch(user: user)
+                    if viewModel.user.selectedUser == viewModel.user.id {
+                        MyHome()
                     } else {
-                        Text("데이터를 불러오는 중입니다.")
-                            .onAppear {
-                                if let userId = Auth.auth().currentUser?.uid {
-                                    userViewModel.fetchUser(userId: userId)
-                                } else {
-                                    print("User is not logged in")
-                                }
-                            }
+                        FriendHome()
                     }
                 }
-                        
                 .tabItem {
                     Label("홈", systemImage: "house.fill")
                 }
@@ -67,9 +54,18 @@ struct Home: View {
                     .tag(2)
             }
         }
+        .environmentObject(viewModel)
     }
 }
 
-#Preview {
-    Home()
+struct MyHome: View {
+    var body: some View {
+        Text("My")
+    }
+}
+
+struct FriendHome: View {
+    var body: some View {
+        Text("Friend")
+    }
 }
