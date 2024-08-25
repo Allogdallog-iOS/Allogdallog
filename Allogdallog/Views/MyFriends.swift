@@ -114,7 +114,7 @@ struct MyFriends: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.vertical)
+                .padding(.vertical, 10)
             }
             Divider()
         }

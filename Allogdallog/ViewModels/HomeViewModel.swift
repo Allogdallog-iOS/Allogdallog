@@ -14,16 +14,15 @@ import Combine
 class HomeViewModel: ObservableObject {
     
     @Published var user: User
-    @Published var selectedUserId: String
+    @Published var selectedUserId: String = ""
     @Published var todayPost: Post?
-    @Published var selectedUserPost: Post?
+    @Published var selectedPost: Post?
     //@Published var postUploaded: Bool = false
     
     private var db = Firestore.firestore()
     
     init(user: User) {
         self.user = user
-        self.selectedUserId = user.id
     }
     
     func getDate() -> String {
@@ -41,34 +40,26 @@ class HomeViewModel: ObservableObject {
             let document = try await postRef.getDocument()
             if document.exists {
                 self.user.postUploaded = true
-            } else {
-                self.user.postUploaded = false
-            }
-        } catch {
-            print("Error getting document: \(error)")
-        }
-        
-        if self.user.postUploaded {
-            postRef.getDocument() { document, error in
-                if let document = document, document.exists {
-                    let data = document.data()
+                
+                if let data = document.data() {
+                    let id = data["id"] as? String ?? ""
+                    let todayImageUrl = data["todayImageUrl"] as? String ?? ""
+                    let todayColor = data["todayColor"] as? String ?? ""
+                    let todayComment = data["todayComment"] as? String ?? ""
                     
-                    let id = data?["id"] as? String ?? ""
-                    let todayImageUrl = data?["todayImageUrl"] as? String ?? ""
-                    let todayColor = data?["todayColor"] as? String ?? ""
-                    let todayComment = data?["todayComment"] as? String ?? ""
-                    
-                    self.selectedUserPost = Post (
+                    self.selectedPost = Post (
                         id: id,
                         todayImageUrl: todayImageUrl,
                         todayColor: todayColor,
                         todayComment: todayComment
                     )
-
-                } else {
-                    print("Post does not exist")
                 }
+                
+            } else {
+                self.user.postUploaded = false
             }
+        } catch {
+            print("Error getting document: \(error)")
         }
     }
     
