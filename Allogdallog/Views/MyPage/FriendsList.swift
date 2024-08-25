@@ -10,6 +10,7 @@ import SwiftUI
 struct FriendsList: View {
     
     @StateObject private var viewModel: FriendsListViewModel
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: FriendsListViewModel(user: user))
@@ -106,6 +107,7 @@ struct FriendsList: View {
                                 
                                 Button(action: {
                                     viewModel.unfriend(friend: friend)
+                                    homeViewModel.user.friends.removeAll(where: { $0.id == friend.id })
                                 }) {
                                     Text("친구 끊기")
                                         .font(.caption)
