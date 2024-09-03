@@ -40,11 +40,11 @@ class FriendSearchViewModel: ObservableObject {
                         let email = data["email"] as? String,
                         let nickname = data["nickname"] as? String,
                         let postUploaded = data["postUploaded"] as? Bool,
+                        let profileImageUrl = data["profileImageUrl"] as? String,
                         id != self.user.id
                     else {
                         return nil
                     }
-                    let profileImageUrl = data["profileImageUrl"] as? String
                     return User(id: id, email: email, nickname: nickname, profileImageUrl: profileImageUrl, postUploaded: postUploaded)
                 }
             }

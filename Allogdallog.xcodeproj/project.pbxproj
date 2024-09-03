@@ -17,7 +17,7 @@
 		3585377B2C20215000D65E23 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377A2C20215000D65E23 /* Calendar.swift */; };
 		3585377D2C20216100D65E23 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377C2C20216100D65E23 /* MyPage.swift */; };
 		35A5118B2C58D9EB00DA8668 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 35A5118A2C58D9EB00DA8668 /* .gitignore */; };
-		35A5118D2C5A313D00DA8668 /* DailyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5118C2C5A313D00DA8668 /* DailyRecord.swift */; };
+		35A5118D2C5A313D00DA8668 /* MyDailyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */; };
 		35A5118F2C5A314B00DA8668 /* WeeklyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */; };
 		35A511912C5B604100DA8668 /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511902C5B604100DA8668 /* FriendsList.swift */; };
 		35A511932C5B606A00DA8668 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511922C5B606A00DA8668 /* Friend.swift */; };
@@ -78,7 +78,7 @@
 		3585377A2C20215000D65E23 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		3585377C2C20216100D65E23 /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 		35A5118A2C58D9EB00DA8668 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		35A5118C2C5A313D00DA8668 /* DailyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecord.swift; sourceTree = "<group>"; };
+		35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDailyRecord.swift; sourceTree = "<group>"; };
 		35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRecord.swift; sourceTree = "<group>"; };
 		35A511902C5B604100DA8668 /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
 		35A511922C5B606A00DA8668 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				35A511AC2C65DEE400DA8668 /* MyFriends.swift */,
-				35A5118C2C5A313D00DA8668 /* DailyRecord.swift */,
+				35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */,
 				35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */,
 				358537782C20214500D65E23 /* Home.swift */,
 			);
@@ -392,7 +392,7 @@
 				35A511B72C786E0400DA8668 /* HomeViewModel.swift in Sources */,
 				35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */,
 				35A511932C5B606A00DA8668 /* Friend.swift in Sources */,
-				35A5118D2C5A313D00DA8668 /* DailyRecord.swift in Sources */,
+				35A5118D2C5A313D00DA8668 /* MyDailyRecord.swift in Sources */,
 				3585377B2C20215000D65E23 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
