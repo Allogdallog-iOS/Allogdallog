@@ -10,7 +10,7 @@ import FirebaseAuth
 
 struct Home: View {
     
-    @StateObject private var userViewModel = UserViewModel()
+    //@StateObject private var userViewModel = UserViewModel()
     @StateObject private var viewModel: HomeViewModel
     @State private var index = 0
     
@@ -23,9 +23,9 @@ struct Home: View {
         VStack(alignment: .leading) {
             MyFriends()
             TabView(selection: $index) {
-                VStack {
+                VStack(alignment: .leading) {
                     if viewModel.user.selectedUser == viewModel.user.id {
-                        MyHome()
+                        MyDailyRecord()
                     } else {
                         FriendHome()
                     }
@@ -35,18 +35,7 @@ struct Home: View {
                 }
                 .tag(1)
                 VStack {
-                    if let user = userViewModel.user {
-                        FriendsList(user: user)
-                    } else {
-                        Text("데이터를 불러오는 중입니다.")
-                            .onAppear {
-                                if let userId = Auth.auth().currentUser?.uid {
-                                    userViewModel.fetchUser(userId: userId)
-                                } else {
-                                    print("User is not logged in")
-                                }
-                            }
-                    }
+                    FriendsList(user: viewModel.user)
                 }
                     .tabItem {
                         Label("캘린더", systemImage: "calendar")
@@ -55,12 +44,6 @@ struct Home: View {
             }
         }
         .environmentObject(viewModel)
-    }
-}
-
-struct MyHome: View {
-    var body: some View {
-        Text("My")
     }
 }
 
