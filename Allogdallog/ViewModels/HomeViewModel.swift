@@ -15,16 +15,17 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     
     @Published var user: User
-    @Published var selectedUserId: String = ""
-    //@Published var todayPost: Post?
-    @Published var selectedPost: Post?
     @Published var isImagePickerPresented: Bool = false
-    @Published var todayPostId: String = ""
     @Published var todayImage: UIImage? = nil
     @Published var todayComment: String = ""
     @Published var todayColor: String = ""
     @Published var selectedColor: Color = Color.red
     @Published var errorMessage: String? = nil
+    @Published var friendPostUploaded: Bool = false
+    @Published var friendImage: UIImage? = nil
+    @Published var friendComment: String = ""
+    @Published var friendColor: String = ""
+    @Published var friendSelectedColor: Color = Color.red
     
     //@Published var postUploaded: Bool = false
     
@@ -32,7 +33,7 @@ class HomeViewModel: ObservableObject {
     
     init(user: User) {
         self.user = user
-        fetchPost(selectedUserId: self.user.id)
+        fetchPost()
     }
     
     func getDate() -> String {
@@ -42,18 +43,16 @@ class HomeViewModel: ObservableObject {
         return dateString
     }
     
-    func fetchPost(selectedUserId: String) {
-        
-        let postRef = db.collection("posts/\(selectedUserId)/\(getDate())").document(getDate())
+    func fetchPost() {
+        let postRef = db.collection("posts/\(self.user.id)/\(getDate())").document(getDate())
         
         postRef.getDocument { document, error in
             if let document = document, document.exists {
+                
                 self.user.postUploaded = true
                 let data = document.data()
                 
-                let id = data?["id"] as? String ?? ""
-                
-                self.loadImageFromFirebase() { image in
+                self.loadImageFromFirebase(selectedUserId: self.user.id) { image in
                     if let downloadedImage = image {
                         self.todayImage = downloadedImage
                     } else {
@@ -63,13 +62,37 @@ class HomeViewModel: ObservableObject {
                 
                 self.todayColor = data?["todayColor"] as? String ?? ""
                 self.todayComment = data?["todayComment"] as? String ?? ""
-                
                 self.selectedColor = Color(hex: self.todayColor)
                 
-                
-            
             } else {
                 self.user.postUploaded = false
+            }
+        }
+    }
+    
+    func fetchFriendPost() {
+        let postRef = db.collection("posts/\(self.user.selectedUser)/\(getDate())").document(getDate())
+        
+        postRef.getDocument { document, error in
+            if let document = document, document.exists {
+                
+                self.friendPostUploaded = true
+                let data = document.data()
+                
+                self.loadImageFromFirebase(selectedUserId: self.user.selectedUser) { image in
+                    if let downloadedImage = image {
+                        self.friendImage = downloadedImage
+                    } else {
+                        return
+                    }
+                }
+                
+                self.friendColor = data?["todayColor"] as? String ?? ""
+                self.friendComment = data?["todayComment"] as? String ?? ""
+                self.friendSelectedColor = Color(hex: self.friendColor)
+                
+            } else {
+                self.friendPostUploaded = false
             }
         }
     }
@@ -88,10 +111,9 @@ class HomeViewModel: ObservableObject {
         }
         
         
-        self.todayPostId = UUID().uuidString
+        let todayPostId = UUID().uuidString
         
         let userPostRef =  self.db.collection("posts/\(self.user.id)/\(getDate())").document(getDate())
-        
         
         guard let todayImageToUpload = todayImage else { return  }
         
@@ -102,7 +124,7 @@ class HomeViewModel: ObservableObject {
             }
             
             userPostRef.setData([
-                "id": self.todayPostId,
+                "id": todayPostId,
                 "todayImageUrl": url.absoluteString,
                 "todayColor": self.todayColor,
                 "todayComment" : self.todayComment
@@ -140,8 +162,8 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func loadImageFromFirebase(completion: @escaping (UIImage?) -> Void) {
-        let storageRef = Storage.storage().reference(withPath: "post_images/\(self.user.id)/\(getDate())")
+    func loadImageFromFirebase(selectedUserId: String, completion: @escaping (UIImage?) -> Void) {
+        let storageRef = Storage.storage().reference(withPath: "post_images/\(selectedUserId)/\(getDate())")
         
         storageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
             if let error = error {

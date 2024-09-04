@@ -64,6 +64,7 @@
 		35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F62C3D3EE50052127B /* SignUpViewModel.swift */; };
 		35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F82C3D5E400052127B /* ImagePicker.swift */; };
 		35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */; };
+		35F325232C88281E006E2B49 /* FriendHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F325222C88281E006E2B49 /* FriendHome.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		35D259F62C3D3EE50052127B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		35D259F82C3D5E400052127B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		35F325222C88281E006E2B49 /* FriendHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendHome.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				35A511AC2C65DEE400DA8668 /* MyFriends.swift */,
 				35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */,
 				35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */,
+				35F325222C88281E006E2B49 /* FriendHome.swift */,
 				358537782C20214500D65E23 /* Home.swift */,
 			);
 			name = Home;
@@ -377,6 +380,7 @@
 				35A5118F2C5A314B00DA8668 /* WeeklyRecord.swift in Sources */,
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
+				35F325232C88281E006E2B49 /* FriendHome.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
 				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
 				35A511AF2C65F01400DA8668 /* CircularImageModifier.swift in Sources */,

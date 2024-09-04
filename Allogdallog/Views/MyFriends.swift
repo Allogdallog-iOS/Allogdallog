@@ -66,6 +66,7 @@ struct MyFriends: View {
                     ForEach(viewModel.user.friends) { friend in
                         Button(action: {
                             viewModel.user.selectedUser = friend.id
+                            viewModel.fetchFriendPost()
                         }) {
                             VStack {
                                 if let imageUrl = friend.profileImageUrl, let url = URL(string: imageUrl) {

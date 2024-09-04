@@ -46,9 +46,3 @@ struct Home: View {
         .environmentObject(viewModel)
     }
 }
-
-struct FriendHome: View {
-    var body: some View {
-        Text("Friend")
-    }
-}
