@@ -13,7 +13,6 @@ struct MyDailyRecord: View {
     
     var body: some View {
         VStack() {
-            Spacer()
             Text("오늘의 나는?")
                 .font(.title2)
                 .fontWeight(.semibold)
@@ -27,8 +26,8 @@ struct MyDailyRecord: View {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 200)
-                            .border(.gray)
+                            .frame(width: 165, height: 215)
+                            .border(.myGray)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                 } else {
@@ -38,8 +37,8 @@ struct MyDailyRecord: View {
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(.myLightGray)
-                                .frame(width: 150, height: 200)
+                                .stroke(.myGray)
+                                .frame(width: 165, height: 215)
                             Image(systemName: "photo.badge.plus.fill")
                                 .foregroundStyle(.gray)
                         }
@@ -47,52 +46,27 @@ struct MyDailyRecord: View {
                 }
                 Spacer()
                 VStack {
-                    /*
-                    if viewModel.user.postUploaded {
-                        HStack {
-                            ColorPicker("\(String(describing: viewModel.selectedPost?.todayColor))", selection: $viewModel.selectedColor)
-                        }
-                        .padding()
-                        .frame(width: 170, height: 45)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(.myLightGray)
-                        )
-                        Spacer()
-                        
-                        
-                    }
-                     */
                     HStack {
-                        //Text(viewModel.todayColor)
                         ColorPicker("\(viewModel.selectedColor.toHextString())", selection: $viewModel.selectedColor)
                     }
                     .padding()
-                    .frame(width: 170, height: 45)
+                    .frame(width: 150, height: 40)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(.myLightGray)
+                            .stroke(.myGray)
                     )
                     Spacer()
-                                    
                     CustomTextEditor(text: $viewModel.todayComment)
-                        .frame(width: 170, height: 120)
+                        .frame(width: 150, height: 150)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(.myLightGray)
+                                .stroke(.myGray)
                         )
                 }
             }
-            .frame(height: 200)
+            .frame(height: 215)
             .sheet(isPresented: $viewModel.isImagePickerPresented) {
                 ImagePicker(image: $viewModel.todayImage, isPresented: $viewModel.isImagePickerPresented)
-            }
-            Spacer()
-            if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundStyle(.red)
-            } else {
-                Text(" ")
             }
             Spacer()
             Button(action: {
@@ -108,7 +82,8 @@ struct MyDailyRecord: View {
             }
         }
         .padding(.horizontal)
-        .frame(height: 300)
+        .padding(.horizontal, 10)
+        .frame(height: 400)
     }
 }
 
