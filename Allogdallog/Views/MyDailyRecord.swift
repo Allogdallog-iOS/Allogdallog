@@ -16,7 +16,25 @@ struct MyDailyRecord: View {
             Text("오늘의 나는?")
                 .font(.title2)
                 .fontWeight(.semibold)
-            Spacer()
+            HStack {
+                Spacer()
+                Button(action: {
+                    viewModel.buttonsDisabled.toggle()
+                }) {
+                    Image(systemName: "pencil")
+                        .frame(width: 25, height: 25)
+                        .foregroundStyle(.gray)
+                        .fontWeight(.semibold)
+                }
+                Button(action: {
+                    viewModel.uploadPost()
+                }) {
+                    Image(systemName: "checkmark")
+                        .frame(width: 25, height: 25)
+                        .foregroundStyle(.gray)
+                        .fontWeight(.semibold)
+                }
+            }
             HStack {
                 if let image = viewModel.todayImage {
                     Button(action : {
@@ -30,6 +48,7 @@ struct MyDailyRecord: View {
                             .border(.myGray)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
+                    .disabled(viewModel.buttonsDisabled)
                 } else {
                     Button(action: {
                         viewModel.isImagePickerPresented
@@ -43,12 +62,14 @@ struct MyDailyRecord: View {
                                 .foregroundStyle(.gray)
                         }
                     }
+                    .disabled(viewModel.buttonsDisabled)
                 }
                 Spacer()
                 VStack {
                     HStack {
                         ColorPicker("\(viewModel.selectedColor.toHextString())", selection: $viewModel.selectedColor)
                     }
+                    .disabled(viewModel.buttonsDisabled)
                     .padding()
                     .frame(width: 150, height: 40)
                     .overlay(
@@ -62,6 +83,7 @@ struct MyDailyRecord: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(.myGray)
                         )
+                        .disabled(viewModel.buttonsDisabled)
                 }
             }
             .frame(height: 215)
@@ -69,17 +91,6 @@ struct MyDailyRecord: View {
                 ImagePicker(image: $viewModel.todayImage, isPresented: $viewModel.isImagePickerPresented)
             }
             Spacer()
-            Button(action: {
-                viewModel.uploadPost()
-            }) {
-                Text("업로드")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.black)
-                    .foregroundStyle(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                    
-            }
         }
         .padding(.horizontal)
         .padding(.horizontal, 10)

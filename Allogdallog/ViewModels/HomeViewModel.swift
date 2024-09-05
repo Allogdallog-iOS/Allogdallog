@@ -26,6 +26,7 @@ class HomeViewModel: ObservableObject {
     @Published var friendComment: String = ""
     @Published var friendColor: String = ""
     @Published var friendSelectedColor: Color = Color.red
+    @Published var buttonsDisabled: Bool = false
     
     //@Published var postUploaded: Bool = false
     
@@ -50,6 +51,7 @@ class HomeViewModel: ObservableObject {
             if let document = document, document.exists {
                 
                 self.user.postUploaded = true
+                self.buttonsDisabled = true
                 let data = document.data()
                 
                 self.loadImageFromFirebase(selectedUserId: self.user.id) { image in
@@ -98,6 +100,8 @@ class HomeViewModel: ObservableObject {
     }
     
     func uploadPost() {
+        self.buttonsDisabled = true
+        
         guard let currentUserId = Auth.auth().currentUser?.uid else {
             print("No current user logged in")
             return
@@ -115,7 +119,7 @@ class HomeViewModel: ObservableObject {
         
         let userPostRef =  self.db.collection("posts/\(self.user.id)/\(getDate())").document(getDate())
         
-        guard let todayImageToUpload = todayImage else { return  }
+        guard let todayImageToUpload = todayImage else { return }
         
         self.uploadTodayImage(uid: currentUserId, image: todayImageToUpload) { url in
             guard let url = url else {
@@ -123,12 +127,20 @@ class HomeViewModel: ObservableObject {
                 return
             }
             
-            userPostRef.setData([
-                "id": todayPostId,
-                "todayImageUrl": url.absoluteString,
-                "todayColor": self.todayColor,
-                "todayComment" : self.todayComment
-            ])
+            if self.user.postUploaded {
+                userPostRef.updateData([
+                    "todayColor": self.todayColor,
+                    "todayComment": self.todayComment,
+                    "todayImageUrl": url.absoluteString
+                ])
+            } else {
+                userPostRef.setData([
+                    "id": todayPostId,
+                    "todayColor": self.todayColor,
+                    "todayComment": self.todayComment,
+                    "todayImageUrl": url.absoluteString
+                ])
+            }
         }
     }
     
