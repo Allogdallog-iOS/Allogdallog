@@ -64,8 +64,8 @@
 		35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F325222C88281E006E2B49 /* FriendDailyRecord.swift */; };
 		975FE89F2C9C984A007637CF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE89E2C9C984A007637CF /* Profile.swift */; };
 		975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A02C9CADFF007637CF /* ProfileViewModel.swift */; };
-		975FE8A32C9CC234007637CF /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A22C9CC234007637CF /* testView.swift */; };
 		975FE8A72C9CE457007637CF /* ProfileEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A62C9CE457007637CF /* ProfileEdit.swift */; };
+		975FE8A92C9CE899007637CF /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A82C9CE899007637CF /* Notification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,8 +105,8 @@
 		35F325222C88281E006E2B49 /* FriendDailyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDailyRecord.swift; sourceTree = "<group>"; };
 		975FE89E2C9C984A007637CF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		975FE8A02C9CADFF007637CF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		975FE8A22C9CC234007637CF /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		975FE8A62C9CE457007637CF /* ProfileEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEdit.swift; sourceTree = "<group>"; };
+		975FE8A82C9CE899007637CF /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,7 +218,7 @@
 				975FE8A62C9CE457007637CF /* ProfileEdit.swift */,
 				35A511902C5B604100DA8668 /* FriendsList.swift */,
 				35A511992C6493B800DA8668 /* FriendSearch.swift */,
-				975FE8A22C9CC234007637CF /* testView.swift */,
+				975FE8A82C9CE899007637CF /* Notification.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -383,6 +383,7 @@
 				353C5F682C92F62E00CDD111 /* Comment.swift in Sources */,
 				35A5119C2C64A11400DA8668 /* CustomTextModifier.swift in Sources */,
 				3585377D2C20216100D65E23 /* MyPage.swift in Sources */,
+				975FE8A92C9CE899007637CF /* Notification.swift in Sources */,
 				35A5119E2C64ABAA00DA8668 /* FriendSearchViewModel.swift in Sources */,
 				35A5118F2C5A314B00DA8668 /* WeeklyRecord.swift in Sources */,
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
@@ -401,7 +402,6 @@
 				35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */,
 				35A511B72C786E0400DA8668 /* HomeViewModel.swift in Sources */,
 				975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */,
-				975FE8A32C9CC234007637CF /* testView.swift in Sources */,
 				353C5F642C92875900CDD111 /* Home.swift in Sources */,
 				35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */,
 				35A511932C5B606A00DA8668 /* Friend.swift in Sources */,
