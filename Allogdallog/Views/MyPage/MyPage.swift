@@ -8,11 +8,35 @@
 import SwiftUI
 
 struct MyPage: View {
+    
+    @State private var index = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView(selection: $index) {
+            HStack (alignment: .top) {
+                Text("마이페이지")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 0)
+                
+                Spacer()
+                
+                Image(systemName: "bell")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 0)
+                
+            }
+            Divider()
+        }
     }
 }
 
-#Preview {
-    MyPage()
-}
+    
+
+
+
