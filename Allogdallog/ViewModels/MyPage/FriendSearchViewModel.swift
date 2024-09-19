@@ -102,7 +102,7 @@ class FriendSearchViewModel: ObservableObject {
             return
         }
         let requestId = UUID().uuidString
-        let friendRequest = FriendRequest(id: requestId, fromUserId: user.id, toUserId: toUser.id, status: .pending, fromUserNick: user.nickname, fromUserImgUrl: user.profileImageUrl ?? "", fromUserPost: user.postUploaded)
+        let friendRequest = FriendRequest(id: requestId, fromUserId: user.id, toUserId: toUser.id, status: .pending, fromUserNick: user.nickname, fromUserImgUrl: user.profileImageUrl ?? "")
         
         self.user.sentRequests.append(friendRequest)
         
@@ -139,8 +139,7 @@ class FriendSearchViewModel: ObservableObject {
                         "toUserId": friendRequest.toUserId,
                         "status": friendRequest.status.rawValue,
                         "fromUserNick": friendRequest.fromUserNick,
-                        "fromUserImgUrl": friendRequest.fromUserImgUrl,
-                        "fromUserPost": friendRequest.fromUserPost
+                        "fromUserImgUrl": friendRequest.fromUserImgUrl
                     ]])
                 ]) { error in
                     if let error = error {
@@ -168,8 +167,7 @@ class FriendSearchViewModel: ObservableObject {
             "friends": FieldValue.arrayRemove([[
                 "id": friend.id,
                 "nickname": friend.nickname,
-                "profileImageUrl": friend.profileImageUrl ?? "",
-                "postUploaded": friend.postUploaded
+                "profileImageUrl": friend.profileImageUrl ?? ""
             ]])
         ]) { error in
             if let error = error {
@@ -183,8 +181,7 @@ class FriendSearchViewModel: ObservableObject {
             "friends": FieldValue.arrayRemove([[
                 "id": currentUserID,
                 "nickname": self.user.nickname,
-                "profileImageUrl": self.user.profileImageUrl ?? "",
-                "postUploaded": self.user.postUploaded
+                "profileImageUrl": self.user.profileImageUrl ?? ""
             ]])
         ]) { error in
             if let error = error {

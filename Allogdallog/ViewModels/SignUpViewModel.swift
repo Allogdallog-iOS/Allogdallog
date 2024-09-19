@@ -31,7 +31,8 @@ class SignUpViewModel: ObservableObject {
         }
         
         let defaultProfileImage = UIImage(systemName: "person.circle.fill")!.withTintColor(.myLightGray, renderingMode: .alwaysOriginal)
-        let profileImageToUpload = profileImage ?? defaultProfileImage
+        let resizedProfileImage = resizeImage(image: defaultProfileImage, targetSize: CGSize(width: 200, height: 200))
+        let profileImageToUpload = profileImage ?? resizedProfileImage
         
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
@@ -66,6 +67,14 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        let resizedImage = renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+        return resizedImage
+    }
+    
     private func uploadProfileImage(uid: String, image: UIImage, completion: @escaping (URL?) -> Void) {
             guard let imageData = image.jpegData(compressionQuality: 0.8) else {
                 completion(nil)
@@ -88,8 +97,7 @@ class SignUpViewModel: ObservableObject {
                         print("Failed to retrieve download URL: \(error)")
                         completion(nil)
                         return
-                    }
-                    
+                    }                    
                     completion(url)
                 }
             }

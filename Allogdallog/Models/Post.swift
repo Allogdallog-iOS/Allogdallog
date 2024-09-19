@@ -9,15 +9,22 @@ import Foundation
 
 struct Post: Identifiable, Codable {
     
-    var id: String
-    var todayImageUrl: String
-    var todayColor: String
-    var todayComment: String
+    var id: String = ""
+    var todayColor: String = ""
+    var todayText: String = ""
+    var todayComments: [Comment] = []
     
-    init(id: String, todayImageUrl: String, todayColor: String, todayComment: String) {
+    init() {
+        self.id = ""
+        self.todayColor = ""
+        self.todayText = ""
+        self.todayComments = []
+    }
+    
+    init(id: String = "", todayColor: String = "", todayText: String = "" , todayComments: [Comment] = []) {
         self.id = id
-        self.todayImageUrl = todayImageUrl
         self.todayColor = todayColor
-        self.todayComment = todayComment
+        self.todayText = todayText
+        self.todayComments = todayComments
     }
 }

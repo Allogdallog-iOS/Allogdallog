@@ -13,13 +13,15 @@ struct MyDailyRecord: View {
     
     var body: some View {
         VStack() {
+            Spacer()
             Text("오늘의 나는?")
                 .font(.title2)
                 .fontWeight(.semibold)
+            Spacer()
             HStack {
                 Spacer()
                 Button(action: {
-                    viewModel.buttonsDisabled.toggle()
+                    viewModel.postButtonsDisabled.toggle()
                 }) {
                     Image(systemName: "pencil")
                         .frame(width: 25, height: 25)
@@ -48,7 +50,7 @@ struct MyDailyRecord: View {
                             .border(.myGray)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
-                    .disabled(viewModel.buttonsDisabled)
+                    .disabled(viewModel.postButtonsDisabled)
                 } else {
                     Button(action: {
                         viewModel.isImagePickerPresented
@@ -62,14 +64,14 @@ struct MyDailyRecord: View {
                                 .foregroundStyle(.gray)
                         }
                     }
-                    .disabled(viewModel.buttonsDisabled)
+                    .disabled(viewModel.postButtonsDisabled)
                 }
                 Spacer()
                 VStack {
                     HStack {
                         ColorPicker("\(viewModel.selectedColor.toHextString())", selection: $viewModel.selectedColor)
                     }
-                    .disabled(viewModel.buttonsDisabled)
+                    .disabled(viewModel.postButtonsDisabled)
                     .padding()
                     .frame(width: 150, height: 40)
                     .overlay(
@@ -77,13 +79,13 @@ struct MyDailyRecord: View {
                             .stroke(.myGray)
                     )
                     Spacer()
-                    CustomTextEditor(text: $viewModel.todayComment)
+                    CustomTextEditor(text: $viewModel.todayPost.todayText)
                         .frame(width: 150, height: 150)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(.myGray)
                         )
-                        .disabled(viewModel.buttonsDisabled)
+                        .disabled(viewModel.postButtonsDisabled)
                 }
             }
             .frame(height: 215)
@@ -92,9 +94,7 @@ struct MyDailyRecord: View {
             }
             Spacer()
         }
-        .padding(.horizontal)
-        .padding(.horizontal, 10)
-        .frame(height: 400)
+        .padding(.horizontal, 20)
     }
 }
 
