@@ -22,13 +22,14 @@ struct MyPage: View {
                 
                 Spacer()
                 
-                Image(systemName: "bell")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(.black)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 0)
+                NavigationLink(destination: Notification()) { Image(systemName: "bell")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 0)
+                           }
                 
             }
             Divider()
