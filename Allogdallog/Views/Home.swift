@@ -69,6 +69,8 @@ struct Home: View {
             }
                 .tag(2)
             VStack {
+                MyPage()
+                Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
             }
             .tabItem {
