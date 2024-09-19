@@ -16,7 +16,7 @@ struct SignIn: View {
     @StateObject private var userViewModel = UserViewModel()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack() {
             VStack(spacing: 25) {
                 Spacer()
                 
@@ -52,7 +52,6 @@ struct SignIn: View {
                             }
                     }
                 }
-                
                 NavigationLink(value: "SignUp") {
                     Text("회원가입")
                         .font(.caption)

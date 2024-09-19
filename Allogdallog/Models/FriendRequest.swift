@@ -20,16 +20,14 @@ struct FriendRequest: Identifiable, Codable {
     var status: FriendRequestStatus
     var fromUserNick: String
     var fromUserImgUrl: String
-    var fromUserPost: Bool
     
-    init(id: String, fromUserId: String, toUserId: String, status: FriendRequestStatus, fromUserNick: String, fromUserImgUrl: String = "", fromUserPost: Bool) {
+    init(id: String, fromUserId: String, toUserId: String, status: FriendRequestStatus, fromUserNick: String, fromUserImgUrl: String = "") {
         self.id = id
         self.fromUserId = fromUserId
         self.toUserId = toUserId
         self.status = status
         self.fromUserNick = fromUserNick
         self.fromUserImgUrl = fromUserImgUrl
-        self.fromUserPost = fromUserPost
     }
 }
 

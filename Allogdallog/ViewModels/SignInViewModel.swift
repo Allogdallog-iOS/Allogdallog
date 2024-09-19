@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseAuth
-import UIKit
 
 class SignInViewModel: ObservableObject {
     
@@ -29,6 +28,4 @@ class SignInViewModel: ObservableObject {
             
         }
     }
-    
-    
 }

@@ -42,8 +42,7 @@ class FriendsListViewModel: ObservableObject {
                     toUserId: requestData["toUserId"] as? String ?? "",
                     status: FriendRequestStatus(rawValue: requestData["status"] as? String ?? "") ?? .pending,
                     fromUserNick: requestData["fromUserNick"] as? String ?? "",
-                    fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "",
-                    fromUserPost: requestData["fromUserPost"] as? Bool ?? false)
+                    fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "")
                 }
 
             } else {
@@ -69,8 +68,7 @@ class FriendsListViewModel: ObservableObject {
                 self.user.friends = (data?["friends"] as? [[String: Any]] ?? []).compactMap { friendData in
                     Friend(id: friendData["id"] as? String ?? "",
                            nickname: friendData["nickname"] as? String ?? "",
-                           profileImageUrl: friendData["profileImageUrl"] as? String ?? "",
-                           postUploaded: friendData["postUploaded"] as? Bool ?? false)
+                           profileImageUrl: friendData["profileImageUrl"] as? String ?? "")
                 }
                 
             } else {
@@ -93,8 +91,7 @@ class FriendsListViewModel: ObservableObject {
             "friends": FieldValue.arrayUnion([[
                 "id": request.fromUserId,
                 "nickname": request.fromUserNick,
-                "profileImageUrl": request.fromUserImgUrl,
-                "postUploaded": request.fromUserPost
+                "profileImageUrl": request.fromUserImgUrl
             ]]),
             "receivedRequests": FieldValue.arrayRemove([[
                 "id": request.id,
@@ -102,14 +99,13 @@ class FriendsListViewModel: ObservableObject {
                 "toUserId": request.toUserId,
                 "status":  request.status.rawValue,
                 "fromUserNick": request.fromUserNick,
-                "fromUserImgUrl": request.fromUserImgUrl,
-                "fromUserPost": request.fromUserPost
+                "fromUserImgUrl": request.fromUserImgUrl
             ]])
         ]) { error in
             if let error = error {
                 print("Error accepting friend request: \(error)")
             } else {
-                let newFriend = Friend(id: request.fromUserId, nickname: request.fromUserNick, profileImageUrl: request.fromUserImgUrl, postUploaded: request.fromUserPost)
+                let newFriend = Friend(id: request.fromUserId, nickname: request.fromUserNick, profileImageUrl: request.fromUserImgUrl)
                 self.user.friends.append(newFriend)
                 self.user.receivedRequests.removeAll(where: { $0.id == request.id })
             }
@@ -120,7 +116,6 @@ class FriendsListViewModel: ObservableObject {
                 "id": currentUserID,
                 "nickname": self.user.nickname,
                 "profileImageUrl": self.user.profileImageUrl ?? "",
-                "postUploaded": self.user.postUploaded
             ]]),
             "sentRequests": FieldValue.arrayRemove([[
                 "id": request.id,
@@ -151,8 +146,7 @@ class FriendsListViewModel: ObservableObject {
                 "toUserId": request.toUserId,
                 "status": request.status.rawValue,
                 "fromUserNick": request.fromUserNick,
-                "fromUserImgUrl": request.fromUserImgUrl,
-                "fromUserPost": request.fromUserPost
+                "fromUserImgUrl": request.fromUserImgUrl
             ]])
         ]) { error in
             if let error = error {
@@ -190,7 +184,6 @@ class FriendsListViewModel: ObservableObject {
                 "id": friend.id,
                 "nickname": friend.nickname,
                 "profileImageUrl": friend.profileImageUrl ?? "",
-                "postUploaded": friend.postUploaded
             ]])
         ]) { error in
             if let error = error {
@@ -205,7 +198,6 @@ class FriendsListViewModel: ObservableObject {
                 "id": currentUserID,
                 "nickname": self.user.nickname,
                 "profileImageUrl": self.user.profileImageUrl ?? "",
-                "postUploaded": self.user.postUploaded
             ]])
         ]) { error in
             if let error = error {

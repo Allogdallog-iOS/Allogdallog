@@ -9,7 +9,8 @@ import SwiftUI
 
 struct WeeklyRecord: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("주간 기록")
+            .padding(.horizontal, 20)
     }
 }
 

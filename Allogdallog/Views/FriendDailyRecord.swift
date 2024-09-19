@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FriendHome: View {
+struct FriendDailyRecord: View {
     
     @EnvironmentObject private var viewModel: HomeViewModel
     
@@ -33,7 +33,7 @@ struct FriendHome: View {
                         Spacer()
                         VStack {
                             HStack {
-                                Text("\(viewModel.friendColor)")
+                                Text("\(viewModel.friendPost.todayColor)")
                                     .font(.callout)
                                 Spacer()
                                 Circle()
@@ -48,7 +48,7 @@ struct FriendHome: View {
                                     .stroke(.myGray)
                             )
                             Spacer()
-                            Text("\(viewModel.friendComment)")
+                            Text("\(viewModel.friendPost.todayText)")
                                 .padding()
                                 .frame(width: 150, height: 150)
                                 .overlay(
@@ -101,9 +101,6 @@ struct FriendHome: View {
                 
             }
         }
-        .padding()
-        .padding(.horizontal, 10)
-        .frame(height: 310)
-        Spacer()
+        .padding(.horizontal, 20)
     }
 }

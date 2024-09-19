@@ -18,6 +18,7 @@ struct MyFriends: View {
                 HStack(spacing: 16) {
                     Button(action : {
                         viewModel.user.selectedUser = viewModel.user.id
+                        viewModel.fetchPost()
                     }) {
                         VStack {
                             if let imageUrl = viewModel.user.profileImageUrl, let url = URL(string: imageUrl) {
@@ -58,7 +59,7 @@ struct MyFriends: View {
                                     )
                             }
                             
-                            Text("나")
+                            Text("\(viewModel.user.nickname)")
                                 .font(.caption)
                                 .foregroundStyle(Color.gray)
                         }
@@ -66,6 +67,7 @@ struct MyFriends: View {
                     ForEach(viewModel.user.friends) { friend in
                         Button(action: {
                             viewModel.user.selectedUser = friend.id
+                            viewModel.friendPost = Post()
                             viewModel.fetchFriendPost()
                         }) {
                             VStack {
@@ -114,10 +116,9 @@ struct MyFriends: View {
                         }
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 15)
                 .padding(.vertical, 10)
             }
-            Divider()
         }
     }
 }

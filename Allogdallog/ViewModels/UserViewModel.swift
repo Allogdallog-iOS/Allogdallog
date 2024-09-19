@@ -22,8 +22,7 @@ class UserViewModel: ObservableObject {
                 let friends = (data?["friends"] as? [[String: Any]] ?? []).compactMap { friendData in
                     Friend(id: friendData["id"] as? String ?? "",
                     nickname: friendData["nickname"] as? String ?? "",
-                    profileImageUrl: friendData["profileImageUrl"] as? String ?? "",
-                    postUploaded: friendData["postUploaded"] as? Bool ?? false)
+                    profileImageUrl: friendData["profileImageUrl"] as? String ?? "")
                 }
                 
                 let sentRequests = (data?["sentRequests"] as? [[String: Any]] ?? []).compactMap { requestData in
@@ -32,8 +31,7 @@ class UserViewModel: ObservableObject {
                     toUserId: requestData["toUserId"] as? String ?? "",
                     status: FriendRequestStatus(rawValue: requestData["status"] as? String ?? "") ?? .pending,
                     fromUserNick: requestData["fromUserNick"] as? String ?? "",
-                    fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "",
-                    fromUserPost: requestData["fromUserPost"] as? Bool ?? false)
+                    fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "")
                 }
                 
                 let receivedRequests = (data?["receivedRequests"] as? [[String: Any]] ?? []).compactMap { requestData in
@@ -42,8 +40,7 @@ class UserViewModel: ObservableObject {
                     toUserId: requestData["toUserId"] as? String ?? "",
                     status: FriendRequestStatus(rawValue: requestData["status"] as? String ?? "") ?? .pending,
                     fromUserNick: requestData["fromUserNick"] as? String ?? "",
-                    fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "",
-                    fromUserPost: requestData["fromUserPost"] as? Bool ?? false)
+                    fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "")
                 }
                 
                 self.user = User (
