@@ -9,16 +9,13 @@ import SwiftUI
 
 struct MyPage: View {
     
-    @State private var index = 0
-    
     var body: some View {
-        TabView(selection: $index) {
-            HStack (alignment: .top) {
+            HStack {
                 Text("마이페이지")
                     .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 15)
-                    .padding(.vertical, 0)
+                    .padding(.vertical, 5)
                 
                 Spacer()
                 
@@ -27,15 +24,14 @@ struct MyPage: View {
                         .scaledToFit()
                         .frame(width: 25, height: 25)
                         .foregroundColor(.black)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 0)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
                            }
                 
             }
             Divider()
         }
     }
-}
 
     
 
