@@ -30,7 +30,7 @@ struct MyPage: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 25, height: 25)
-                        .foregroundColor(.black)
+                        .foregroundStyle(.myGray)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
                 }

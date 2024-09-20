@@ -72,6 +72,7 @@ struct SignIn: View {
                 
                 Spacer()
             }
+            .navigationBarBackButtonHidden()
             .padding(.horizontal)
         }
     }

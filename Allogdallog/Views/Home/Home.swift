@@ -73,11 +73,11 @@ struct Home: View {
                 Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
                 Spacer()
-                MyPage()
             }
             .tabItem {
                 Label("마이페이지", systemImage: "person.fill")
             }
+            .tag(3)
         }
         .environmentObject(viewModel)
         .navigationBarBackButtonHidden()
