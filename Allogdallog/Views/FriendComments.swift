@@ -84,7 +84,7 @@ struct FriendComments: View {
                             Image(systemName: "arrow.up.circle.fill")
                                 .resizable()
                                 .frame(width: 25, height: 25)
-                                .padding(.horizontal, 5)
+                                .padding(.horizontal, 10)
                                 .foregroundStyle(.myGray)
                         }
                         .disabled(!viewModel.friendPostUploaded)

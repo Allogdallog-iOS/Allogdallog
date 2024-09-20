@@ -9,7 +9,14 @@ import SwiftUI
 
 struct MyPage: View {
     
+    @StateObject var viewModel: MyPageViewModel
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: MyPageViewModel())
+    }
+    
     var body: some View {
+        VStack {
             HStack {
                 Text("마이페이지")
                     .font(.title2)
@@ -26,14 +33,20 @@ struct MyPage: View {
                         .foregroundColor(.black)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
-                           }
+                }
                 
             }
             Divider()
+            Button(action: {
+                viewModel.signOut()
+            }) {
+                Text("로그아웃")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+            }
+            .navigationDestination(isPresented: $viewModel.isSignedOut) {
+                SignIn()
+            }
         }
     }
-
-    
-
-
-
+}

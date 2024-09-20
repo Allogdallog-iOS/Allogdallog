@@ -72,6 +72,8 @@ struct Home: View {
                 MyPage()
                 Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
+                Spacer()
+                MyPage()
             }
             .tabItem {
                 Label("마이페이지", systemImage: "person.fill")
