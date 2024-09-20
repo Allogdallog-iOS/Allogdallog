@@ -16,15 +16,37 @@ struct MyPage: View {
     }
     
     var body: some View {
-        Button(action: {
-            viewModel.signOut()
-        }) {
-            Text("로그아웃")
-                .font(.caption)
-                .foregroundStyle(.gray)
-        }
-        .navigationDestination(isPresented: $viewModel.isSignedOut) {
-            SignIn()
+        VStack {
+            HStack {
+                Text("마이페이지")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
+                
+                Spacer()
+                
+                NavigationLink(destination: Notification()) { Image(systemName: "bell")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
+                }
+                
+            }
+            Divider()
+            Button(action: {
+                viewModel.signOut()
+            }) {
+                Text("로그아웃")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+            }
+            .navigationDestination(isPresented: $viewModel.isSignedOut) {
+                SignIn()
+            }
         }
     }
 }
