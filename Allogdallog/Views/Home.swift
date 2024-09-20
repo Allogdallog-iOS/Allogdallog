@@ -70,6 +70,8 @@ struct Home: View {
                 .tag(2)
             VStack {
                 FriendsList(user: viewModel.user)
+                Spacer()
+                MyPage()
             }
             .tabItem {
                 Label("마이페이지", systemImage: "person.fill")

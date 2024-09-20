@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct MyPage: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    @StateObject var viewModel: MyPageViewModel
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: MyPageViewModel())
     }
-}
-
-#Preview {
-    MyPage()
+    
+    var body: some View {
+        Button(action: {
+            viewModel.signOut()
+        }) {
+            Text("로그아웃")
+                .font(.caption)
+                .foregroundStyle(.gray)
+        }
+        .navigationDestination(isPresented: $viewModel.isSignedOut) {
+            SignIn()
+        }
+    }
 }

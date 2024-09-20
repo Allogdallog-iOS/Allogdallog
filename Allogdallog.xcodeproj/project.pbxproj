@@ -30,6 +30,7 @@
 		3501B2192C9C1A2E00314C0F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3501B2182C9C1A2E00314C0F /* FirebaseStorage */; };
 		3501B21B2C9C1A2E00314C0F /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3501B21A2C9C1A2E00314C0F /* FirebaseStorageCombine-Community */; };
 		3501B21D2C9C1A2E00314C0F /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 3501B21C2C9C1A2E00314C0F /* FirebaseVertexAI-Preview */; };
+		3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */; };
 		353367112C215919003C561C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 353367102C215919003C561C /* GoogleService-Info.plist */; };
 		353C5F642C92875900CDD111 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F632C92875900CDD111 /* Home.swift */; };
 		353C5F662C92891F00CDD111 /* FriendComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F652C92891F00CDD111 /* FriendComments.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		353367102C215919003C561C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		353C5F632C92875900CDD111 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		353C5F652C92891F00CDD111 /* FriendComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendComments.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				35A511972C648D3400DA8668 /* FriendsListViewModel.swift */,
 				35A5119D2C64ABAA00DA8668 /* FriendSearchViewModel.swift */,
+				3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
 				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
+				3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */,
 				35A511AF2C65F01400DA8668 /* CircularImageModifier.swift in Sources */,
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
