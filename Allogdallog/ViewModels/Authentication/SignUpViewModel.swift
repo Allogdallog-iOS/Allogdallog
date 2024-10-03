@@ -76,32 +76,32 @@ class SignUpViewModel: ObservableObject {
     }
     
     private func uploadProfileImage(uid: String, image: UIImage, completion: @escaping (URL?) -> Void) {
-            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-                completion(nil)
-                return
-            }
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(nil)
+            return
+        }
             
-            let storageRef = Storage.storage().reference().child("profile_images").child(uid)
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpeg"
+        let storageRef = Storage.storage().reference().child("profile_images").child(uid)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
             
-            storageRef.putData(imageData, metadata: metadata) { metadata, error in
+        storageRef.putData(imageData, metadata: metadata) { metadata, error in
                 if let error = error {
                     print("Failed to upload image: \(error)")
                     completion(nil)
                     return
                 }
                 
-                storageRef.downloadURL { url, error in
-                    if let error = error {
-                        print("Failed to retrieve download URL: \(error)")
-                        completion(nil)
-                        return
-                    }                    
-                    completion(url)
+            storageRef.downloadURL { url, error in
+                if let error = error {
+                    print("Failed to retrieve download URL: \(error)")
+                    completion(nil)
+                    return
                 }
+                completion(url)
             }
         }
+    }
     
     private func saveUserToFirestore(user: User) {
         do {

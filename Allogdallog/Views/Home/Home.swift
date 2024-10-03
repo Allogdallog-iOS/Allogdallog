@@ -78,6 +78,38 @@ struct Home: View {
                 Label("마이페이지", systemImage: "person.fill")
             }
             .tag(3)
+            VStack {
+                HStack {
+                    Text("알록달록")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
+                    Spacer()
+                }
+                Divider()
+                MyFriends()
+                Divider()
+                GeometryReader { geometry in
+                    let maxHeight = geometry.size.height - 20
+                    VStack {
+                        if viewModel.user.selectedUser == viewModel.user.id {
+                            MyCustomCalendar(selectedUserId: viewModel.user.selectedUser)
+                                .frame(height: maxHeight)
+                        } else {
+                            MyCustomCalendar(selectedUserId: viewModel.user.selectedUser)
+                                .frame(height: maxHeight)
+                                
+                        }
+                        Divider()
+                    }
+                }
+            }
+            .tabItem {
+                Label("캘린더", systemImage: "calendar")
+            }
+            .tag(4)
+            
         }
         .environmentObject(viewModel)
         .navigationBarBackButtonHidden()
