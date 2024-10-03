@@ -133,7 +133,7 @@ class MyCalendarViewModel: ObservableObject {
     }
 }
 
-extension MyCustomCalendar {
+extension MyCalendar {
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월"
