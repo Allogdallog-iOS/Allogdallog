@@ -32,6 +32,8 @@
 		3501B21D2C9C1A2E00314C0F /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 3501B21C2C9C1A2E00314C0F /* FirebaseVertexAI-Preview */; };
 		3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */; };
 		3501B2292C9D8AAE00314C0F /* MyCustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2272C9D8AAE00314C0F /* MyCustomCalendar.swift */; };
+		3501B2362C9D91BB00314C0F /* MyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2352C9D91BB00314C0F /* MyCalendarViewModel.swift */; };
+		3501B23A2CA2CC1400314C0F /* CalendarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2392CA2CC1400314C0F /* CalendarContainer.swift */; };
 		353367112C215919003C561C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 353367102C215919003C561C /* GoogleService-Info.plist */; };
 		353C5F642C92875900CDD111 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F632C92875900CDD111 /* Home.swift */; };
 		353C5F662C92891F00CDD111 /* FriendComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F652C92891F00CDD111 /* FriendComments.swift */; };
@@ -72,6 +74,8 @@
 /* Begin PBXFileReference section */
 		3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		3501B2272C9D8AAE00314C0F /* MyCustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCalendar.swift; sourceTree = "<group>"; };
+		3501B2352C9D91BB00314C0F /* MyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarViewModel.swift; sourceTree = "<group>"; };
+		3501B2392CA2CC1400314C0F /* CalendarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarContainer.swift; sourceTree = "<group>"; };
 		353367102C215919003C561C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		353C5F632C92875900CDD111 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		353C5F652C92891F00CDD111 /* FriendComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendComments.swift; sourceTree = "<group>"; };
@@ -202,6 +206,15 @@
 			path = Authentification;
 			sourceTree = "<group>";
 		};
+		3501B2342C9D919C00314C0F /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				3501B2352C9D91BB00314C0F /* MyCalendarViewModel.swift */,
+				3501B2392CA2CC1400314C0F /* CalendarContainer.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		35459A892BF5E64D0049A19C = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +295,7 @@
 		35C256E22C0067FB00718555 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3501B2342C9D919C00314C0F /* Calendar */,
 				3501B2322C9D8C1700314C0F /* Authentication */,
 				3501B22B2C9D8AD400314C0F /* Home */,
 				35A511B42C7322C500DA8668 /* MyPage */,
@@ -416,6 +430,7 @@
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
 				35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */,
+				3501B2362C9D91BB00314C0F /* MyCalendarViewModel.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
 				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
 				3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */,
@@ -423,6 +438,7 @@
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,
+				3501B23A2CA2CC1400314C0F /* CalendarContainer.swift in Sources */,
 				35A511AD2C65DEE400DA8668 /* MyFriends.swift in Sources */,
 				35D259AD2C3D35620052127B /* SignIn.swift in Sources */,
 				35A511912C5B604100DA8668 /* FriendsList.swift in Sources */,

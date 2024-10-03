@@ -38,7 +38,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchPost() {
-        let postRef = db.collection("posts/\(self.user.id)/\(getDate())").document(getDate())
+        let postRef = db.collection("posts/\(self.user.id)/posts").document(getDate())
         
         postRef.getDocument { document, error in
             if let document = document, document.exists {
@@ -47,15 +47,9 @@ class HomeViewModel: ObservableObject {
                 self.postButtonsDisabled = true
                 let data = document.data()
                 
-                self.loadImageFromFirebase(selectedUserId: self.user.id) { image in
-                    if let downloadedImage = image {
-                        self.todayImage = downloadedImage
-                    } else {
-                        
-                    }
-                }
-                
                 self.todayPost.id = data?["id"] as? String ?? ""
+                self.todayPost.todayDate = data?["todayDate"] as? Date ?? Date()
+                self.todayPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
                 self.todayPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.todayPost.todayText = data?["todayText"] as? String ?? ""
                 self.todayPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
@@ -63,6 +57,14 @@ class HomeViewModel: ObservableObject {
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
+                }
+                
+                self.fetchImage(from: self.todayPost.todayImgUrl) { image in
+                    if let image = image {
+                        self.todayImage = image
+                    } else {
+                        print("Failed to load image")
+                    }
                 }
                 
                 self.selectedColor = Color(hex: self.todayPost.todayColor)
@@ -74,7 +76,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchFriendPost() {
-        let postRef = db.collection("posts/\(self.user.selectedUser)/\(getDate())").document(getDate())
+        let postRef = db.collection("posts/\(self.user.selectedUser)/posts").document(getDate())
         
         postRef.getDocument { document, error in
             if let document = document, document.exists {
@@ -82,14 +84,7 @@ class HomeViewModel: ObservableObject {
                 self.friendPostUploaded = true
                 let data = document.data()
                 
-                self.loadImageFromFirebase(selectedUserId: self.user.selectedUser) { image in
-                    if let downloadedImage = image {
-                        self.friendImage = downloadedImage
-                    } else {
-                        return
-                    }
-                }
-                
+                self.friendPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
                 self.friendPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
                 self.friendPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
@@ -99,6 +94,14 @@ class HomeViewModel: ObservableObject {
                     comment: comment["comment"] as? String ?? "")
                 }
                 self.friendSelectedColor = Color(hex: self.friendPost.todayColor)
+                
+                self.fetchImage(from: self.friendPost.todayImgUrl) { image in
+                    if let image = image {
+                        self.todayImage = image
+                    } else {
+                        print("Failed to load image")
+                    }
+                }
                 
             } else {
                 self.friendPostUploaded = false
@@ -114,6 +117,7 @@ class HomeViewModel: ObservableObject {
             return
         }
         
+        self.todayPost.todayDate = Date()
         self.todayPost.todayColor = selectedColor.toHextString()
         
         guard self.todayImage != nil, !self.todayPost.todayText.isEmpty, !self.todayPost.todayColor.isEmpty else {
@@ -121,21 +125,21 @@ class HomeViewModel: ObservableObject {
             return
         }
         
-        
         let todayPostId = UUID().uuidString
         
-        let userPostRef =  self.db.collection("posts/\(self.user.id)/\(getDate())").document(getDate())
+        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getDate())
         
         guard let todayImageToUpload = todayImage else { return }
         
-        self.uploadTodayImage(uid: currentUserId, image: todayImageToUpload) { success in
-            if !success {
-                self.errorMessage = "이미지 등록에 실패했습니다"
+        self.uploadImage(uid: currentUserId, image: todayImageToUpload) { url in
+            guard let url = url else {
+                self.errorMessage = "이미지 등록에 실패했습니다."
                 return
             }
             
             if self.user.postUploaded {
                 userPostRef.updateData([
+                    "todayImgUrl": url.absoluteString,
                     "todayColor": self.todayPost.todayColor,
                     "todayText": self.todayPost.todayText,
                     "todayComments": self.todayPost.todayComments
@@ -143,17 +147,18 @@ class HomeViewModel: ObservableObject {
             } else {
                 userPostRef.setData([
                     "id": todayPostId,
+                    "todayDate": self.todayPost.todayDate,
+                    "todayImgUrl": url.absoluteString,
                     "todayColor": self.todayPost.todayColor,
                     "todayText": self.todayPost.todayText,
                     "todayComments": self.todayPost.todayComments
-                    
                 ])
             }
         }
     }
     
     func uploadComment() {
-        let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/\(getDate())").document(getDate())
+        let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(getDate())
         
         let commentId = UUID().uuidString
         let newComment = Comment(id: commentId, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: myComment)
@@ -168,6 +173,57 @@ class HomeViewModel: ObservableObject {
                 "comment": myComment
             ]])
         ])
+    }
+    
+    func fetchImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching image: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else {
+                completion(nil)
+            }
+        }.resume()
+    }
+    
+    private func uploadImage(uid: String, image: UIImage, completion: @escaping (URL?) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(nil)
+            return
+        }
+            
+        let storageRef = Storage.storage().reference().child("profile_images").child(uid)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+            
+        storageRef.putData(imageData, metadata: metadata) { metadata, error in
+                if let error = error {
+                    print("Failed to upload image: \(error)")
+                    completion(nil)
+                    return
+                }
+                
+            storageRef.downloadURL { url, error in
+                if let error = error {
+                    print("Failed to retrieve download URL: \(error)")
+                    completion(nil)
+                    return
+                }
+                completion(url)
+            }
+        }
     }
     
     private func uploadTodayImage(uid: String, image: UIImage, completion: @escaping (Bool) -> Void) {
@@ -212,12 +268,12 @@ class HomeViewModel: ObservableObject {
     
     func getDate() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.dateFormat = "yyyy.M.d"
         guard let dateString = formatter.string(for: Date()) else { return "Date Error" }
         return dateString
     }
     
-    func getWeekDates() -> [String ] {
+    func getWeekDates() -> [String] {
         let calendar = Calendar.current
         let today = Date()
         
