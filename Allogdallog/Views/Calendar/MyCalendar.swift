@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyCustomCalendar: View {
+struct MyCalendar: View {
     
     @StateObject var viewModel: MyCalendarViewModel
 

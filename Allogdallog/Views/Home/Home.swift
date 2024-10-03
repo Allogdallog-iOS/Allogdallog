@@ -94,10 +94,10 @@ struct Home: View {
                     let maxHeight = geometry.size.height - 20
                     VStack {
                         if viewModel.user.selectedUser == viewModel.user.id {
-                            MyCustomCalendar(selectedUserId: viewModel.user.selectedUser)
+                            MyCalendar(selectedUserId: viewModel.user.selectedUser)
                                 .frame(height: maxHeight)
                         } else {
-                            MyCustomCalendar(selectedUserId: viewModel.user.selectedUser)
+                            MyCalendar(selectedUserId: viewModel.user.selectedUser)
                                 .frame(height: maxHeight)
                                 
                         }

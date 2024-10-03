@@ -31,9 +31,8 @@
 		3501B21B2C9C1A2E00314C0F /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3501B21A2C9C1A2E00314C0F /* FirebaseStorageCombine-Community */; };
 		3501B21D2C9C1A2E00314C0F /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 3501B21C2C9C1A2E00314C0F /* FirebaseVertexAI-Preview */; };
 		3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */; };
-		3501B2292C9D8AAE00314C0F /* MyCustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2272C9D8AAE00314C0F /* MyCustomCalendar.swift */; };
+		3501B2292C9D8AAE00314C0F /* MyCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2272C9D8AAE00314C0F /* MyCalendar.swift */; };
 		3501B2362C9D91BB00314C0F /* MyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2352C9D91BB00314C0F /* MyCalendarViewModel.swift */; };
-		3501B23A2CA2CC1400314C0F /* CalendarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2392CA2CC1400314C0F /* CalendarContainer.swift */; };
 		353367112C215919003C561C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 353367102C215919003C561C /* GoogleService-Info.plist */; };
 		353C5F642C92875900CDD111 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F632C92875900CDD111 /* Home.swift */; };
 		353C5F662C92891F00CDD111 /* FriendComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F652C92891F00CDD111 /* FriendComments.swift */; };
@@ -73,9 +72,8 @@
 
 /* Begin PBXFileReference section */
 		3501B2222C9D0AAE00314C0F /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
-		3501B2272C9D8AAE00314C0F /* MyCustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCalendar.swift; sourceTree = "<group>"; };
+		3501B2272C9D8AAE00314C0F /* MyCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendar.swift; sourceTree = "<group>"; };
 		3501B2352C9D91BB00314C0F /* MyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarViewModel.swift; sourceTree = "<group>"; };
-		3501B2392CA2CC1400314C0F /* CalendarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarContainer.swift; sourceTree = "<group>"; };
 		353367102C215919003C561C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		353C5F632C92875900CDD111 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		353C5F652C92891F00CDD111 /* FriendComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendComments.swift; sourceTree = "<group>"; };
@@ -152,7 +150,7 @@
 		3501B22A2C9D8AB300314C0F /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				3501B2272C9D8AAE00314C0F /* MyCustomCalendar.swift */,
+				3501B2272C9D8AAE00314C0F /* MyCalendar.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -210,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				3501B2352C9D91BB00314C0F /* MyCalendarViewModel.swift */,
-				3501B2392CA2CC1400314C0F /* CalendarContainer.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -438,7 +435,6 @@
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,
-				3501B23A2CA2CC1400314C0F /* CalendarContainer.swift in Sources */,
 				35A511AD2C65DEE400DA8668 /* MyFriends.swift in Sources */,
 				35D259AD2C3D35620052127B /* SignIn.swift in Sources */,
 				35A511912C5B604100DA8668 /* FriendsList.swift in Sources */,
@@ -448,7 +444,7 @@
 				975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */,
 				353C5F642C92875900CDD111 /* Home.swift in Sources */,
 				35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */,
-				3501B2292C9D8AAE00314C0F /* MyCustomCalendar.swift in Sources */,
+				3501B2292C9D8AAE00314C0F /* MyCalendar.swift in Sources */,
 				35A511932C5B606A00DA8668 /* Friend.swift in Sources */,
 				35A5118D2C5A313D00DA8668 /* MyDailyRecord.swift in Sources */,
 			);
