@@ -136,9 +136,9 @@ class MyCalendarViewModel: ObservableObject {
 extension MyCalendar {
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월"
+        formatter.dateFormat = "yyyy.MM"
         return formatter
     }()
     
-    static let weekdaySymbols = Calendar.current.veryShortWeekdaySymbols
+    static let weekdaySymbols = Calendar.current.shortWeekdaySymbols
 }

@@ -14,9 +14,8 @@ struct MyDailyRecord: View {
     var body: some View {
         VStack() {
             Spacer()
-            Text("오늘의 나는?")
-                .font(.title2)
-                .fontWeight(.semibold)
+            Text("Today's Me")
+                .instrumentSansItalic(type:.bold, size: 30)
             Spacer()
             HStack {
                 Spacer()

@@ -27,9 +27,9 @@ struct MyCalendar: View {
                     viewModel.offset = gesture.translation
                 }
                 .onEnded { gesture in
-                    if gesture.translation.width < -100 {
+                    if gesture.translation.width < -50 {
                         viewModel.changeMonth(by: 1)
-                    } else if gesture.translation.width > 100 {
+                    } else if gesture.translation.width > 50 {
                         viewModel.changeMonth(by: -1)
                     }
                     viewModel.offset = CGSize()
@@ -40,11 +40,12 @@ struct MyCalendar: View {
     private var headerView: some View {
         VStack {
             Text(viewModel.month, formatter: Self.dateFormatter)
-                .font(.title2)
+                .instrumentSansItalic(type: .bold, size: 30)
                 .padding(.bottom)
             HStack {
                 ForEach(Self.weekdaySymbols, id: \.self) { symbol in
                     Text(symbol)
+                        .instrumentSerif(size: 17)
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -69,10 +70,10 @@ struct MyCalendar: View {
                         
                         if hasPosts {
                             if let postForDate = viewModel.posts[date], let firstPost = postForDate.first {
-                                CellView(date: date, day: day, hasPosts: hasPosts, post: firstPost)
+                                CellView(day: day, hasPosts: hasPosts, post: firstPost)
                             }
                         } else {
-                            CellView()
+                            CellView(day: day, hasPosts: hasPosts)
                         }
         
                     }
@@ -84,21 +85,17 @@ struct MyCalendar: View {
     private struct CellView: View {
         var day: Int
         var post: Post
-        let date: Date
-        let hasPosts: Bool
+        var hasPosts: Bool
         
-        
-        init() {
-            self.day = 0
-            self.hasPosts = false
-            self.date = Date()
+        init(day: Int, hasPosts: Bool) {
+            self.day = day
+            self.hasPosts = hasPosts
             self.post = Post()
         }
         
-        init(date: Date, day: Int, hasPosts: Bool, post: Post) {
+        init(day: Int, hasPosts: Bool, post: Post) {
             self.day = day
             self.hasPosts = hasPosts
-            self.date = date
             self.post = post
         }
         
@@ -123,14 +120,17 @@ struct MyCalendar: View {
                         }
                         Text("\(post.todayText)")
                             .offset(x: 15, y: -15)
-                        
+                        Text("\(day)")
+                            .instrumentSerif(type: .italic, size: 15)
+                            .foregroundStyle(Color.white)
+                            .shadow(color: .myLightGray, radius: 5)
                     }
                 }
                 .frame(height: 70)
             } else {
                 VStack {
-                    Rectangle()
-                        .fill(Color.clear)
+                   Text("\(day)")
+                        .instrumentSerif(type: .italic, size: 15)
                 }
                 .frame(height: 70)
             }
