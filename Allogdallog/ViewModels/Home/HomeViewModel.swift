@@ -204,7 +204,7 @@ class HomeViewModel: ObservableObject {
             return
         }
             
-        let storageRef = Storage.storage().reference().child("profile_images").child(uid)
+        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getDate())
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
             
@@ -225,47 +225,7 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-    
-    private func uploadTodayImage(uid: String, image: UIImage, completion: @escaping (Bool) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.8)
-        else {
-            completion(false)
-            return
-        }
-        
-        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getDate())
-        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        
-        storageRef.putData(imageData, metadata: metadata) { metadata, error in
-            if let error = error {
-                print("Failed to upload image: \(error)")
-                completion(false)
-                return
-            }
-            completion(true)
-        }
-    }
-    
-    func loadImageFromFirebase(selectedUserId: String, completion: @escaping (UIImage?) -> Void) {
-        let storageRef = Storage.storage().reference(withPath: "post_images/\(selectedUserId)/\(getDate())")
-        
-        storageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("Error downloading image: \(error)")
-                completion(nil)
-                return
-            }
-            
-            if let data = data, let image = UIImage(data: data) {
-                completion(image)
-            } else {
-            completion(nil)
-            }
-        }
-    }
-    
+
     func getDate() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.M.d"
