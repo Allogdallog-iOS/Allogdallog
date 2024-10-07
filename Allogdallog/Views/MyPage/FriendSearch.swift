@@ -17,11 +17,29 @@ struct FriendSearch: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            TextField("닉네임을 검색해보세요!", text: $viewModel.searchText, onCommit: {
+            
+            HStack {
+                Text("친구 추가")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
+                
+                Spacer()
+            }
+            
+            TextField("닉네임을 입력해보세요!", text: $viewModel.searchText, onCommit: {
                 viewModel.searchFriends()
             })
             .customTextFieldStyle(height: 40)
             .padding()
+            
+            VStack (alignment: .center) {
+                Text("친구의 닉네임을 검색하여 알록달록 친구로 추가해보세요.").frame(width: 230)
+                    .fontWeight(.ultraLight)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
+            }
             
             ScrollView {
                 LazyVStack {
