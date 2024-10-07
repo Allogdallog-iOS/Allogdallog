@@ -12,11 +12,13 @@ struct Home: View {
     
     //@StateObject private var userViewModel = UserViewModel()
     @StateObject private var viewModel: HomeViewModel
+    @StateObject private var calendarViewModel: MyCalendarViewModel
     @State private var index = 0
     @State private var path = NavigationPath()
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(user: user))
+        _calendarViewModel = StateObject(wrappedValue: MyCalendarViewModel(selectedUserId: user.selectedUser))
     }
     
     var body: some View {
@@ -54,7 +56,7 @@ struct Home: View {
                         Divider()
                     }
                 }
-                .ignoresSafeArea(.keyboard)
+                //.ignoresSafeArea(.keyboard)
                 
             }
             .tabItem {
@@ -93,14 +95,9 @@ struct Home: View {
                 GeometryReader { geometry in
                     let maxHeight = geometry.size.height - 20
                     VStack {
-                        if viewModel.user.selectedUser == viewModel.user.id {
-                            MyCalendar(selectedUserId: viewModel.user.selectedUser)
-                                .frame(height: maxHeight)
-                        } else {
-                            MyCalendar(selectedUserId: viewModel.user.selectedUser)
-                                .frame(height: maxHeight)
-                                
-                        }
+                        MyCalendar(selectedUserId: viewModel.user.selectedUser)
+                            .environmentObject(calendarViewModel)
+                            .frame(height: maxHeight)
                         Divider()
                     }
                 }

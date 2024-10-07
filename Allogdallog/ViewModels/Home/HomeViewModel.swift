@@ -97,7 +97,7 @@ class HomeViewModel: ObservableObject {
                 
                 self.fetchImage(from: self.friendPost.todayImgUrl) { image in
                     if let image = image {
-                        self.todayImage = image
+                        self.friendImage = image
                     } else {
                         print("Failed to load image")
                     }
@@ -145,6 +145,7 @@ class HomeViewModel: ObservableObject {
                     "todayComments": self.todayPost.todayComments
                 ])
             } else {
+                self.user.postUploaded = true
                 userPostRef.setData([
                     "id": todayPostId,
                     "todayDate": self.todayPost.todayDate,
@@ -173,6 +174,8 @@ class HomeViewModel: ObservableObject {
                 "comment": myComment
             ]])
         ])
+        
+        self.myComment = ""
     }
     
     func fetchImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
@@ -298,15 +301,14 @@ extension Color {
 struct CustomTextEditor: View {
     @Binding var text: String
     
-    
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty {
                 VStack {
-                    Text("하루를 기록하세요")
+                    Text("😀")
                         .padding(.top, 10)
                         .padding(.leading, 6)
-                        .opacity(0.6)
+                        .opacity(0.5)
                     Spacer()
                 }
             }
