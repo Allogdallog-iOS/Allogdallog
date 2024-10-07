@@ -13,7 +13,7 @@ struct ProfileEdit: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        HStack {
+        HStack (alignment: .top){
             Text("프로필 편집")
                 .font(.title2)
                 .fontWeight(.semibold)
@@ -53,9 +53,16 @@ struct ProfileEdit: View {
                 }
             }
         }
-        Text("닉네임")
-            .padding(.leading)
-            .fontWeight(.semibold)
+        
+        
+        VStack (alignment: .leading){
+            Text("닉네임")
+                .padding(.leading)
+                .fontWeight(.semibold)
+        }
+        
+        
+        
     }
 }
 

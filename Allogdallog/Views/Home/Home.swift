@@ -63,6 +63,7 @@ struct Home: View {
                 Label("홈", systemImage: "house.fill")
             }
             .tag(1)
+            /*
             VStack {
                 FriendSearch(user: viewModel.user)
             }
@@ -70,6 +71,7 @@ struct Home: View {
                 Label("검색", systemImage: "magnifyingglass")
             }
                 .tag(2)
+            */
             VStack {
                 MyPage()
                 Profile(user:viewModel.user)
@@ -79,7 +81,7 @@ struct Home: View {
             .tabItem {
                 Label("마이페이지", systemImage: "person.fill")
             }
-            .tag(3)
+            .tag(2)
             VStack {
                 HStack {
                     Text("알록달록")
@@ -105,7 +107,7 @@ struct Home: View {
             .tabItem {
                 Label("캘린더", systemImage: "calendar")
             }
-            .tag(4)
+            .tag(3)
             
         }
         .environmentObject(viewModel)

@@ -25,7 +25,26 @@ struct FriendsList: View {
                 Text("\(viewModel.user.friends.count)명")
                     .font(.subheadline)
                     .foregroundStyle(.gray)
+            
+            Spacer()
+            
+                NavigationLink(destination: FriendSearch(user: homeViewModel.user)) { Image(systemName: "person.badge.plus")
+                    //.resizable()
+                    .scaledToFit()
+                    //.frame(width: 20, height: 20)
+                    .foregroundStyle(.black)
+                    //.padding(.horizontal, 15)
+                    //.padding(.vertical, 5)
             }
+                           }
+            /*VStack {
+                           FriendSearch(user: viewModel.user)
+                       }
+                       .tabItem {
+                           Label("검색", systemImage: "magnifyingglass")
+                       }
+                           .tag(2)
+             */
             
             ScrollView {
                 VStack(alignment: .leading) {
