@@ -9,8 +9,9 @@ import SwiftUI
 
 struct MyCalendar: View {
     
-    @StateObject var viewModel: MyCalendarViewModel
-
+    @EnvironmentObject var homeViewModel: HomeViewModel
+    @StateObject private var viewModel: MyCalendarViewModel
+    
     init(selectedUserId: String) {
         _viewModel = StateObject(wrappedValue: MyCalendarViewModel(selectedUserId: selectedUserId))
     }
@@ -35,6 +36,10 @@ struct MyCalendar: View {
                     viewModel.offset = CGSize()
                 }
         )
+        .onChange(of: homeViewModel.user.selectedUser) {
+            viewModel.selectedUserId = homeViewModel.user.selectedUser
+            viewModel.fetchPostForMonth(viewModel.month)
+        }
     }
     
     private var headerView: some View {

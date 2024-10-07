@@ -11,10 +11,10 @@ import FirebaseFirestore
 
 class MyCalendarViewModel: ObservableObject {
     
+    @Published var selectedUserId: String
     @Published var month: Date
     @Published var offset: CGSize = CGSize()
     @Published var clickedDates: Set<Date> = []
-    @Published var selectedUserId: String
     @Published var recoredPosts: [Post] = []
     @Published var posts: [Date: [Post]] = [:]
     @Published var readingPost: Post?
@@ -78,7 +78,7 @@ class MyCalendarViewModel: ObservableObject {
     }
     
     func loadImageFromFirebase(selectedUserId: String, date: String, completion: @escaping (UIImage?) -> Void) {
-        let storageRef = Storage.storage().reference(withPath: "post_images/\(selectedUserId)/\(date)")
+        let storageRef = Storage.storage().reference(withPath: "post_images/\(self.selectedUserId)/\(date)")
         
         storageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
             if let error = error {
