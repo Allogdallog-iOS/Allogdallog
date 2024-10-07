@@ -13,86 +13,65 @@ struct FriendDailyRecord: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack() {
+            HStack {
+                Spacer()
                 Text("\(viewModel.getDate())")
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                    .instrumentSansItalic(type:.bold, size: 25)
                 Spacer()
             }
+            Spacer()
             ZStack {
                 if viewModel.friendPostUploaded {
                     HStack {
-                        if let image = viewModel.friendImage {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 165, height: 215)
-                                .border(.myGray)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
                         Spacer()
                         VStack {
-                            HStack {
-                                Text("\(viewModel.friendPost.todayColor)")
-                                    .font(.callout)
-                                Spacer()
+                            Spacer()
+                            Text("color")
+                                .instrumentSerif(size: 24)
+                            Spacer()
+                            VStack(alignment: .center) {
                                 Circle()
-                                    .frame(width: 20, height: 20)
+                                    .frame(width: 50, height: 50)
                                     .foregroundStyle(viewModel.friendSelectedColor)
-                                    .blur(radius: 2.0)
+                                    .blur(radius: 5.0)
                             }
-                            .padding()
-                            .frame(width: 150, height: 40)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.myGray)
-                            )
-                            Spacer()
-                            Text("\(viewModel.friendPost.todayText)")
-                                .padding()
-                                .frame(width: 150, height: 150)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(.myGray)
-                                )
+                            .frame(height: 180)
                         }
-                    }
-                    .frame(height: 215)
-                } else {
-                    HStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.myGray)
-                            .frame(width: 165, height: 215)
                         Spacer()
                         VStack {
-                            HStack {
-                                Text("#000000")
-                                    .font(.callout)
-                                Spacer()
-                                Circle()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundStyle(Color.black)
-                                    .blur(radius: 2.5)
-                            }
-                            .padding()
-                            .frame(width: 150, height: 40)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.myGray)
-                            )
                             Spacer()
-                            Text("  ")
-                                .padding()
-                                .frame(width: 150, height: 150)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(.myGray)
-                                )
+                            Text("picture")
+                                .instrumentSerif(size: 24)
+                            Spacer()
+                            if let image = viewModel.friendImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 140, height: 180)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .overlay(RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.black)
+                                    )
+                            }
                         }
+                        Spacer()
+                        VStack {
+                            Spacer()
+                            Text("emoji")
+                                .instrumentSerif(size: 24)
+                            Spacer()
+                            VStack(alignment: .center) {
+                                Text("\(viewModel.friendPost.todayText)")
+                                    .frame(height: 80)
+                                    .font(.system(size: 50))
+                            }
+                            .frame(height: 180)
+                        }
+                        Spacer()
                     }
-                    .frame(height: 215)
+                } else {
                     Rectangle()
-                        .frame(height: 215)
+                        .frame(maxHeight: .infinity)
                         .foregroundStyle(Color.black)
                         .opacity(0.2)
                     Text("아직 게시글을 작성하지 않았습니다.")
@@ -100,6 +79,7 @@ struct FriendDailyRecord: View {
                 }
                 
             }
+            Spacer()
         }
         .padding(.horizontal, 20)
     }
