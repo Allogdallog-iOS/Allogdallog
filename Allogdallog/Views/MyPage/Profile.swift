@@ -67,7 +67,7 @@ struct Profile: View {
                         }
             }
             Divider()
-                .padding()
+                .padding(.top, 10)
             }
         }
     }

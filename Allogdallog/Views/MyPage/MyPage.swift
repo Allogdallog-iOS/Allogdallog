@@ -29,15 +29,15 @@ struct MyPage: View {
                 NavigationLink(destination: Notification()) { Image(systemName: "bell")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 25, height: 25)
-                        .foregroundStyle(.myGray)
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(.black)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
                 }
                 
             }
             Divider()
-            Button(action: {
+            /* Button(action: {
                 viewModel.signOut()
             }) {
                 Text("로그아웃")
@@ -46,7 +46,7 @@ struct MyPage: View {
             }
             .navigationDestination(isPresented: $viewModel.isSignedOut) {
                 SignIn()
-            }
+            } */
         }
     }
 }
