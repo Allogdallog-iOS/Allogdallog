@@ -18,7 +18,7 @@ struct FriendsList: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 15) {
             HStack(alignment: .firstTextBaseline) {
                 Text("친구")
                     .font(.headline)
@@ -28,13 +28,16 @@ struct FriendsList: View {
             
             Spacer()
             
-                NavigationLink(destination: FriendSearch(user: homeViewModel.user)) { Image(systemName: "person.badge.plus")
-                    //.resizable()
-                    .scaledToFit()
-                    //.frame(width: 20, height: 20)
-                    .foregroundStyle(.black)
-                    //.padding(.horizontal, 15)
-                    //.padding(.vertical, 5)
+                NavigationLink(destination: FriendSearch(user: homeViewModel.user)) {
+                        Image(systemName: "person.badge.plus")
+                        .resizable()
+                            //.scaledToFit()
+                            .frame(width: 23, height: 23)
+                            .offset(x:0,y:8)
+                            .foregroundStyle(.black)
+                            //.clipped()
+                        //.padding(.horizontal, 15)
+                            //.padding(.vertical, 0)
             }
                            }
             /*VStack {
@@ -45,6 +48,7 @@ struct FriendsList: View {
                        }
                            .tag(2)
              */
+            
             
             ScrollView {
                 VStack(alignment: .leading) {
@@ -101,6 +105,7 @@ struct FriendsList: View {
                         }
                     }
                     Divider()
+                        .padding(.bottom, 10)
                     
                     if !viewModel.user.friends.isEmpty {
                         ForEach(viewModel.user.friends) { friend in
