@@ -149,3 +149,4 @@ struct FriendsList: View {
         .padding(.horizontal)
     }
 }
+

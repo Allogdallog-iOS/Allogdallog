@@ -76,6 +76,7 @@
 		975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A02C9CADFF007637CF /* ProfileViewModel.swift */; };
 		975FE8A92C9CE899007637CF /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A82C9CE899007637CF /* Notification.swift */; };
 		975FE8AD2C9D0E4C007637CF /* ProfileEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */; };
+		975FE8B12CB5127D007637CF /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8B02CB5127D007637CF /* Logout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,7 @@
 		975FE8A02C9CADFF007637CF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		975FE8A82C9CE899007637CF /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEdit.swift; sourceTree = "<group>"; };
+		975FE8B02CB5127D007637CF /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +324,7 @@
 				975FE89E2C9C984A007637CF /* Profile.swift */,
 				975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */,
 				35A511902C5B604100DA8668 /* FriendsList.swift */,
+				975FE8B02CB5127D007637CF /* Logout.swift */,
 				35A511992C6493B800DA8668 /* FriendSearch.swift */,
 				975FE8A82C9CE899007637CF /* Notification.swift */,
 			);
@@ -498,6 +501,7 @@
 				35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */,
 				3501B2582CB0347600314C0F /* InstrumentSerifModifier.swift in Sources */,
 				35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */,
+				975FE8B12CB5127D007637CF /* Logout.swift in Sources */,
 				35A511B72C786E0400DA8668 /* HomeViewModel.swift in Sources */,
 				975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */,
 				353C5F642C92875900CDD111 /* Home.swift in Sources */,
