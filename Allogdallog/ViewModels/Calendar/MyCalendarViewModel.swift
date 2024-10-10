@@ -14,10 +14,11 @@ class MyCalendarViewModel: ObservableObject {
     @Published var selectedUserId: String
     @Published var month: Date
     @Published var offset: CGSize = CGSize()
-    @Published var clickedDates: Set<Date> = []
     @Published var recoredPosts: [Post] = []
     @Published var posts: [Date: [Post]] = [:]
     @Published var readingPost: Post?
+    @Published var clickedPost: Post?
+    @Published var weekPosts: [Post] = []
     
     private var db = Firestore.firestore()
     
@@ -39,6 +40,7 @@ class MyCalendarViewModel: ObservableObject {
         fetchPostsDate(from: startDate, to: endDate) { [weak self] posts in
             DispatchQueue.main.async {
                 self?.posts = posts
+                self?.weekPosts = self?.getWeekPosts() ?? []
             }
         }
     }
@@ -73,7 +75,7 @@ class MyCalendarViewModel: ObservableObject {
     
     func formateDateToString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy..M.d"
+        dateFormatter.dateFormat = "yyyy.M.d"
         return dateFormatter.string(from: date)
     }
     
@@ -99,13 +101,44 @@ class MyCalendarViewModel: ObservableObject {
         return posts[date] != nil && !(posts[date]?.isEmpty ?? true)
     }
     
+    func postForDate(for date: Date) -> Post {
+        var post = Post()
+        let hasPost = hasPosts(for: date)
+        if hasPost {
+            post = posts[date]!.first!
+            return post
+        } else {
+            return post
+        }
+    }
+    
     func getPosts(for date: Date) -> [Post]? {
         return posts[date]
     }
-        
+     
+    /*
     func getDate(for day: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: day, to: startOfMonth())!
+    }
+     */
+    
+    
+    func getDate(for index: Int) -> Date {
+        let calendar = Calendar.current
+        guard let firstDayOfMonth = calendar.date(
+            from: DateComponents(
+                year: calendar.component(.year, from: month),
+                month: calendar.component(.month, from: month),
+                day: 1)
+        ) else {
+            return Date()
+        }
         
+        var dateComponents = DateComponents()
+        dateComponents.day = index
+        
+        let date = calendar.date(byAdding: dateComponents, to: firstDayOfMonth) ?? Date()
+        return date
     }
     
     func startOfMonth() -> Date {
@@ -124,12 +157,58 @@ class MyCalendarViewModel: ObservableObject {
         return Calendar.current.component(.weekday, from: firstDayOfMonth)
     }
     
+    func previousMonth() -> Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: month)
+        let firstDayOfMonth = Calendar.current.date(from: components)!
+        let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: firstDayOfMonth)!
+        
+        return previousMonth
+    }
+    
     func changeMonth(by value: Int) {
         let calendar = Calendar.current
         if let newMonth = calendar.date(byAdding: .month, value: value, to: month) {
             self.month = newMonth
             fetchPostForMonth(self.month)
         }
+    }
+    
+    func setClickedPost(post: Post) {
+        self.clickedPost = post
+    }
+    
+    func getDayOfWeek(for date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "E"
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    func getWeekPosts() -> [Post] {
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
+        let today = Date()
+        var weekPosts: [Post] = []
+        
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+        
+        var weekDates: [Date] = []
+        
+        for i in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
+                let startOfDay = calendar.startOfDay(for: date)
+                weekDates.append(startOfDay)
+            }
+        }
+        
+        for weekDate in weekDates {
+            let hasPost = hasPosts(for: weekDate)
+            if hasPost {
+                weekPosts.append(self.posts[weekDate]!.first!)
+            }
+        }
+        return weekPosts
     }
 }
 

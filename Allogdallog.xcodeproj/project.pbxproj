@@ -41,6 +41,8 @@
 		3501B2542CB020CB00314C0F /* InstrumentSansItalicModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2532CB020CB00314C0F /* InstrumentSansItalicModifier.swift */; };
 		3501B2562CB033EA00314C0F /* InstrumentSerif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2552CB033EA00314C0F /* InstrumentSerif.swift */; };
 		3501B2582CB0347600314C0F /* InstrumentSerifModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2572CB0347600314C0F /* InstrumentSerifModifier.swift */; };
+		3501B25A2CB516D300314C0F /* DateClickPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2592CB516D300314C0F /* DateClickPopUp.swift */; };
+		3501B25C2CB7EE9500314C0F /* MyDailyRecordDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */; };
 		353367112C215919003C561C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 353367102C215919003C561C /* GoogleService-Info.plist */; };
 		353C5F642C92875900CDD111 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F632C92875900CDD111 /* Home.swift */; };
 		353C5F662C92891F00CDD111 /* FriendComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F652C92891F00CDD111 /* FriendComments.swift */; };
@@ -91,6 +93,8 @@
 		3501B2532CB020CB00314C0F /* InstrumentSansItalicModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentSansItalicModifier.swift; sourceTree = "<group>"; };
 		3501B2552CB033EA00314C0F /* InstrumentSerif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentSerif.swift; sourceTree = "<group>"; };
 		3501B2572CB0347600314C0F /* InstrumentSerifModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentSerifModifier.swift; sourceTree = "<group>"; };
+		3501B2592CB516D300314C0F /* DateClickPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateClickPopUp.swift; sourceTree = "<group>"; };
+		3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDailyRecordDetail.swift; sourceTree = "<group>"; };
 		353367102C215919003C561C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		353C5F632C92875900CDD111 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		353C5F652C92891F00CDD111 /* FriendComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendComments.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				3501B2272C9D8AAE00314C0F /* MyCalendar.swift */,
+				3501B2592CB516D300314C0F /* DateClickPopUp.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
 				353C5F632C92875900CDD111 /* Home.swift */,
 				353C5F652C92891F00CDD111 /* FriendComments.swift */,
+				3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -484,11 +490,13 @@
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
 				35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */,
 				3501B2362C9D91BB00314C0F /* MyCalendarViewModel.swift in Sources */,
+				3501B25A2CB516D300314C0F /* DateClickPopUp.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
 				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
 				3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */,
 				35A511AF2C65F01400DA8668 /* CircularImageModifier.swift in Sources */,
 				3501B2562CB033EA00314C0F /* InstrumentSerif.swift in Sources */,
+				3501B25C2CB7EE9500314C0F /* MyDailyRecordDetail.swift in Sources */,
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,

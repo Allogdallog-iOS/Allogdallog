@@ -41,9 +41,10 @@ struct Home: View {
                         if viewModel.user.selectedUser == viewModel.user.id {
                             VStack(alignment: .leading) {
                                 MyDailyRecord()
-                                    .frame(height: maxHeight * 0.7)
+                                    .frame(height: maxHeight * 0.60)
                                 WeeklyRecord()
-                                    .frame(height: maxHeight * 0.3)
+                                    .environmentObject(calendarViewModel)
+                                    .frame(height: maxHeight * 0.40)
                             }
                         } else {
                             VStack(alignment: .leading) {
@@ -56,8 +57,6 @@ struct Home: View {
                         Divider()
                     }
                 }
-                //.ignoresSafeArea(.keyboard)
-                
             }
             .tabItem {
                 Label("홈", systemImage: "house.fill")
@@ -72,16 +71,6 @@ struct Home: View {
             }
                 .tag(2)
             */
-            VStack {
-                MyPage()
-                Profile(user:viewModel.user)
-                FriendsList(user: viewModel.user)
-                Spacer()
-            }
-            .tabItem {
-                Label("마이페이지", systemImage: "person.fill")
-            }
-            .tag(2)
             VStack {
                 HStack {
                     Text("알록달록")
@@ -106,6 +95,16 @@ struct Home: View {
             }
             .tabItem {
                 Label("캘린더", systemImage: "calendar")
+            }
+            .tag(2)
+            VStack {
+                MyPage()
+                Profile(user:viewModel.user)
+                FriendsList(user: viewModel.user)
+                Spacer()
+            }
+            .tabItem {
+                Label("마이페이지", systemImage: "person.fill")
             }
             .tag(3)
             

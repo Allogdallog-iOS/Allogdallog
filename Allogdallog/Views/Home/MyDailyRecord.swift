@@ -12,134 +12,86 @@ struct MyDailyRecord: View {
     @EnvironmentObject private var viewModel: HomeViewModel
     
     var body: some View {
-        VStack() {
-            Text("Today's Me")
-                .instrumentSansItalic(type:.bold, size: 30)
-                .padding()
-            Spacer()
-            HStack {
-                VStack {
-                    Text("color")
-                        .instrumentSerif(size: 24)
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        ColorPicker("", selection: $viewModel.selectedColor)
-                            .frame(height: 80)
-                        Spacer()
-                    }
-                    .padding(.horizontal)
-                    .frame(height: 200)
-                    .disabled(viewModel.postButtonsDisabled)
-                    
-                }
-                VStack {
-                    Text("picture")
-                        .instrumentSerif(size: 24)
-                    Spacer()
-                    if let image = viewModel.todayImage {
-                        Button(action : {
-                            viewModel.isImagePickerPresented
-                                .toggle()
-                        }) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 155, height: 200)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay(RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.black)
-                                )
-                        }
-                        .disabled(viewModel.postButtonsDisabled)
-                    } else {
-                        Button(action: {
-                            viewModel.isImagePickerPresented
-                                .toggle()
-                        }) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.black)
-                                    .frame(width: 155, height: 200)
-                                Image(systemName: "photo.badge.plus.fill")
-                                    .foregroundStyle(.black)
-                            }
-                        }
-                        .disabled(viewModel.postButtonsDisabled)
-                    }
-                }
-                VStack {
-                    Text("emoji")
-                        .instrumentSerif(size: 24)
+        NavigationLink(destination: MyDailyRecordDetail().environmentObject(viewModel), label: {
+            VStack {
+                Text("Today's Me")
+                    .instrumentSansItalic(type:.bold, size: 30)
+                    .foregroundStyle(.black)
+                    .padding()
+                HStack() {
                     Spacer()
                     VStack(alignment: .center) {
-                        TextEditor(text: $viewModel.todayPost.todayText)
-                            .frame(height: 80)
-                            .font(.system(size: 50))
-                            .disabled(viewModel.postButtonsDisabled)
-                    }
-                    .frame(height: 200)
-                }
-            }
-            .frame(height: 250)
-            .sheet(isPresented: $viewModel.isImagePickerPresented) {
-                ImagePicker(image: $viewModel.todayImage, isPresented: $viewModel.isImagePickerPresented)
-            }
-            Spacer()
-            HStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    if viewModel.user.postUploaded {
-                        Button(action: {
-                            viewModel.postButtonsDisabled.toggle()
-                        }) {
-                            ZStack {
-                                Ellipse()
-                                    .stroke(.black)
-                                    .frame(width:50, height: 25)
-                                Image(systemName: "pencil")
-                                    .frame(width: 25, height: 25)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.black)
-                            }
-                        }
+                        Text("color")
+                            .instrumentSerif(size: 24)
+                            .foregroundStyle(.black)
                         Spacer()
-                        Button(action: {
-                            viewModel.uploadPost()
-                        }) {
-                            ZStack {
-                                Ellipse()
-                                    .stroke(.black)
-                                    .frame(width:50, height: 25)
-                                Image(systemName: "checkmark")
-                                    .frame(width: 25, height: 25)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.black)
+                        HStack {
+                            Circle()
+                                .frame(width: 50, height: 50)
+                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : .black)
+                                .blur(radius: 5)
+                        }
+                        .frame(height: 200)
+                    }
+                    Spacer()
+                    VStack {
+                        Text("picture")
+                            .instrumentSerif(size: 24)
+                            .foregroundStyle(.black)
+                        Spacer()
+                        VStack(alignment: .center) {
+                            if viewModel.user.postUploaded {
+                                if let url = URL(string: viewModel.todayPost.todayImgUrl) {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 160, height: 200)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            .overlay(RoundedRectangle(cornerRadius: 10)
+                                                .stroke(.black)
+                                            )
+                                    } placeholder: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(.black)
+                                                .frame(width: 160, height: 200)
+                                            Image(systemName: "photo.badge.plus.fill")
+                                                .foregroundStyle(.black)
+                                        }
+                                    }
+                                }
+                            } else {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.black)
+                                        .frame(width: 160, height: 200)
+                                    Image(systemName: "photo.badge.plus.fill")
+                                        .foregroundStyle(.black)
+                                }
                             }
                         }
-                    } else {
-                        Button(action: {
-                            viewModel.uploadPost()
-                        }) {
-                            ZStack {
-                                Ellipse()
-                                    .stroke(.black)
-                                    .frame(width:50, height: 25)
-                                Image(systemName: "checkmark")
-                                    .frame(width: 25, height: 25)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.black)
-                            }
+                        .frame(height: 200)
+                        
+                    }
+                    Spacer()
+                    VStack(alignment: .center) {
+                        Text("emoji")
+                            .instrumentSerif(size: 24)
+                            .foregroundStyle(.black)
+                        Spacer()
+                        HStack(alignment: .center) {
+                            
+                            Text(viewModel.user.postUploaded ? viewModel.todayPost.todayText : "")
+                                .font(.system(size: 50))
                         }
+                        .frame(height: 200)
                     }
                     Spacer()
                 }
-                .frame(width: 155)
-                Spacer()
+                .frame(height: 230)
             }
-        }
-        .padding(.horizontal, 20)
+            .padding(.horizontal, 20)
+        })
     }
 }
-

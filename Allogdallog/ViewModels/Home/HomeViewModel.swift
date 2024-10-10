@@ -210,7 +210,16 @@ class HomeViewModel: ObservableObject {
         let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getDate())
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-            
+        
+        if self.user.postUploaded {
+            storageRef.delete { error in
+                if let error = error {
+                    print("Error deleting file: \(error)")
+                } else {
+                    print("File deleted successfully")
+                }
+            }
+        }
         storageRef.putData(imageData, metadata: metadata) { metadata, error in
                 if let error = error {
                     print("Failed to upload image: \(error)")
@@ -226,6 +235,14 @@ class HomeViewModel: ObservableObject {
                 }
                 completion(url)
             }
+        }
+    }
+    
+    func isEqualWithSelectedId() -> Bool {
+        if self.user.selectedUser == self.user.id {
+            return true
+        } else {
+            return false
         }
     }
 
