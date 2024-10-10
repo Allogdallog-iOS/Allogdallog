@@ -30,16 +30,32 @@ struct FriendSearch: View {
             
             TextField("닉네임을 입력해보세요!", text: $viewModel.searchText, onCommit: {
                 viewModel.searchFriends()
-            })
+            }).onAppear {
+                UITextField.appearance().clearButtonMode = .whileEditing
+            }
             .customTextFieldStyle(height: 40)
             .padding()
             
-            VStack (alignment: .center) {
-                Text("친구의 닉네임을 검색하여 알록달록 친구로 추가해보세요.").frame(width: 230)
-                    .fontWeight(.ultraLight)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 5)
-            }
+            
+            VStack {
+                    Text("친구의 닉네임을 검색하여")
+                        .fontWeight(.ultraLight)
+                        //.padding(.horizontal, 15)
+                        //.padding(.vertical, 5)
+                        .frame(maxWidth: .infinity,
+                               //maxHeight: .infinity,
+                               alignment: .center)
+                        
+                    Text("알록달록 친구로 추가해보세요.")
+                        .fontWeight(.ultraLight)
+                        //.padding(.horizontal, 15)
+                        //.padding(.vertical, 5)
+                        .frame(maxWidth: .infinity,
+                               //maxHeight: .infinity,
+                               alignment: .center)
+                        
+                }
+            //Spacer()
             
             ScrollView {
                 LazyVStack {

@@ -204,8 +204,8 @@
 				35A511AC2C65DEE400DA8668 /* MyFriends.swift */,
 				35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */,
 				35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */,
-				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
 				353C5F632C92875900CDD111 /* Home.swift */,
+				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
 				353C5F652C92891F00CDD111 /* FriendComments.swift */,
 				3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */,
 			);
@@ -649,7 +649,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Allogdallog/Preview Content\"";
-				DEVELOPMENT_TEAM = C5BR2X737D;
+				DEVELOPMENT_TEAM = 53CKJ35S75;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -670,6 +670,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.capstone.Allogdallog;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = kr.co.capstoneios.Allogdallog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -689,7 +690,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Allogdallog/Preview Content\"";
-				DEVELOPMENT_TEAM = C5BR2X737D;
+				DEVELOPMENT_TEAM = 53CKJ35S75;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -710,6 +711,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.capstone.Allogdallog;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = kr.co.capstoneios.Allogdallog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
