@@ -52,6 +52,14 @@ struct FriendDailyRecord: View {
                                     .overlay(RoundedRectangle(cornerRadius: 10)
                                         .stroke(.black)
                                     )
+                            } else {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.black)
+                                        .frame(width: 140, height: 180)
+                                    Image(systemName: "photo.badge.plus.fill")
+                                        .foregroundStyle(.black)
+                                }
                             }
                         }
                         Spacer()
@@ -77,7 +85,6 @@ struct FriendDailyRecord: View {
                     Text("아직 게시글을 작성하지 않았습니다.")
                         .foregroundStyle(.white)
                 }
-                
             }
             Spacer()
         }
