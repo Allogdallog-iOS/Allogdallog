@@ -8,10 +8,17 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import FirebaseStorage
+import Combine
+import UIKit
 
 class ProfileViewModel: ObservableObject {
     
     @Published var user: User
+    @Published var profileImage: UIImage? = nil
+    @Published var isImagePickerPresented: Bool = false
+    @Published var nickname: String = ""
+    @Published var errorMessage: String? = nil
     
     private var db = Firestore.firestore()
     

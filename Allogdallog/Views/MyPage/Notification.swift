@@ -12,12 +12,14 @@ struct Notification: View {
         VStack {
             HStack {
                 Text("알림")
-                    .font(.title3)
+                    .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 15)
                     .padding(.vertical, 5)
             }
             Divider()
+            
+            Spacer()
         }
     }
 }

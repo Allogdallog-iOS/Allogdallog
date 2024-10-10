@@ -56,7 +56,7 @@ struct Profile: View {
                         .padding(.top)
                         .padding(.leading)
                         .bold()
-                    NavigationLink(destination: ProfileEdit()){
+                    NavigationLink(destination: ProfileEdit(user: viewModel.user)){
                             Text("프로필 편집 >")
                                     .font(.subheadline)
                                     .foregroundStyle(.gray)
