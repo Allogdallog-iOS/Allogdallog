@@ -27,4 +27,3 @@ struct AllogdallogApp: App {
         }
     }
 }
-// 유진 깃 테스트

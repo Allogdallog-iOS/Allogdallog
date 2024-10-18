@@ -13,14 +13,15 @@ struct ProfileEdit: View {
     @EnvironmentObject private var viewModel: SignUpViewModel
     @EnvironmentObject private var homeViewModel: HomeViewModel
     @Environment(\.dismiss) var dismiss
-
-        
+    @State private var isImagePickerPresented = false
+    
     
     init(user: User) {
         _profileviewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
     }
     
     var body: some View {
+        
         VStack {
             HStack (alignment: .top) {
                 Text("프로필 편집")
@@ -32,7 +33,7 @@ struct ProfileEdit: View {
                 Spacer()
                 
                 Button(action: {
-                    viewModel.signUp()})
+                    profileviewModel.editProfileUpload()})
                 {
                     Image(systemName: "checkmark")
                         .frame(width: 25, height: 25)
@@ -54,92 +55,116 @@ struct ProfileEdit: View {
                     }) {
                         ZStack { Image(uiImage: image)
                                 .resizable()
-                                //circularImage(size: 100)
-                                .frame(width: 100, height: 100)
+                                .circularImage(size: 100)
+                                //.frame(width: 100, height: 100)
                                 .clipShape(Circle())
-                                Image(systemName: "photo.badge.plus.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 30)
-                                    .offset(x: 35, y: 35)
-                                    .foregroundStyle(.black)
-                            }
-                        }
-                        }
-                    
-                    /* if let imageUrl = profileviewModel.user.profileImageUrl, let url = URL(string: imageUrl) {
-                     Button(action: {
-                     profileviewModel.isImagePickerPresented.toggle()
-                     }) {
-                     ZStack {                                    AsyncImage(url: url) { image in
-                     image
-                     .resizable()
-                     .circularImage(size: 100)
-                     //.padding(.top)
-                     //.padding(.leading)
-                     //.clipShape(Circle())
-                     } placeholder: {
-                     Image(systemName: "person.circle.fill")
-                     .resizable()
-                     .frame(width: 100, height: 100)
-                     .foregroundStyle(Color.myLightGray)
-                     Image(systemName: "photo.badge.plus.fill")
-                     .resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .frame(width: 30)
-                     .offset(x: 35, y: 35)
-                     .foregroundStyle(.gray)                            }
-                     Image(systemName: "photo.badge.plus.fill")
-                     .resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .frame(width: 30)
-                     .offset(x: 35, y: 35)
-                     .foregroundStyle(.black)
-                     //.resizable()
-                     //.frame(width: 100, height: 100)
-                     //.clipShape(Circle())
-                     }
-                     }*/
-                else {
-                    Button(action: {
-                        profileviewModel.isImagePickerPresented.toggle()
-                    }) {
-                        ZStack {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .foregroundStyle(Color.myLightGray)
                             Image(systemName: "photo.badge.plus.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 30)
                                 .offset(x: 35, y: 35)
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.black)
                         }
-                    }
+                    }.padding()
                 }
-            }.padding()
-                .sheet(isPresented: $profileviewModel.isImagePickerPresented) {
-                    ImagePicker(image: $profileviewModel.profileImage,  isPresented:$profileviewModel.isImagePickerPresented) }
-            VStack {
-                HStack{
-                    Text("닉네임")
-                        .padding(.leading)
-                        .fontWeight(.semibold)
-                        .padding(.horizontal, 15)
+                
+                /* if let imageUrl = profileviewModel.user.profileImageUrl, let url = URL(string: imageUrl) {
+                 Button(action: {
+                 profileviewModel.isImagePickerPresented.toggle()
+                 }) {
+                 ZStack {                                    AsyncImage(url: url) { image in
+                 image
+                 .resizable()
+                 .circularImage(size: 100)
+                 //.padding(.top)
+                 //.padding(.leading)
+                 //.clipShape(Circle())
+                 } placeholder: {
+                 Image(systemName: "person.circle.fill")
+                 .resizable()
+                 .frame(width: 100, height: 100)
+                 .foregroundStyle(Color.myLightGray)
+                 Image(systemName: "photo.badge.plus.fill")
+                 .resizable()
+                 .aspectRatio(contentMode: .fit)
+                 .frame(width: 30)
+                 .offset(x: 35, y: 35)
+                 .foregroundStyle(.gray)                            }
+                 Image(systemName: "photo.badge.plus.fill")
+                 .resizable()
+                 .aspectRatio(contentMode: .fit)
+                 .frame(width: 30)
+                 .offset(x: 35, y: 35)
+                 .foregroundStyle(.black)
+                 //.resizable()
+                 //.frame(width: 100, height: 100)
+                 //.clipShape(Circle())
+                 }
+                 }*/
+                else {
+                    Button(action: {
+                        profileviewModel.isImagePickerPresented.toggle()
+                    }) {
+                        ZStack {
+                            
+                            if let imageUrl = profileviewModel.user.profileImageUrl, let url = URL(string: imageUrl)
+                                
+                            { AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .circularImage(size: 100)
+                                //.padding(.top)
+                                //.padding(.leading)
+                                    .clipShape(Circle())
+                            } placeholder: {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                                    .frame(width: 100, height: 100)
+                                    .foregroundStyle(Color.myLightGray)
+                                Image(systemName: "photo.badge.plus.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 30)
+                                    .offset(x: 35, y: 35)
+                                .foregroundStyle(.gray)                            }
+                                Image(systemName: "photo.badge.plus.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 30)
+                                    .offset(x: 35, y: 35)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+                    }.padding()
+                        .sheet(isPresented: $profileviewModel.isImagePickerPresented) {
+                            ImagePicker(image: $profileviewModel.profileImage,  isPresented:$profileviewModel.isImagePickerPresented) .onDisappear {
+                                if profileviewModel.profileImage != nil {
+                                    // 선택된 이미지가 있을 때 프로필 사진 업데이트
+                                    profileviewModel.profileImage = profileviewModel.profileImage
+                                }
+                            }}
+                }
+                
+                VStack {
+                    HStack{
+                        Text("닉네임")
+                            .padding(.leading)
+                            .fontWeight(.semibold)
+                            .padding(.horizontal, 15)
+                        
+                        Spacer()
+                    }
                     
-                    Spacer()
+                    TextField(profileviewModel.user.nickname, text: $profileviewModel.nickname).customTextFieldStyle(height: 50)
+                        .onAppear {
+                            UITextField.appearance().clearButtonMode = .whileEditing
+                        }
+                        .padding(.horizontal, 20)
                 }
-                
-                TextField(profileviewModel.user.nickname, text: $profileviewModel.user.nickname).customTextFieldStyle(height: 50)
-                    .onAppear {
-                        UITextField.appearance().clearButtonMode = .whileEditing
-                    }
-                    .padding(.horizontal, 20)
             }
+            Spacer()
+            
         }
-                Spacer()
-                
-            }
-        }
- 
+        
+    }
+}

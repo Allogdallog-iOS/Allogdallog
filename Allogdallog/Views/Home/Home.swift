@@ -101,6 +101,7 @@ struct Home: View {
                 MyPage()
                 Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
+                Logout()
                 Spacer()
             }
             .tabItem {

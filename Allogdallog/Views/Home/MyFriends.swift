@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MyFriends: View {
     @EnvironmentObject private var viewModel: HomeViewModel
+    @EnvironmentObject private var profileViewModel: ProfileViewModel
+
     //@EnvironmentObject var viewModel.user.selectedUser: SelectedUserId
     //@State private var selectedUser: String?
 
