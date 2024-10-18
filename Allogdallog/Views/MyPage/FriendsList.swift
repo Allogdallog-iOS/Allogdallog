@@ -57,16 +57,45 @@ struct FriendsList: View {
                             HStack {
                                 if let url = URL(string: request.fromUserImgUrl) {
                                     AsyncImage(url: url) { image in
-                                        image
-                                            .resizable()
-                                            .circularImage(size: 50)
+                                        ZStack {
+                                            // 원형 배경을 만들기
+                                            Circle()
+                                                .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                .foregroundColor(Color.clear) // 투명한 배경
+                                            
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                        }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     } placeholder: {
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                        ZStack {
+                                            // 원형 배경을 만들기
+                                            Circle()
+                                                .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                .foregroundColor(Color.clear) // 투명한 배경
+                                            
+                                            Image(systemName: "person.crop.circle.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                        }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     }
                                 } else {
-                                    Image(systemName: "person.circle")
-                                        .circularImage(size: 50)
+                                    ZStack {
+                                        // 원형 배경을 만들기
+                                        Circle()
+                                            .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                            .foregroundColor(Color.clear) // 투명한 배경
+                                        
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
+                                    }.frame(width: 50, height: 50)
                                 }
                                 
                                 VStack(alignment: .leading) {
@@ -112,16 +141,55 @@ struct FriendsList: View {
                             HStack{
                                 if let imageUrl = friend.profileImageUrl, let url = URL(string: imageUrl) {
                                     AsyncImage(url: url) { image in
-                                        image
-                                            .resizable()
-                                            .circularImage(size: 50)
+                                        ZStack {
+                                            // 원형 배경을 만들기
+                                            Circle()
+                                                .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                .foregroundColor(Color.clear) // 투명한 배경
+                                            
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                        }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     } placeholder: {
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                        ZStack {
+                                            // 원형 배경을 만들기
+                                            Circle()
+                                                .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                .foregroundColor(Color.clear) // 투명한 배경
+                                            
+                                            Image(systemName: "person.crop.circle.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(Color.black)
+                                                        .frame(width: 50, height: 50)
+                                                )
+                                        }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     }
                                 } else {
-                                    Image(systemName: "person.circle")
-                                        .circularImage(size: 50)
+                                    ZStack {
+                                        // 원형 배경을 만들기
+                                        Circle()
+                                            .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                            .foregroundColor(Color.clear) // 투명한 배경
+                                        
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.black)
+                                                    .frame(width: 50, height: 50)
+                                            )
+                                    }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                 }
                                 
                                 Text(friend.nickname)

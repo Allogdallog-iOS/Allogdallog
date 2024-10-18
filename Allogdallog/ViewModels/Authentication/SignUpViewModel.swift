@@ -30,7 +30,7 @@ class SignUpViewModel: ObservableObject {
             return
         }
         
-        let defaultProfileImage = UIImage(systemName: "person.circle.fill")!.withTintColor(.myLightGray, renderingMode: .alwaysOriginal)
+        let defaultProfileImage = UIImage(systemName: "person.crop.circle.fill")!.withTintColor(.myLightGray, renderingMode: .alwaysOriginal)
         let resizedProfileImage = resizeImage(image: defaultProfileImage, targetSize: CGSize(width: 200, height: 200))
         let profileImageToUpload = profileImage ?? resizedProfileImage
         

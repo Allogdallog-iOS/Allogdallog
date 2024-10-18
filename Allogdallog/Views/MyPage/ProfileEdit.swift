@@ -110,17 +110,33 @@ struct ProfileEdit: View {
                             if let imageUrl = profileviewModel.user.profileImageUrl, let url = URL(string: imageUrl)
                                 
                             { AsyncImage(url: url) { image in
-                                image
-                                    .resizable()
-                                    .circularImage(size: 100)
-                                //.padding(.top)
-                                //.padding(.leading)
-                                    .clipShape(Circle())
+                                ZStack {
+                                    // 원형 배경을 만들기
+                                    Circle()
+                                        .frame(width: 100, height: 100) // 최종적으로 보여줄 크기
+                                        .foregroundColor(Color.clear) // 투명한 배경
+                                    
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 110, height: 110)
+                                        .clipShape(Circle()).mask(Circle().frame(width: 100, height: 100)) // 50x50 영역만 보여주도록 마스크 적용
+                                }.frame(width: 100, height: 100)
                             } placeholder: {
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
-                                    .frame(width: 100, height: 100)
-                                    .foregroundStyle(Color.myLightGray)
+                                ZStack {
+                                    // 원형 배경을 만들기
+                                    Circle()
+                                        .frame(width: 100, height: 100) // 최종적으로 보여줄 크기
+                                        .foregroundColor(Color.clear) // 투명한 배경
+                                    
+                                    Image(systemName: "person.circle.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 110, height: 110)
+                                        .clipShape(Circle()).mask(Circle().frame(width: 100, height: 100)) // 50x50 영역만 보여주도록 마스크 적용
+                                        .foregroundStyle(Color.myLightGray)
+                                }.frame(width: 100, height: 100)
+                                
                                 Image(systemName: "photo.badge.plus.fill")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

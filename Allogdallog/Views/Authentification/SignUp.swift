@@ -36,7 +36,7 @@ struct SignUp: View {
                     viewModel.isImagePickerPresented.toggle()
                 }) {
                     ZStack {
-                        Image(systemName: "person.circle.fill")
+                        Image(systemName: "person.crop.circle.fill")
                             .resizable()
                             .frame(width: 100, height: 100)
                             .foregroundStyle(Color.myLightGray)

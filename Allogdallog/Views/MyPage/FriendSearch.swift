@@ -65,23 +65,41 @@ struct FriendSearch: View {
                                 AsyncImage(url: url) { phase in
                                     switch phase {
                                     case .empty:
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                            Image(systemName: "person.crop.circle.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .foregroundColor(Color(UIColor.systemGray4))
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     case .success(let image):
                                         image
                                             .resizable()
-                                            .circularImage(size: 50)
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     case .failure:
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .foregroundColor(Color(UIColor.systemGray4))
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     @unknown default:
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .foregroundColor(Color(UIColor.systemGray4))
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     }
                                 }
                             } else {
-                                Image(systemName: "person.circle")
-                                    .circularImage(size: 50)
+                                Image(systemName: "person.crop.circle.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color(UIColor.systemGray4))
+                                    .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                             }
                             
                             VStack(alignment: .leading) {
