@@ -15,6 +15,7 @@ struct MyFriends: View {
     //@State private var selectedUser: String?
 
     var body: some View {
+        
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {

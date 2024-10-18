@@ -33,6 +33,7 @@ class ProfileViewModel: ObservableObject {
     init(user: User) {
         self.user = user
         self.nickname = user.nickname
+        self.fetchFriendsData()
     }
     
     
@@ -98,7 +99,7 @@ class ProfileViewModel: ObservableObject {
                  self?.saveProfileToFirestore(user: updatedUser)*/
                 
                 // 사용자 정보 업데이트
-                //existingUser.nickname = self.nickname
+                existingUser.nickname = self.nickname
                 existingUser.profileImageUrl = url.absoluteString
                 self.saveProfileToFirestore(user: existingUser)
                 
@@ -113,13 +114,109 @@ class ProfileViewModel: ObservableObject {
                         // 수정 완료 후 User 객체도 업데이트
                         self.user = existingUser
                         // 추가: UserDefaults 또는 별도의 모델을 통해 닉네임을 저장
-                        self.nickname = self.nickname // 최신 닉네임 반영
+                        self.user.nickname = self.nickname // 최신 닉네임 반영
                         self.signUpComplete = true
+                       
+                        // 프로필 업데이트가 성공적으로 완료되면 모든 사용자들의 친구 목록에서 닉네임을 업데이트
+                        self.updateFriendNicknameForAllUsers(friendId: self.user.id, newNickname: self.nickname)
                     }
                 }
                 
                 
             }
+        }
+    }
+    
+        func updateFriendNickname(friendId: String, newNickname: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            
+        
+        let userRef = db.collection("users").document(uid)
+           
+            // 친구 배열에서 해당 친구의 닉네임 업데이트
+        if let index = friends.firstIndex(where: { $0.id == friendId }) {
+                    friends[index].nickname = newNickname // 뷰 갱신을 위해 friends 배열 업데이트
+                }
+            
+        userRef.updateData([
+            "friends": FieldValue.arrayRemove([Friend(id: friendId, nickname: "", profileImageUrl: "").toDictionary()]),
+            "friends": FieldValue.arrayUnion([Friend(id: friendId, nickname: newNickname, profileImageUrl: "").toDictionary()])
+        ]) { error in
+            if let error = error {
+                print("Error updating nickname: \(error.localizedDescription)")
+            } else {
+                print("닉네임 업데이트 성공!")
+                self.fetchFriendsData() // 업데이트 후 실시간 데이터 다시 불러오기
+            }
+        }
+    }
+    
+    func updateFriendNicknameForAllUsers(friendId: String, newNickname: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        // Firestore에서 "users" 컬렉션에 있는 모든 문서를 가져옴
+        db.collection("users").getDocuments { [weak self] snapshot, error in
+            guard let self = self, let documents = snapshot?.documents, error == nil else {
+                print("Error fetching users: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            let batch = self.db.batch() // Batch 시작
+
+            for document in documents {
+                let userId = document.documentID
+                let friendsData = document.get("friends") as? [[String: Any]] ?? []
+
+                // 해당 유저의 friends 필드에서 업데이트할 친구가 있는지 확인
+                var updatedFriends = friendsData.compactMap { friendDict -> [String: Any]? in
+                    var friend = friendDict
+                    if let id = friend["id"] as? String, id == friendId {
+                        // 닉네임 업데이트
+                        friend["nickname"] = newNickname
+                    }
+                    return friend
+                }
+                
+                // 만약 업데이트할 내용이 있으면 해당 문서의 friends 필드를 업데이트
+                if !updatedFriends.isEmpty {
+                    let userRef = self.db.collection("users").document(userId)
+                    batch.updateData(["friends": updatedFriends], forDocument: userRef)
+                }
+            }
+            
+            // Batch 커밋
+            batch.commit { error in
+                if let error = error {
+                    print("Error updating friends' nicknames: \(error.localizedDescription)")
+                } else {
+                    print("닉네임 업데이트 성공!")
+                }
+            }
+        }
+    }
+    
+        func fetchFriendsData() {
+            
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        db.collection("users").document(uid).addSnapshotListener { [weak self] documentSnapshot, error in
+            guard let self = self else { return }
+            if let error = error {
+                print("Error fetching friends: \(error.localizedDescription)")
+                return
+            }
+
+            guard let document = documentSnapshot, document.exists, let data = document.data() else {
+                print("Document does not exist")
+                return
+            }
+
+            let friendsData = data["friends"] as? [[String: Any]] ?? []
+            let updatedFriends = friendsData.compactMap { Friend(dictionary: $0) }
+            
+            // 친구 목록 업데이트 (뷰 자동 갱신)
+            self.friends = updatedFriends
         }
     }
         
