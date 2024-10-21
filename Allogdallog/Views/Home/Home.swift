@@ -109,6 +109,7 @@ struct Home: View {
                 Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
                 Logout()
+                DeleteAccount()
                 Spacer()
             }
             .tabItem {
