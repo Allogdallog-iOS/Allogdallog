@@ -10,12 +10,10 @@ import SwiftUI
 struct MyFriends: View {
     @EnvironmentObject private var viewModel: HomeViewModel
     @EnvironmentObject private var profileViewModel: ProfileViewModel
-
     //@EnvironmentObject var viewModel.user.selectedUser: SelectedUserId
     //@State private var selectedUser: String?
-
+    
     var body: some View {
-        
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
@@ -50,7 +48,7 @@ struct MyFriends: View {
                                                             .frame(width: 50, height: 50)
                                                     )
                                             }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
-                                            }
+                                        }
                                     case .success(let image):
                                         ZStack {
                                             Circle()
@@ -122,7 +120,7 @@ struct MyFriends: View {
                                                             .frame(width: 50, height: 50)
                                                     )
                                             }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
-                                            }
+                                        }
                                     }
                                 }
                             } else {
@@ -148,7 +146,7 @@ struct MyFriends: View {
                                                     .frame(width: 50, height: 50)
                                             )
                                     }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
-                                    }
+                                }
                             }
                             
                             Text("\(viewModel.user.nickname)")
@@ -303,4 +301,3 @@ struct MyFriends: View {
         }
     }
 }
-

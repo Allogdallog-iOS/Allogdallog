@@ -18,12 +18,12 @@ class HomeViewModel: ObservableObject {
     @Published var isImagePickerPresented: Bool = false
     @Published var todayPost: Post
     @Published var todayImage: UIImage? = nil
-    @Published var selectedColor: Color = Color.red
+    @Published var selectedColor: Color = Color.gray
     @Published var errorMessage: String? = nil
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
     @Published var friendImage: UIImage? = nil
-    @Published var friendSelectedColor: Color = Color.red
+    @Published var friendSelectedColor: Color = Color.gray
     @Published var postButtonsDisabled: Bool = false
     @Published var myComment: String = ""
     //@Published var postUploaded: Bool = false
