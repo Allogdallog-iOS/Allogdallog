@@ -81,6 +81,7 @@
 		975FE8B12CB5127D007637CF /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8B02CB5127D007637CF /* Logout.swift */; };
 		97AD00512CC3A985007DB5EB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD00502CC3A962007DB5EB /* LoadingView.swift */; };
 		97AD00532CC3BEF3007DB5EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */; };
+		97AD005B2CC6A0F0007DB5EB /* DeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		975FE8B02CB5127D007637CF /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		97AD00502CC3A962007DB5EB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			children = (
 				35D259AC2C3D35620052127B /* SignIn.swift */,
 				35D259F42C3D3ECF0052127B /* SignUp.swift */,
+				97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */,
 			);
 			path = Authentification;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,
 				35A511AD2C65DEE400DA8668 /* MyFriends.swift in Sources */,
+				97AD005B2CC6A0F0007DB5EB /* DeleteAccount.swift in Sources */,
 				35D259AD2C3D35620052127B /* SignIn.swift in Sources */,
 				35A511912C5B604100DA8668 /* FriendsList.swift in Sources */,
 				35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */,
