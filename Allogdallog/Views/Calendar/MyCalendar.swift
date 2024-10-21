@@ -13,6 +13,7 @@ struct MyCalendar: View {
     @StateObject private var viewModel: MyCalendarViewModel
     @State private var clickedCurrentDate: Date?
     @State private var isPopUpOpen: Bool = false
+    @State private var isLoading = true
     
     init(selectedUserId: String) {
         _viewModel = StateObject(wrappedValue: MyCalendarViewModel(selectedUserId: selectedUserId))
@@ -20,45 +21,56 @@ struct MyCalendar: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                headerView
-                calendarGridView
-            }
-            .padding(.horizontal, 15)
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        viewModel.offset = gesture.translation
-                    }
-                    .onEnded { gesture in
-                        if gesture.translation.width < -50 {
-                            viewModel.changeMonth(by: 1)
-                        } else if gesture.translation.width > 50 {
-                            viewModel.changeMonth(by: -1)
-                        }
-                        viewModel.offset = CGSize()
-                    }
-            )
-            .onChange(of: homeViewModel.user.selectedUser) {
-                viewModel.selectedUserId = homeViewModel.user.selectedUser
-                viewModel.fetchPostForMonth(viewModel.month)
-            }
-            Color.black.opacity(isPopUpOpen ? 0.3 : 0)
-                .ignoresSafeArea(edges: .all)
-                .onTapGesture {
-                    isPopUpOpen.toggle()
+                   if isLoading {
+                       // 로딩 중일 때는 LoadingView를 표시
+                       LoadingView()
+                   } else {
+                       // 로딩이 끝났을 때 홈뷰 내용 표시
+                       ZStack {
+                           VStack {
+                               headerView
+                               calendarGridView
+                           }
+                           .padding(.horizontal, 15)
+                           .gesture(
+                            DragGesture()
+                                .onChanged { gesture in
+                                    viewModel.offset = gesture.translation
+                                }
+                                .onEnded { gesture in
+                                    if gesture.translation.width < -50 {
+                                        viewModel.changeMonth(by: 1)
+                                    } else if gesture.translation.width > 50 {
+                                        viewModel.changeMonth(by: -1)
+                                    }
+                                    viewModel.offset = CGSize()
+                                }
+                           )
+                           .onChange(of: homeViewModel.user.selectedUser) {
+                               viewModel.selectedUserId = homeViewModel.user.selectedUser
+                               viewModel.fetchPostForMonth(viewModel.month)
+                           }
+                           Color.black.opacity(isPopUpOpen ? 0.3 : 0)
+                               .ignoresSafeArea(edges: .all)
+                               .onTapGesture {
+                                   isPopUpOpen.toggle()
+                               }
+                           
+                           if isPopUpOpen {
+                               DateClickPopUp()
+                                   .transition(.scale)
+                                   .background(Color.white)
+                                   .frame(width: 250, height: 350.0)
+                                   .clipShape(RoundedRectangle(cornerRadius: 10))
+                                   .shadow(radius: 10)
+                                   .zIndex(1.0)
+                           }
+                       }
+                   }
+        }.onAppear {
+            // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
+            loadData()
                 }
-            
-            if isPopUpOpen {
-                DateClickPopUp()
-                    .transition(.scale)
-                    .background(Color.white)
-                    .frame(width: 250, height: 350.0)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .shadow(radius: 10)
-                    .zIndex(1.0)
-            }
-        }
     }
     
     private var headerView: some View {
@@ -267,6 +279,16 @@ struct MyCalendar: View {
      }
      .overlay(Rectangle().stroke(.black))
      */
+
+    
+    // 로딩 데이터를 처리하는 함수
+    func loadData() {
+        // 로딩 작업 시작 (네트워크 작업, 데이터 처리 등)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
+            isLoading = false
+        }
+    }
 }
 
 
