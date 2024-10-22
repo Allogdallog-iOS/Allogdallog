@@ -28,6 +28,7 @@ struct MyFriends: View {
                                     case.empty:
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
                                                 .blur(radius: 2)
@@ -52,6 +53,7 @@ struct MyFriends: View {
                                     case .success(let image):
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
                                                 .blur(radius: 2)
@@ -76,6 +78,7 @@ struct MyFriends: View {
                                     case .failure:
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
                                                 .blur(radius: 2)
@@ -100,6 +103,7 @@ struct MyFriends: View {
                                     @unknown default:
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
                                                 .blur(radius: 2)
@@ -126,6 +130,7 @@ struct MyFriends: View {
                             } else {
                                 ZStack {
                                     Circle()
+                                        .stroke(lineWidth: 2)
                                         .frame(width: 54, height: 54)
                                         .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
                                         .blur(radius: 2)
@@ -167,6 +172,7 @@ struct MyFriends: View {
                                         case.empty:
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
                                                     .blur(radius: 2)
@@ -191,6 +197,7 @@ struct MyFriends: View {
                                         case .success(let image):
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
                                                     .blur(radius: 2)
@@ -215,6 +222,7 @@ struct MyFriends: View {
                                         case .failure:
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
                                                     .blur(radius: 2)
@@ -239,6 +247,7 @@ struct MyFriends: View {
                                         @unknown default:
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
                                                     .blur(radius: 2)
@@ -265,6 +274,7 @@ struct MyFriends: View {
                                 } else {
                                     ZStack {
                                         Circle()
+                                            .stroke(lineWidth: 2)
                                             .frame(width: 54, height: 54)
                                             .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
                                             .blur(radius: 2)

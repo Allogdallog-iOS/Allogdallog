@@ -30,7 +30,7 @@ struct MyDailyRecord: View {
                         HStack {
                             Circle()
                                 .frame(width: 50, height: 50)
-                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : .gray)
+                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : viewModel.selectedColor)
                                 .blur(radius: 5)
                         }
                         .frame(height: 200)
@@ -83,8 +83,7 @@ struct MyDailyRecord: View {
                             .foregroundStyle(.black)
                         Spacer()
                         HStack(alignment: .center) {
-                            
-                            Text(viewModel.user.postUploaded ? viewModel.todayPost.todayText : "")
+                            Text(viewModel.user.postUploaded ? viewModel.todayPost.todayText : "😊")
                                 .font(.system(size: 50))
                         }
                         .frame(height: 200)
