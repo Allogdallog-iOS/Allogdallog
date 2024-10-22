@@ -15,6 +15,7 @@ struct Home: View {
     @StateObject private var calendarViewModel: MyCalendarViewModel
     @State private var index = 0
     @State private var path = NavigationPath()
+    @State private var isLoading = true  // 로딩 상태 변수
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(user: user))
@@ -22,6 +23,12 @@ struct Home: View {
     }
     
     var body: some View {
+        ZStack {
+                   if isLoading {
+                       // 로딩 중일 때는 LoadingView를 표시
+                       LoadingView()
+                   } else {
+                       // 로딩이 끝났을 때 홈뷰 내용 표시
         TabView(selection: $index) {
             VStack {
                 HStack {
@@ -101,6 +108,8 @@ struct Home: View {
                 MyPage()
                 Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
+                Logout()
+                DeleteAccount()
                 Spacer()
             }
             .tabItem {
@@ -113,3 +122,23 @@ struct Home: View {
         .navigationBarBackButtonHidden()
     }
 }
+        .onAppear {
+                    // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
+                    loadData()
+                }
+            }
+            
+            // 로딩 데이터를 처리하는 함수
+            func loadData() {
+                // 로딩 작업 시작 (네트워크 작업, 데이터 처리 등)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
+                    isLoading = false
+                }
+            }
+        }
+
+
+
+
+

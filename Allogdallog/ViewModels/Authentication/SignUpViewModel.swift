@@ -30,7 +30,7 @@ class SignUpViewModel: ObservableObject {
             return
         }
         
-        let defaultProfileImage = UIImage(systemName: "person.circle.fill")!.withTintColor(.myLightGray, renderingMode: .alwaysOriginal)
+        let defaultProfileImage = UIImage(systemName: "person.crop.circle.fill")!.withTintColor(.myLightGray, renderingMode: .alwaysOriginal)
         let resizedProfileImage = resizeImage(image: defaultProfileImage, targetSize: CGSize(width: 200, height: 200))
         let profileImageToUpload = profileImage ?? resizedProfileImage
         
@@ -48,7 +48,7 @@ class SignUpViewModel: ObservableObject {
                     self?.errorMessage = "프로필 이미지 등록에 실패하였습니다"
                     return
                 }
-            
+                
                 let user = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString, friends: [], postUploaded: false, selectedUser: uid)
                 self?.saveUserToFirestore(user: user)
                 
@@ -67,6 +67,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+    
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         let resizedImage = renderer.image { _ in
@@ -80,18 +81,18 @@ class SignUpViewModel: ObservableObject {
             completion(nil)
             return
         }
-            
+        
         let storageRef = Storage.storage().reference().child("profile_images").child(uid)
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-            
+        
         storageRef.putData(imageData, metadata: metadata) { metadata, error in
-                if let error = error {
-                    print("Failed to upload image: \(error)")
-                    completion(nil)
-                    return
-                }
-                
+            if let error = error {
+                print("Failed to upload image: \(error)")
+                completion(nil)
+                return
+            }
+            
             storageRef.downloadURL { url, error in
                 if let error = error {
                     print("Failed to retrieve download URL: \(error)")

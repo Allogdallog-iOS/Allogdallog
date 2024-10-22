@@ -25,7 +25,7 @@ class HomeViewModel: ObservableObject {
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
     @Published var friendImage: UIImage? = nil
-    @Published var friendSelectedColor: Color = Color.red
+    @Published var friendSelectedColor: Color = Color.gray
     @Published var postButtonsDisabled: Bool = false
     @Published var myComment: String = ""
     @Published var isColorPaletteOpen: Bool = false

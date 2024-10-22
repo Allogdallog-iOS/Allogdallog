@@ -10,6 +10,7 @@ import SwiftUI
 struct MyDailyRecord: View {
     
     @EnvironmentObject private var viewModel: HomeViewModel
+    //@State private var isLoading = true // 로딩 상태 변수
     
     var body: some View {
         NavigationLink(destination: MyDailyRecordDetail().environmentObject(viewModel), label: {
@@ -18,6 +19,7 @@ struct MyDailyRecord: View {
                     .instrumentSansItalic(type:.bold, size: 30)
                     .foregroundStyle(.black)
                     .padding()
+                
                 HStack() {
                     Spacer()
                     VStack(alignment: .center) {

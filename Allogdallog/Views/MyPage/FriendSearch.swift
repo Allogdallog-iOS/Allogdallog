@@ -30,16 +30,32 @@ struct FriendSearch: View {
             
             TextField("닉네임을 입력해보세요!", text: $viewModel.searchText, onCommit: {
                 viewModel.searchFriends()
-            })
+            }).onAppear {
+                UITextField.appearance().clearButtonMode = .whileEditing
+            }
             .customTextFieldStyle(height: 40)
             .padding()
             
-            VStack (alignment: .center) {
-                Text("친구의 닉네임을 검색하여 알록달록 친구로 추가해보세요.").frame(width: 230)
-                    .fontWeight(.ultraLight)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 5)
-            }
+            
+            VStack {
+                    Text("친구의 닉네임을 검색하여")
+                        .fontWeight(.ultraLight)
+                        //.padding(.horizontal, 15)
+                        //.padding(.vertical, 5)
+                        .frame(maxWidth: .infinity,
+                               //maxHeight: .infinity,
+                               alignment: .center)
+                        
+                    Text("알록달록 친구로 추가해보세요.")
+                        .fontWeight(.ultraLight)
+                        //.padding(.horizontal, 15)
+                        //.padding(.vertical, 5)
+                        .frame(maxWidth: .infinity,
+                               //maxHeight: .infinity,
+                               alignment: .center)
+                        
+                }
+            //Spacer()
             
             ScrollView {
                 LazyVStack {
@@ -49,23 +65,41 @@ struct FriendSearch: View {
                                 AsyncImage(url: url) { phase in
                                     switch phase {
                                     case .empty:
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                            Image(systemName: "person.crop.circle.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .foregroundColor(Color(UIColor.systemGray4))
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     case .success(let image):
                                         image
                                             .resizable()
-                                            .circularImage(size: 50)
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     case .failure:
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .foregroundColor(Color(UIColor.systemGray4))
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     @unknown default:
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .foregroundColor(Color(UIColor.systemGray4))
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     }
                                 }
                             } else {
-                                Image(systemName: "person.circle")
-                                    .circularImage(size: 50)
+                                Image(systemName: "person.crop.circle.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color(UIColor.systemGray4))
+                                    .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                             }
                             
                             VStack(alignment: .leading) {

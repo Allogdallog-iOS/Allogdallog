@@ -9,9 +9,10 @@ import SwiftUI
 
 struct MyFriends: View {
     @EnvironmentObject private var viewModel: HomeViewModel
+    @EnvironmentObject private var profileViewModel: ProfileViewModel
     //@EnvironmentObject var viewModel.user.selectedUser: SelectedUserId
     //@State private var selectedUser: String?
-
+    
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -30,8 +31,24 @@ struct MyFriends: View {
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                            Image(systemName: "person.circle")
-                                                .circularImage(size: 50)
+                                                .blur(radius: 2)
+                                            ZStack {
+                                                // 원형 배경을 만들기
+                                                Circle()
+                                                    .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                    .foregroundColor(Color.clear) // 투명한 배경
+                                                
+                                                Image(systemName: "person.crop.circle.fill")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                    .overlay(
+                                                        Circle()
+                                                            .stroke(Color.black)
+                                                            .frame(width: 50, height: 50)
+                                                    )
+                                            }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                         }
                                     case .success(let image):
                                         ZStack {
@@ -39,9 +56,24 @@ struct MyFriends: View {
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                            image
-                                                .resizable()
-                                                .circularImage(size: 50)
+                                                .blur(radius: 2)
+                                            ZStack {
+                                                // 원형 배경을 만들기
+                                                Circle()
+                                                    .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                    .foregroundColor(Color.clear) // 투명한 배경
+                                                
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                    .overlay(
+                                                        Circle()
+                                                            .stroke(Color.black)
+                                                            .frame(width: 50, height: 50)
+                                                    )
+                                            }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                         }
                                     case .failure:
                                         ZStack {
@@ -49,8 +81,24 @@ struct MyFriends: View {
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                            Image(systemName: "person.circle")
-                                                .circularImage(size: 50)
+                                                .blur(radius: 2)
+                                            ZStack {
+                                                // 원형 배경을 만들기
+                                                Circle()
+                                                    .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                    .foregroundColor(Color.clear) // 투명한 배경
+                                                
+                                                Image(systemName: "person.crop.circle.fill")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                    .overlay(
+                                                        Circle()
+                                                            .stroke(Color.black)
+                                                            .frame(width: 50, height: 50)
+                                                    )
+                                            }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                         }
                                     @unknown default:
                                         ZStack {
@@ -58,8 +106,24 @@ struct MyFriends: View {
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                            Image(systemName: "person.circle")
-                                                .circularImage(size: 50)
+                                                .blur(radius: 2)
+                                            ZStack {
+                                                // 원형 배경을 만들기
+                                                Circle()
+                                                    .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                    .foregroundColor(Color.clear) // 투명한 배경
+                                                
+                                                Image(systemName: "person.crop.circle.fill")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                    .overlay(
+                                                        Circle()
+                                                            .stroke(Color.black)
+                                                            .frame(width: 50, height: 50)
+                                                    )
+                                            }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                         }
                                     }
                                 }
@@ -69,8 +133,24 @@ struct MyFriends: View {
                                         .stroke(lineWidth: 2)
                                         .frame(width: 54, height: 54)
                                         .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                    Image(systemName: "person.circle")
-                                        .circularImage(size: 50)
+                                        .blur(radius: 2)
+                                    ZStack {
+                                        // 원형 배경을 만들기
+                                        Circle()
+                                            .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                            .foregroundColor(Color.clear) // 투명한 배경
+                                        
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.black)
+                                                    .frame(width: 50, height: 50)
+                                            )
+                                    }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                 }
                             }
                             
@@ -95,8 +175,24 @@ struct MyFriends: View {
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                Image(systemName: "person.circle")
-                                                    .circularImage(size: 50)
+                                                    .blur(radius: 2)
+                                                ZStack {
+                                                    // 원형 배경을 만들기
+                                                    Circle()
+                                                        .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                        .foregroundColor(Color.clear) // 투명한 배경
+                                                    
+                                                    Image(systemName: "person.crop.circle.fill")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 60, height: 60)
+                                                        .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                        .overlay(
+                                                            Circle()
+                                                                .stroke(Color.black)
+                                                                .frame(width: 50, height: 50)
+                                                        )
+                                                }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                             }
                                         case .success(let image):
                                             ZStack {
@@ -104,9 +200,24 @@ struct MyFriends: View {
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                image
-                                                    .resizable()
-                                                    .circularImage(size: 50)
+                                                    .blur(radius: 2)
+                                                ZStack {
+                                                    // 원형 배경을 만들기
+                                                    Circle()
+                                                        .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                        .foregroundColor(Color.clear) // 투명한 배경
+                                                    
+                                                    image
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 60, height: 60)
+                                                        .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                        .overlay(
+                                                            Circle()
+                                                                .stroke(Color.black)
+                                                                .frame(width: 50, height: 50)
+                                                        )
+                                                }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                             }
                                         case .failure:
                                             ZStack {
@@ -114,8 +225,24 @@ struct MyFriends: View {
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                Image(systemName: "person.circle")
-                                                    .circularImage(size: 50)
+                                                    .blur(radius: 2)
+                                                ZStack {
+                                                    // 원형 배경을 만들기
+                                                    Circle()
+                                                        .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                        .foregroundColor(Color.clear) // 투명한 배경
+                                                    
+                                                    Image(systemName: "person.crop.circle.fill")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 60, height: 60)
+                                                        .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                        .overlay(
+                                                            Circle()
+                                                                .stroke(Color.black)
+                                                                .frame(width: 50, height: 50)
+                                                        )
+                                                }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                             }
                                         @unknown default:
                                             ZStack {
@@ -123,8 +250,24 @@ struct MyFriends: View {
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                Image(systemName: "person.circle")
-                                                    .circularImage(size: 50)
+                                                    .blur(radius: 2)
+                                                ZStack {
+                                                    // 원형 배경을 만들기
+                                                    Circle()
+                                                        .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                        .foregroundColor(Color.clear) // 투명한 배경
+                                                    
+                                                    Image(systemName: "person.crop.circle.fill")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 60, height: 60)
+                                                        .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                        .overlay(
+                                                            Circle()
+                                                                .stroke(Color.black)
+                                                                .frame(width: 50, height: 50)
+                                                        )
+                                                }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                             }
                                         }
                                     }
@@ -134,8 +277,24 @@ struct MyFriends: View {
                                             .stroke(lineWidth: 2)
                                             .frame(width: 54, height: 54)
                                             .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 50)
+                                            .blur(radius: 2)
+                                        ZStack {
+                                            // 원형 배경을 만들기
+                                            Circle()
+                                                .frame(width: 50, height: 50) // 최종적으로 보여줄 크기
+                                                .foregroundColor(Color.clear) // 투명한 배경
+                                            
+                                            Image(systemName: "person.crop.circle.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(Color.black)
+                                                        .frame(width: 50, height: 50)
+                                                )
+                                        }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     }
                                 }
                                 
@@ -152,4 +311,3 @@ struct MyFriends: View {
         }
     }
 }
-
