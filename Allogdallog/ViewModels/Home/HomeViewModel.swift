@@ -18,7 +18,9 @@ class HomeViewModel: ObservableObject {
     @Published var isImagePickerPresented: Bool = false
     @Published var todayPost: Post
     @Published var todayImage: UIImage? = nil
-    @Published var selectedColor: Color = Color.red
+    @Published var selectedColor: Color = Color.blue
+    @Published var selectedKeyword: String = "Joy"
+    @Published var selectedEmoji: String = "😊"
     @Published var errorMessage: String? = nil
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
@@ -26,7 +28,21 @@ class HomeViewModel: ObservableObject {
     @Published var friendSelectedColor: Color = Color.red
     @Published var postButtonsDisabled: Bool = false
     @Published var myComment: String = ""
-    //@Published var postUploaded: Bool = false
+    @Published var isColorPaletteOpen: Bool = false
+    @Published var isEmojiPaletteOpen: Bool = false
+    @Published var paletteKeys: [String] = ["Joy", "Calm", "Sadness", "My"]
+    @Published var colorPalettes: [String: [Color]] = [
+        "Joy": [.yellow, .orange, .pink, .green, .mint],
+        "Calm": [.blue, .teal, .purple, .brown],
+        "Sadness": [.black, .gray, .blue, .indigo],
+        "My": []
+    ]
+    @Published var emojiPalettes: [String: [String]] = [
+        "Joy": ["😊","😀", "😄", "😆", "😝"],
+        "Calm": ["🙂", "😐", "🙃", "🫠", "😴"],
+        "Sadness": ["🥲", "😭", "😱", "🤕", "😵‍💫"],
+        "My": []
+    ]
     
     private var db = Firestore.firestore()
     
@@ -34,6 +50,8 @@ class HomeViewModel: ObservableObject {
         self.user = user
         self.todayPost = Post()
         self.friendPost = Post()
+        self.colorPalettes["My"] = self.user.myColors.map { Color(hex: $0) }
+        self.emojiPalettes["My"] = self.user.myEmojis
         fetchPost()
     }
     
@@ -110,20 +128,26 @@ class HomeViewModel: ObservableObject {
     }
     
     func uploadPost() {
-        self.postButtonsDisabled = true
+        
+        self.todayPost.todayDate = Date()
+        self.todayPost.todayColor = selectedColor.toHextString()
+        self.todayPost.todayText = selectedEmoji
         
         guard let currentUserId = Auth.auth().currentUser?.uid else {
             print("No current user logged in")
             return
         }
         
-        self.todayPost.todayDate = Date()
-        self.todayPost.todayColor = selectedColor.toHextString()
+        print("todayImg: \(self.todayImage == nil)")
+        print("todayText: \(self.todayPost.todayText)")
+        print("todayColor: \(self.todayPost.todayColor)")
         
         guard self.todayImage != nil, !self.todayPost.todayText.isEmpty, !self.todayPost.todayColor.isEmpty else {
             errorMessage = "모든 항목을 기입해주세요"
             return
         }
+        
+        self.postButtonsDisabled = true
         
         let todayPostId = UUID().uuidString
         
@@ -136,6 +160,8 @@ class HomeViewModel: ObservableObject {
                 self.errorMessage = "이미지 등록에 실패했습니다."
                 return
             }
+            
+            self.todayPost.todayImgUrl = url.absoluteString
             
             if self.user.postUploaded {
                 userPostRef.updateData([
@@ -238,6 +264,36 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func addMyNewColor(color: String) {
+        let userRef =  self.db.collection("users").document(self.user.id)
+        
+        if !self.user.myColors.contains(color) {
+            self.colorPalettes["My"]?.append(Color(hex:color))
+            self.user.myColors.append(color)
+                
+            userRef.updateData([
+                "myColors": self.user.myColors
+            ])
+        } else {
+            print("이미 있는 색상입니다.")
+        }
+    }
+    
+    func addMyNewEmoji(emoji: String) {
+        let userRef =  self.db.collection("users").document(self.user.id)
+        
+        if !self.user.myEmojis.contains(emoji) {
+            self.emojiPalettes["My"]?.append(emoji)
+            self.user.myEmojis.append(emoji)
+            
+            userRef.updateData([
+                "myEmojis": self.user.myEmojis
+            ])
+        } else {
+            print("이미 있는 이모지입니다.")
+        }
+    }
+    
     func isEqualWithSelectedId() -> Bool {
         if self.user.selectedUser == self.user.id {
             return true
@@ -312,6 +368,12 @@ extension Color {
         let green = Int(components[1] * 255.0)
         let blue = Int(components[2] * 255.0)
         return String(format: "#%02X%02X%02X", red, green, blue)
+    }
+}
+
+extension Character {
+    var isEmoji: Bool {
+        return unicodeScalars.first?.properties.isEmojiPresentation ?? false
     }
 }
 

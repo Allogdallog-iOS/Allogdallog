@@ -27,70 +27,50 @@ struct MyFriends: View {
                                     case.empty:
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                                .blur(radius: 2)
                                             Image(systemName: "person.circle")
                                                 .circularImage(size: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.black)
-                                                )
                                         }
                                     case .success(let image):
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                                .blur(radius: 2)
                                             image
                                                 .resizable()
                                                 .circularImage(size: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.black)
-                                                )
                                         }
                                     case .failure:
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                                .blur(radius: 2)
                                             Image(systemName: "person.circle")
                                                 .circularImage(size: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.black)
-                                                )
                                         }
                                     @unknown default:
                                         ZStack {
                                             Circle()
+                                                .stroke(lineWidth: 2)
                                                 .frame(width: 54, height: 54)
                                                 .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                                .blur(radius: 2)
                                             Image(systemName: "person.circle")
                                                 .circularImage(size: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.black)
-                                                )
                                         }
                                     }
                                 }
                             } else {
                                 ZStack {
                                     Circle()
+                                        .stroke(lineWidth: 2)
                                         .frame(width: 54, height: 54)
                                         .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
-                                        .blur(radius: 2)
                                     Image(systemName: "person.circle")
                                         .circularImage(size: 50)
-                                        .overlay(
-                                            Circle()
-                                                .stroke(Color.black)
-                                        )
                                 }
                             }
                             
@@ -112,70 +92,50 @@ struct MyFriends: View {
                                         case.empty:
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                    .blur(radius: 2)
                                                 Image(systemName: "person.circle")
                                                     .circularImage(size: 50)
-                                                    .overlay(
-                                                        Circle()
-                                                            .stroke(.black)
-                                                    )
                                             }
                                         case .success(let image):
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                    .blur(radius: 2)
                                                 image
                                                     .resizable()
                                                     .circularImage(size: 50)
-                                                    .overlay(
-                                                        Circle()
-                                                            .stroke(.black)
-                                                    )
                                             }
                                         case .failure:
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                    .blur(radius: 2)
                                                 Image(systemName: "person.circle")
                                                     .circularImage(size: 50)
-                                                    .overlay(
-                                                        Circle()
-                                                            .stroke(.black)
-                                                    )
                                             }
                                         @unknown default:
                                             ZStack {
                                                 Circle()
+                                                    .stroke(lineWidth: 2)
                                                     .frame(width: 54, height: 54)
                                                     .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                                    .blur(radius: 2)
                                                 Image(systemName: "person.circle")
                                                     .circularImage(size: 50)
-                                                    .overlay(
-                                                        Circle()
-                                                            .stroke(.black)
-                                                    )
                                             }
                                         }
                                     }
                                 } else {
                                     ZStack {
                                         Circle()
+                                            .stroke(lineWidth: 2)
                                             .frame(width: 54, height: 54)
                                             .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
-                                            .blur(radius: 2)
                                         Image(systemName: "person.circle")
                                             .circularImage(size: 50)
-                                            .overlay(
-                                                Circle()
-                                                    .stroke(.black)
-                                            )
                                     }
                                 }
                                 

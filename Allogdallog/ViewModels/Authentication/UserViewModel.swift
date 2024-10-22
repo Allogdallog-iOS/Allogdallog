@@ -18,6 +18,8 @@ class UserViewModel: ObservableObject {
                 let profileImageUrl = data?["profileImageUrl"] as? String ?? ""
                 let postUploaded = data?["postUploaded"] as? Bool ?? false
                 let selectedUser = data?["selectedUser"] as? String ?? ""
+                let myColors = data?["myColors"] as? [String] ?? []
+                let myEmojis = data?["myEmojis"] as? [String] ?? []
                 
                 let friends = (data?["friends"] as? [[String: Any]] ?? []).compactMap { friendData in
                     Friend(id: friendData["id"] as? String ?? "",
@@ -42,6 +44,7 @@ class UserViewModel: ObservableObject {
                     fromUserNick: requestData["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: requestData["fromUserImgUrl"] as? String ?? "")
                 }
+        
                 
                 self.user = User (
                     id: id,
@@ -52,7 +55,10 @@ class UserViewModel: ObservableObject {
                     sentRequests: sentRequests,
                     receivedRequests: receivedRequests,
                     postUploaded: postUploaded,
-                    selectedUser: selectedUser
+                    selectedUser: selectedUser,
+                    myColors: myColors,
+                    myEmojis: myEmojis
+                    
                 )
                 
             } else {

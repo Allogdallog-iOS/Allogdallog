@@ -123,15 +123,6 @@ struct MyCalendar: View {
                         CellView(date: prevMonthdate, day: day ,post: postForDate, isCurrentMonthDay: false, isPopUpOpen: $isPopUpOpen)
                     }
                 }
-                /*
-                .onTapGesture {
-                    if 0 <= index && index < daysInMonth {
-                        let date = viewModel.getDate(for: index)
-                        clickedCurrentDate = date
-                        viewModel.clickedPost = viewModel.postForDate(for: date)
-                    }
-                }
-                 */
             }
         }
     }
@@ -181,9 +172,10 @@ struct MyCalendar: View {
                     }) {
                         ZStack {
                             Circle()
+                                //.stroke(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray, lineWidth: 2)
                                 .frame(width: 41, height: 41)
                                 .foregroundStyle(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray)
-                                .blur(radius: 10)
+                                .blur(radius: 3)
                             if let url = URL(string: post.todayImgUrl) {
                                 AsyncImage(url: url) { image in
                                     image.resizable().circularImage(size: 39)
@@ -216,57 +208,6 @@ struct MyCalendar: View {
             }
         }
     }
-    
-    /*Type1
-     VStack {
-         ZStack {
-             Image("TestImage")
-                 .resizable()
-                 .aspectRatio(contentMode: .fill)
-                 .frame(height: 35)
-                 .clipShape(Circle())
-                 .mask(
-                     RadialGradient(gradient: Gradient(colors: [Color.black, Color.clear]), center: .center, startRadius: 100, endRadius: 150)
-                 )
-                 .padding(2)
-                 .overlay(Circle().stroke(randomColor, lineWidth: 2).blur(radius: 0.3))
-             Text("👍")
-                 .offset(x: 15, y: -15)
-         }
-         if clicked {
-             Text("Click")
-                 .font(.caption)
-                 .foregroundStyle(.red)
-         }
-     }
-     .frame(height: 70)
-     */
-    
-    /*Type2
-     VStack {
-         ZStack {
-             Rectangle()
-                 .fill(
-                     LinearGradient(colors: [randomColor, Color.white], startPoint: .bottom, endPoint: .top)
-                 )
-                 .frame(height: 70)
-             Image("TestImage")
-                 .resizable()
-                 .aspectRatio(contentMode: .fill)
-                 .frame(height: 30)
-                 .clipShape(Circle())
-                 .overlay(Circle().stroke(.black))
-             Text("👍")
-                 .offset(x: 15, y: -15)
-         }
-         if clicked {
-             Text("Click")
-                 .font(.caption)
-                 .foregroundStyle(.red)
-         }
-     }
-     .overlay(Rectangle().stroke(.black))
-     */
 }
 
 

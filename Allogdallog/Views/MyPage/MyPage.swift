@@ -37,7 +37,7 @@ struct MyPage: View {
                 
             }
             Divider()
-            /* Button(action: {
+            Button(action: {
                 viewModel.signOut()
             }) {
                 Text("로그아웃")
@@ -46,7 +46,7 @@ struct MyPage: View {
             }
             .navigationDestination(isPresented: $viewModel.isSignedOut) {
                 SignIn()
-            } */
+            } 
         }
     }
 }
