@@ -135,15 +135,6 @@ struct MyCalendar: View {
                         CellView(date: prevMonthdate, day: day ,post: postForDate, isCurrentMonthDay: false, isPopUpOpen: $isPopUpOpen)
                     }
                 }
-                /*
-                .onTapGesture {
-                    if 0 <= index && index < daysInMonth {
-                        let date = viewModel.getDate(for: index)
-                        clickedCurrentDate = date
-                        viewModel.clickedPost = viewModel.postForDate(for: date)
-                    }
-                }
-                 */
             }
         }
     }
@@ -193,9 +184,10 @@ struct MyCalendar: View {
                     }) {
                         ZStack {
                             Circle()
+                                //.stroke(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray, lineWidth: 2)
                                 .frame(width: 41, height: 41)
                                 .foregroundStyle(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray)
-                                .blur(radius: 10)
+                                .blur(radius: 3)
                             if let url = URL(string: post.todayImgUrl) {
                                 AsyncImage(url: url) { image in
                                     image.resizable().circularImage(size: 39)

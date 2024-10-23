@@ -43,6 +43,8 @@
 		3501B2582CB0347600314C0F /* InstrumentSerifModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2572CB0347600314C0F /* InstrumentSerifModifier.swift */; };
 		3501B25A2CB516D300314C0F /* DateClickPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B2592CB516D300314C0F /* DateClickPopUp.swift */; };
 		3501B25C2CB7EE9500314C0F /* MyDailyRecordDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */; };
+		3501B25E2CBE7F4C00314C0F /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B25D2CBE7F4C00314C0F /* ColorPalette.swift */; };
+		3501B2602CC08E3200314C0F /* EmojiPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501B25F2CC08E3200314C0F /* EmojiPalette.swift */; };
 		353367112C215919003C561C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 353367102C215919003C561C /* GoogleService-Info.plist */; };
 		353C5F642C92875900CDD111 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F632C92875900CDD111 /* Home.swift */; };
 		353C5F662C92891F00CDD111 /* FriendComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C5F652C92891F00CDD111 /* FriendComments.swift */; };
@@ -99,6 +101,8 @@
 		3501B2572CB0347600314C0F /* InstrumentSerifModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentSerifModifier.swift; sourceTree = "<group>"; };
 		3501B2592CB516D300314C0F /* DateClickPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateClickPopUp.swift; sourceTree = "<group>"; };
 		3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDailyRecordDetail.swift; sourceTree = "<group>"; };
+		3501B25D2CBE7F4C00314C0F /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		3501B25F2CC08E3200314C0F /* EmojiPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPalette.swift; sourceTree = "<group>"; };
 		353367102C215919003C561C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		353C5F632C92875900CDD111 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		353C5F652C92891F00CDD111 /* FriendComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendComments.swift; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
 				353C5F652C92891F00CDD111 /* FriendComments.swift */,
 				3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */,
+				3501B25D2CBE7F4C00314C0F /* ColorPalette.swift */,
+				3501B25F2CC08E3200314C0F /* EmojiPalette.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -339,7 +345,6 @@
 				975FE89E2C9C984A007637CF /* Profile.swift */,
 				975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */,
 				35A511902C5B604100DA8668 /* FriendsList.swift */,
-				975FE8B02CB5127D007637CF /* Logout.swift */,
 				35A511992C6493B800DA8668 /* FriendSearch.swift */,
 				975FE8A82C9CE899007637CF /* Notification.swift */,
 			);
@@ -495,11 +500,13 @@
 				353C5F682C92F62E00CDD111 /* Comment.swift in Sources */,
 				35A5119C2C64A11400DA8668 /* CustomTextModifier.swift in Sources */,
 				3585377D2C20216100D65E23 /* MyPage.swift in Sources */,
+				3501B25E2CBE7F4C00314C0F /* ColorPalette.swift in Sources */,
 				3501B2542CB020CB00314C0F /* InstrumentSansItalicModifier.swift in Sources */,
 				975FE8A92C9CE899007637CF /* Notification.swift in Sources */,
 				3501B2502CB0202800314C0F /* InstrumentSansItalic.swift in Sources */,
 				35A5119E2C64ABAA00DA8668 /* FriendSearchViewModel.swift in Sources */,
 				35A5118F2C5A314B00DA8668 /* WeeklyRecord.swift in Sources */,
+				3501B2602CC08E3200314C0F /* EmojiPalette.swift in Sources */,
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
 				35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */,
@@ -521,7 +528,6 @@
 				35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */,
 				3501B2582CB0347600314C0F /* InstrumentSerifModifier.swift in Sources */,
 				35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */,
-				975FE8B12CB5127D007637CF /* Logout.swift in Sources */,
 				35A511B72C786E0400DA8668 /* HomeViewModel.swift in Sources */,
 				975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */,
 				353C5F642C92875900CDD111 /* Home.swift in Sources */,
