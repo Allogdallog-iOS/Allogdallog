@@ -49,6 +49,7 @@ struct Profile: View {
                                 Image(systemName: "person.crop.circle.fill")
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
+                                    .foregroundStyle(Color.myLightGray)
                                     .frame(width: 80, height: 80)
                                     .clipShape(Circle()).mask(Circle().frame(width: 70, height: 70)) // 50x50 영역만 보여주도록 마스크 적용
                             }.frame(width: 70, height: 70) // 최종적으로 ZStack의 크기 조정
@@ -65,6 +66,7 @@ struct Profile: View {
                             Image(systemName: "person.crop.circle.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
+                                .foregroundStyle(Color.myLightGray)
                                 .frame(width: 80, height: 80)
                                 .clipShape(Circle()).mask(Circle().frame(width: 70, height: 70)) // 50x50 영역만 보여주도록 마스크 적용
                                 .padding(.top)

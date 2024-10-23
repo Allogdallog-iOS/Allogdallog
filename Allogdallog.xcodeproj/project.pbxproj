@@ -80,10 +80,10 @@
 		975FE8A12C9CADFF007637CF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A02C9CADFF007637CF /* ProfileViewModel.swift */; };
 		975FE8A92C9CE899007637CF /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8A82C9CE899007637CF /* Notification.swift */; };
 		975FE8AD2C9D0E4C007637CF /* ProfileEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */; };
-		975FE8B12CB5127D007637CF /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE8B02CB5127D007637CF /* Logout.swift */; };
 		97AD00512CC3A985007DB5EB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD00502CC3A962007DB5EB /* LoadingView.swift */; };
 		97AD00532CC3BEF3007DB5EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */; };
 		97AD005B2CC6A0F0007DB5EB /* DeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */; };
+		97AD005D2CC945D4007DB5EB /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005C2CC945D4007DB5EB /* Logout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,10 +140,10 @@
 		975FE8A02C9CADFF007637CF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		975FE8A82C9CE899007637CF /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEdit.swift; sourceTree = "<group>"; };
-		975FE8B02CB5127D007637CF /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		97AD00502CC3A962007DB5EB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccount.swift; sourceTree = "<group>"; };
+		97AD005C2CC945D4007DB5EB /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +341,7 @@
 		35A511AB2C65DE8400DA8668 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				97AD005C2CC945D4007DB5EB /* Logout.swift */,
 				3585377C2C20216100D65E23 /* MyPage.swift */,
 				975FE89E2C9C984A007637CF /* Profile.swift */,
 				975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */,
@@ -519,6 +520,7 @@
 				3501B2562CB033EA00314C0F /* InstrumentSerif.swift in Sources */,
 				3501B25C2CB7EE9500314C0F /* MyDailyRecordDetail.swift in Sources */,
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
+				97AD005D2CC945D4007DB5EB /* Logout.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,
 				35A511AD2C65DEE400DA8668 /* MyFriends.swift in Sources */,
