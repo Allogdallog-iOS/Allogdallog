@@ -40,6 +40,7 @@ struct MyFriends: View {
                                                 Image(systemName: "person.crop.circle.fill")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
+                                                    .foregroundStyle(Color.myLightGray)
                                                     .frame(width: 60, height: 60)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
@@ -88,6 +89,7 @@ struct MyFriends: View {
                                                 Image(systemName: "person.crop.circle.fill")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
+                                                    .foregroundStyle(Color.myLightGray)
                                                     .frame(width: 60, height: 60)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
@@ -112,6 +114,7 @@ struct MyFriends: View {
                                                 Image(systemName: "person.crop.circle.fill")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
+                                                    .foregroundStyle(Color.myLightGray)
                                                     .frame(width: 60, height: 60)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
@@ -138,6 +141,7 @@ struct MyFriends: View {
                                         Image(systemName: "person.crop.circle.fill")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
+                                            .foregroundStyle(Color.myLightGray)
                                             .frame(width: 60, height: 60)
                                             .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                             .overlay(
@@ -179,6 +183,7 @@ struct MyFriends: View {
                                                     Image(systemName: "person.crop.circle.fill")
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
+                                                        .foregroundStyle(Color.myLightGray)
                                                         .frame(width: 60, height: 60)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
@@ -203,6 +208,7 @@ struct MyFriends: View {
                                                     image
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
+                                                        .foregroundStyle(Color.myLightGray)
                                                         .frame(width: 60, height: 60)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
@@ -227,6 +233,7 @@ struct MyFriends: View {
                                                     Image(systemName: "person.crop.circle.fill")
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
+                                                        .foregroundStyle(Color.myLightGray)
                                                         .frame(width: 60, height: 60)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
@@ -251,6 +258,7 @@ struct MyFriends: View {
                                                     Image(systemName: "person.crop.circle.fill")
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
+                                                        .foregroundStyle(Color.myLightGray)
                                                         .frame(width: 60, height: 60)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
@@ -277,6 +285,7 @@ struct MyFriends: View {
                                             Image(systemName: "person.crop.circle.fill")
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fill)
+                                                .foregroundStyle(Color.myLightGray)
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                 .overlay(

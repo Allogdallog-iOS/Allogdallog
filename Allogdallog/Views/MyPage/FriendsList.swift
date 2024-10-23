@@ -79,6 +79,7 @@ struct FriendsList: View {
                                             Image(systemName: "person.crop.circle.fill")
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fill)
+                                                .foregroundStyle(Color.myLightGray)
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                         }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
@@ -93,6 +94,7 @@ struct FriendsList: View {
                                         Image(systemName: "person.crop.circle.fill")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
+                                            .foregroundStyle(Color.myLightGray)
                                             .frame(width: 60, height: 60)
                                             .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
                                     }.frame(width: 50, height: 50)
@@ -163,13 +165,9 @@ struct FriendsList: View {
                                             Image(systemName: "person.crop.circle.fill")
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fill)
+                                                .foregroundStyle(Color.myLightGray)
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.black)
-                                                        .frame(width: 50, height: 50)
-                                                )
                                         }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     }
                                 } else {
@@ -182,13 +180,10 @@ struct FriendsList: View {
                                         Image(systemName: "person.crop.circle.fill")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
+                                            .foregroundStyle(Color.myLightGray)
                                             .frame(width: 60, height: 60)
                                             .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
-                                            .overlay(
-                                                Circle()
-                                                    .stroke(Color.black)
-                                                    .frame(width: 50, height: 50)
-                                            )
+                                        
                                     }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                 }
                                 
