@@ -30,12 +30,22 @@ struct FriendSearch: View {
             
             TextField("닉네임을 입력해보세요!", text: $viewModel.searchText, onCommit: {
                 viewModel.searchFriends()
-            }).onAppear {
+            })
+            .padding(.leading, 30)  // 아이콘과 텍스트 사이 여백
+            .customTextFieldStyle(height: 40)
+            .overlay(
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)  // 왼쪽 정렬
+                        .padding(.leading, 8)
+                }
+            )
+            .onAppear {
                 UITextField.appearance().clearButtonMode = .whileEditing
             }
-            .customTextFieldStyle(height: 40)
             .padding()
-            
+
             
             VStack {
                     Text("친구의 닉네임을 검색하여")

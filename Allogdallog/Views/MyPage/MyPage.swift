@@ -37,16 +37,7 @@ struct MyPage: View {
                 
             }
             Divider()
-            Button(action: {
-                viewModel.signOut()
-            }) {
-                Text("로그아웃")
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-            }
-            .navigationDestination(isPresented: $viewModel.isSignedOut) {
-                SignIn()
-            } 
+            
         }
     }
 }
