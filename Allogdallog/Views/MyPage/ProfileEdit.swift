@@ -33,7 +33,14 @@ struct ProfileEdit: View {
                 Spacer()
                 
                 Button(action: {
-                    profileviewModel.editProfileUpload()})
+                    profileviewModel.editProfileUpload{ success in
+                        if success {
+                            dismiss() // 프로필 수정이 완료된 후 창을 닫음
+                        } else {
+                            print("프로필 수정 실패")
+                        }
+                    }
+                })
                 {
                     Image(systemName: "checkmark")
                         .frame(width: 25, height: 25)
@@ -154,11 +161,11 @@ struct ProfileEdit: View {
                     }.padding()
                         .sheet(isPresented: $profileviewModel.isImagePickerPresented) {
                             ImagePicker(image: $profileviewModel.profileImage,  isPresented:$profileviewModel.isImagePickerPresented) .onDisappear {
-                                if profileviewModel.profileImage != nil {
-                                    // 선택된 이미지가 있을 때 프로필 사진 업데이트
-                                    profileviewModel.profileImage = profileviewModel.profileImage
+                                if profileviewModel.profileImage == nil {
+                                    profileviewModel.profileImage = nil
                                 }
-                            }}
+                            }
+                        }
                 }
                 
                 VStack {
@@ -181,6 +188,8 @@ struct ProfileEdit: View {
             Spacer()
             
         }
-        
+        .onAppear{
+            profileviewModel.fetchUserData()
+        }
     }
 }
