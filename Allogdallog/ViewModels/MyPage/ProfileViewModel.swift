@@ -37,13 +37,15 @@ class ProfileViewModel: ObservableObject {
     }
     
     
-    func editProfileUpload() {
+    func editProfileUpload(completion: @escaping (Bool) -> Void) {
         guard !nickname.isEmpty else {
             print("Nickname cannot be empty")
+            completion(false)
             return
         }
         guard let uid = Auth.auth().currentUser?.uid, !uid.isEmpty else {
             print("User ID is empty or invalid.")
+            completion(false)
             return
         }
         // 현재 사용자의 UID 가져오기
@@ -60,24 +62,25 @@ class ProfileViewModel: ObservableObject {
         db.collection("users").document(uid).getDocument { [weak self] document, error in
             guard let self = self, error == nil, let document = document, document.exists else {
                 self?.errorMessage = "사용자 정보를 찾을 수 없습니다."
+                completion(false)
                 return
             }
             
             // Firestore에서 불러온 데이터를 Friend 객체로 변환
-                let friendsData = document.get("friends") as? [[String: Any]] ?? []
-                let friends = friendsData.compactMap { Friend(dictionary: $0) }
-                
-                let sentRequestsData = document.get("sentRequests") as? [[String: Any]] ?? []
-                let sentRequests = sentRequestsData.compactMap { FriendRequest(dictionary: $0) }
-                
-                let receivedRequestsData = document.get("receivedRequests") as? [[String: Any]] ?? []
-                let receivedRequests = receivedRequestsData.compactMap { FriendRequest(dictionary: $0) }
+            let friendsData = document.get("friends") as? [[String: Any]] ?? []
+            let friends = friendsData.compactMap { Friend(dictionary: $0) }
+            
+            let sentRequestsData = document.get("sentRequests") as? [[String: Any]] ?? []
+            let sentRequests = sentRequestsData.compactMap { FriendRequest(dictionary: $0) }
+            
+            let receivedRequestsData = document.get("receivedRequests") as? [[String: Any]] ?? []
+            let receivedRequests = receivedRequestsData.compactMap { FriendRequest(dictionary: $0) }
             
             var existingUser = User(
                 id: uid,
                 email: document.get("email") as? String ?? "",
                 nickname: self.nickname, // 닉네임을 여기에서 업데이트
-                    //document.get("nickname") as? String ?? "",
+                //document.get("nickname") as? String ?? "",
                 profileImageUrl: document.get("profileImageUrl") as? String ?? "",
                 friends: friends, // 변환된 Friend 배열
                 sentRequests: sentRequests, // 변환된 FriendRequest 배열
@@ -86,43 +89,54 @@ class ProfileViewModel: ObservableObject {
                 selectedUser: document.get("selectedUser") as? String ?? uid
             )
             
-            
-            self.editProfile(uid: uid, image: profileImageToUpload) { [weak self] url in
-                guard let self = self else { return }
-                guard let url = url else {
-                    self.errorMessage = "프로필 이미지 등록에 실패하였습니다"
-                    return
-                }
-                
-                // Firestore에 사용자 정보 저장
-                /* let updatedUser = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString, friends: [], postUploaded: false, selectedUser: uid)
-                 self?.saveProfileToFirestore(user: updatedUser)*/
-                
-                // 사용자 정보 업데이트
-                existingUser.nickname = self.nickname
-                existingUser.profileImageUrl = url.absoluteString
+            if self.profileImage == nil {
+                // 이미지를 선택하지 않은 경우 기존 이미지 URL 유지
                 self.saveProfileToFirestore(user: existingUser)
+                completion(true) // 성공
+            } else {
                 
-                // Firebase Auth 프로필 업데이트
-                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                changeRequest?.displayName = self.nickname
-                changeRequest?.photoURL = url
-                changeRequest?.commitChanges() { error in
-                    if let error = error {
-                        self.errorMessage = error.localizedDescription
-                    } else {
-                        // 수정 완료 후 User 객체도 업데이트
-                        self.user = existingUser
-                        // 추가: UserDefaults 또는 별도의 모델을 통해 닉네임을 저장
-                        self.user.nickname = self.nickname // 최신 닉네임 반영
-                        self.signUpComplete = true
-                       
-                        // 프로필 업데이트가 성공적으로 완료되면 모든 사용자들의 친구 목록에서 닉네임을 업데이트
-                        self.updateFriendNicknameForAllUsers(friendId: self.user.id, newNickname: self.nickname)
+                self.editProfile(uid: uid, image: profileImageToUpload) { [weak self] url in
+                    guard let self = self else { return }
+                    guard let url = url else {
+                        self.errorMessage = "프로필 이미지 등록에 실패하였습니다"
+                        completion(false)
+                        return
                     }
+                    
+                    // Firestore에 사용자 정보 저장
+                    /* let updatedUser = User(id: uid, email: self?.email ?? "", nickname: self?.nickname ?? "", profileImageUrl: url.absoluteString, friends: [], postUploaded: false, selectedUser: uid)
+                     self?.saveProfileToFirestore(user: updatedUser)*/
+                    
+                    // 사용자 정보 업데이트
+                    existingUser.nickname = self.nickname
+                    existingUser.profileImageUrl = url.absoluteString
+                    
+                    self.saveProfileToFirestore(user: existingUser)
+                    
+                    // Firebase Auth 프로필 업데이트
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = self.nickname
+                    changeRequest?.photoURL = url
+                    changeRequest?.commitChanges() { error in
+                        if let error = error {
+                            self.errorMessage = error.localizedDescription
+                            completion(false) // 실패
+                        } else {
+                            // 수정 완료 후 User 객체도 업데이트
+                            self.user = existingUser
+                            // 추가: UserDefaults 또는 별도의 모델을 통해 닉네임을 저장
+                            self.user.nickname = self.nickname // 최신 닉네임 반영
+                            self.signUpComplete = true
+                            self.updateFriendNicknameForAllUsers(friendId: self.user.id, newNickname: self.nickname)
+                            self.fetchUserData()
+                            // 프로필 업데이트가 성공적으로 완료되면 모든 사용자들의 친구 목록에서 닉네임을 업데이트
+                            completion(true) // 성공
+                            
+                        }
+                    }
+                    
+                    
                 }
-                
-                
             }
         }
     }
@@ -196,6 +210,11 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
+    func updateUserProfile(_ updatedUser: User) {
+            // 현재 사용자 정보를 업데이트
+            self.user = updatedUser
+        }
+    
         func fetchFriendsData() {
             
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -219,6 +238,29 @@ class ProfileViewModel: ObservableObject {
             self.friends = updatedFriends
         }
     }
+    
+    func fetchUserData() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("users").document(uid).getDocument { [weak self] document, error in
+            guard let self = self else { return }
+            if let error = error {
+                print("Error fetching user data: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("Document does not exist")
+                return
+            }
+            
+            // 사용자 정보를 업데이트
+            self.user.nickname = document.get("nickname") as? String ?? ""
+            self.user.profileImageUrl = document.get("profileImageUrl") as? String ?? ""
+
+        }
+    }
+
         
         private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
             let renderer = UIGraphicsImageRenderer(size: targetSize)

@@ -111,7 +111,7 @@ struct Home: View {
                 Logout()
                 DeleteAccount()
                 Spacer()
-            }
+            }.environmentObject(viewModel)
             .tabItem {
                 Label("마이페이지", systemImage: "person.fill")
             }

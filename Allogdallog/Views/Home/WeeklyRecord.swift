@@ -16,6 +16,32 @@ struct WeeklyRecord: View {
             Text("This Week")
                 .instrumentSansItalic(type: .semiBold, size: 17)
                 .padding(.bottom, 10)
+                .frame(maxWidth: .infinity,
+                       alignment: .center)
+            
+            if viewModel.weekPosts.isEmpty {
+                // 주간 기록이 없을 때
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.black)
+                            .frame(width: 340, height: 95)
+                        VStack(alignment: .center) {
+                        Text("이번 주에는 아직 기록을 남기지 않았어요.")
+                            .instrumentSerif(type: .regular, size: 16)
+                            .foregroundStyle(.gray)
+                            .frame(maxWidth: .infinity,
+                                   alignment: .center)
+                            //.padding()
+                        Text("오늘의 기록을 남겨볼까요?")
+                            .instrumentSerif(type: .regular, size: 16)
+                            .foregroundStyle(.gray)
+                            .frame(maxWidth: .infinity,
+                                   alignment: .center)
+                    }
+                }
+                
+            } else {
+                           
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(viewModel.weekPosts.indices, id: \.self) { index in
@@ -68,6 +94,7 @@ struct WeeklyRecord: View {
                             .offset(y:(index % 2 == 0 ? -5 : 5))
                         }
                     }
+                }
                 }
             }
         }
