@@ -105,11 +105,10 @@ struct Home: View {
             }
             .tag(2)
             VStack {
-                MyPage()
+                MyPage(user: viewModel.user)
                 Profile(user:viewModel.user)
                 FriendsList(user: viewModel.user)
                 Logout()
-                DeleteAccount()
                 Spacer()
             }.environmentObject(viewModel)
             .tabItem {

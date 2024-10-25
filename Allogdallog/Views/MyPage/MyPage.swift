@@ -10,10 +10,12 @@ import SwiftUI
 struct MyPage: View {
     
     @StateObject var viewModel: MyPageViewModel
+    @StateObject private var profileviewModel: ProfileViewModel
     
-    init() {
+    init(user: User) {
         _viewModel = StateObject(wrappedValue: MyPageViewModel())
-    }
+        _profileviewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+        }
     
     var body: some View {
         VStack {
@@ -25,6 +27,14 @@ struct MyPage: View {
                     .padding(.vertical, 5)
                 
                 Spacer()
+                
+                NavigationLink(destination: Setting(viewModel: profileviewModel)) { Image(systemName: "gearshape")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(.black)
+                        .padding(.vertical, 5)
+                }
                 
                 NavigationLink(destination: Notification()) { Image(systemName: "bell")
                         .resizable()
@@ -41,3 +51,4 @@ struct MyPage: View {
         }
     }
 }
+

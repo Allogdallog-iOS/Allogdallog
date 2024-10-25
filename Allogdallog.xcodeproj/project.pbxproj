@@ -84,6 +84,8 @@
 		97AD00532CC3BEF3007DB5EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */; };
 		97AD005B2CC6A0F0007DB5EB /* DeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */; };
 		97AD005D2CC945D4007DB5EB /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005C2CC945D4007DB5EB /* Logout.swift */; };
+		97AD005F2CCB861E007DB5EB /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005E2CCB861E007DB5EB /* Setting.swift */; };
+		97AD00612CCB9821007DB5EB /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD00602CCB9821007DB5EB /* AccountSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +146,8 @@
 		97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccount.swift; sourceTree = "<group>"; };
 		97AD005C2CC945D4007DB5EB /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
+		97AD005E2CCB861E007DB5EB /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		97AD00602CCB9821007DB5EB /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +352,8 @@
 				35A511902C5B604100DA8668 /* FriendsList.swift */,
 				35A511992C6493B800DA8668 /* FriendSearch.swift */,
 				975FE8A82C9CE899007637CF /* Notification.swift */,
+				97AD005E2CCB861E007DB5EB /* Setting.swift */,
+				97AD00602CCB9821007DB5EB /* AccountSettings.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -498,10 +504,12 @@
 				975FE8AD2C9D0E4C007637CF /* ProfileEdit.swift in Sources */,
 				353C5F662C92891F00CDD111 /* FriendComments.swift in Sources */,
 				97AD00512CC3A985007DB5EB /* LoadingView.swift in Sources */,
+				97AD005F2CCB861E007DB5EB /* Setting.swift in Sources */,
 				353C5F682C92F62E00CDD111 /* Comment.swift in Sources */,
 				35A5119C2C64A11400DA8668 /* CustomTextModifier.swift in Sources */,
 				3585377D2C20216100D65E23 /* MyPage.swift in Sources */,
 				3501B25E2CBE7F4C00314C0F /* ColorPalette.swift in Sources */,
+				97AD00612CCB9821007DB5EB /* AccountSettings.swift in Sources */,
 				3501B2542CB020CB00314C0F /* InstrumentSansItalicModifier.swift in Sources */,
 				975FE8A92C9CE899007637CF /* Notification.swift in Sources */,
 				3501B2502CB0202800314C0F /* InstrumentSansItalic.swift in Sources */,
