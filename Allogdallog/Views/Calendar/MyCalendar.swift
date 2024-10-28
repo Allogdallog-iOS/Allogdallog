@@ -11,66 +11,70 @@ struct MyCalendar: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject private var viewModel: MyCalendarViewModel
+    @EnvironmentObject var tabSelection: TabSelectionManager
     @State private var clickedCurrentDate: Date?
     @State private var isPopUpOpen: Bool = false
     @State private var isLoading = true
     
-    init(selectedUserId: String) {
-        _viewModel = StateObject(wrappedValue: MyCalendarViewModel(selectedUserId: selectedUserId))
+    init(user: User) {
+        _viewModel = StateObject(wrappedValue: MyCalendarViewModel(user: user))
     }
     
     var body: some View {
         ZStack {
-                   if isLoading {
-                       // 로딩 중일 때는 LoadingView를 표시
-                       LoadingView()
-                   } else {
-                       // 로딩이 끝났을 때 홈뷰 내용 표시
-                       ZStack {
-                           VStack {
-                               headerView
-                               calendarGridView
-                           }
-                           .padding(.horizontal, 15)
-                           .gesture(
-                            DragGesture()
-                                .onChanged { gesture in
-                                    viewModel.offset = gesture.translation
-                                }
-                                .onEnded { gesture in
-                                    if gesture.translation.width < -50 {
-                                        viewModel.changeMonth(by: 1)
-                                    } else if gesture.translation.width > 50 {
-                                        viewModel.changeMonth(by: -1)
-                                    }
-                                    viewModel.offset = CGSize()
-                                }
-                           )
-                           .onChange(of: homeViewModel.user.selectedUser) {
-                               viewModel.selectedUserId = homeViewModel.user.selectedUser
-                               viewModel.fetchPostForMonth(viewModel.month)
-                           }
-                           Color.black.opacity(isPopUpOpen ? 0.3 : 0)
-                               .ignoresSafeArea(edges: .all)
-                               .onTapGesture {
-                                   isPopUpOpen.toggle()
-                               }
-                           
-                           if isPopUpOpen {
-                               DateClickPopUp()
-                                   .transition(.scale)
-                                   .background(Color.white)
-                                   .frame(width: 250, height: 350.0)
-                                   .clipShape(RoundedRectangle(cornerRadius: 10))
-                                   .shadow(radius: 10)
-                                   .zIndex(1.0)
-                           }
-                       }
-                   }
+            if isLoading {
+                // 로딩 중일 때는 LoadingView를 표시
+                LoadingView()
+            } else {
+                // 로딩이 끝났을 때 홈뷰 내용 표시
+                ZStack {
+                    VStack {
+                        Spacer()
+                        headerView
+                        ScrollView {
+                            calendarGridView
+                        }
+                        Spacer()
+                    }
+                    .gesture(
+                     DragGesture()
+                         .onChanged { gesture in
+                             viewModel.offset = gesture.translation
+                         }
+                         .onEnded { gesture in
+                             if gesture.translation.width < -50 {
+                                 viewModel.changeMonth(by: 1)
+                             } else if gesture.translation.width > 50 {
+                                 viewModel.changeMonth(by: -1)
+                             }
+                             viewModel.offset = CGSize()
+                         }
+                    )
+                    .onChange(of: homeViewModel.user.selectedUser) {
+                        viewModel.user.selectedUser = homeViewModel.user.selectedUser
+                        viewModel.fetchPostForMonth(viewModel.month)
+                    }
+                    Color.black.opacity(isPopUpOpen ? 0.3 : 0)
+                        .ignoresSafeArea(edges: .all)
+                        .onTapGesture {
+                            isPopUpOpen.toggle()
+                        }
+                    
+                    if isPopUpOpen {
+                        DateClickPopUp()
+                            .transition(.scale)
+                            .background(Color.white)
+                            .frame(width: 250, height: 350.0)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .shadow(radius: 10)
+                            .zIndex(1.0)
+                    }
+                }
+            }
         }.onAppear {
             // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
             loadData()
-                }
+        }
     }
     
     private var headerView: some View {
@@ -85,8 +89,7 @@ struct MyCalendar: View {
                 }
                 .padding(.trailing, 10)
                 Text(viewModel.month, formatter: Self.dateFormatter)
-                    .instrumentSansItalic(type: .bold, size: 30)
-                    .padding(.bottom)
+                    .instrumentSansItalic(type: .bold, size: 28)
                 Button(action: {
                     viewModel.changeMonth(by: 1)
                 }) {
@@ -96,10 +99,12 @@ struct MyCalendar: View {
                 .padding(.leading, 10)
                 Spacer()
             }
+            .padding(.bottom)
             HStack {
                 ForEach(Self.weekdaySymbols, id: \.self) { symbol in
                     Text(symbol)
-                        .instrumentSerif(size: 17)
+                        .gmarketSans(type: .medium, size: 15)
+                        .foregroundStyle(.myDarkGray)
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -144,11 +149,11 @@ struct MyCalendar: View {
         
         @EnvironmentObject var viewModel: MyCalendarViewModel
         @EnvironmentObject var homeViewModel: HomeViewModel
+        @EnvironmentObject var tabSelection: TabSelectionManager
         
         var date: Date
         var day: Int
         var post: Post
-        //var hasPosts: Bool
         var isCurrentMonthDay: Bool
         var textColor: Color {
             if isCurrentMonthDay {
@@ -179,15 +184,20 @@ struct MyCalendar: View {
             if !post.id.isEmpty {
                 VStack {
                     Button(action: {
-                        viewModel.clickedPost = viewModel.postForDate(for: self.date)
-                        isPopUpOpen.toggle()
+                        if homeViewModel.user.id == homeViewModel.user.selectedUser {
+                            viewModel.clickedPost = viewModel.postForDate(for: self.date)
+                            isPopUpOpen.toggle()
+                        } else {
+                            homeViewModel.selectedDate = viewModel.getDateString(date: self.date)
+                            homeViewModel.fetchFriendPost(date: homeViewModel.selectedDate)
+                            tabSelection.selectedTab = 0
+                        }
                     }) {
                         ZStack {
                             Circle()
-                                //.stroke(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray, lineWidth: 2)
-                                .frame(width: 41, height: 41)
+                                .stroke(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray, lineWidth: 2)
+                                .frame(width: 43, height: 43)
                                 .foregroundStyle(isCurrentMonthDay ? Color(hex:post.todayColor) : Color.gray)
-                                .blur(radius: 3)
                             if let url = URL(string: post.todayImgUrl) {
                                 AsyncImage(url: url) { image in
                                     image.resizable().circularImage(size: 39)
@@ -203,75 +213,22 @@ struct MyCalendar: View {
                             Text("\(post.todayText)")
                                 .offset(x: 15, y: -15)
                             Text("\(day)")
-                                .instrumentSerif(type: .italic, size: 15)
+                                .gmarketSans(type: .medium, size: 12)
                                 .foregroundStyle(Color.white)
                         }
                     }
-                    .disabled(!homeViewModel.isEqualWithSelectedId())
                 }
                 .frame(height: 70)
             } else {
                 VStack {
                    Text("\(day)")
-                        .instrumentSerif(type: .italic, size: 15)
+                        .gmarketSans(type: .medium, size: 12)
                         .foregroundStyle(textColor)
                 }
                 .frame(height: 70)
             }
         }
     }
-    
-    /*Type1
-     VStack {
-         ZStack {
-             Image("TestImage")
-                 .resizable()
-                 .aspectRatio(contentMode: .fill)
-                 .frame(height: 35)
-                 .clipShape(Circle())
-                 .mask(
-                     RadialGradient(gradient: Gradient(colors: [Color.black, Color.clear]), center: .center, startRadius: 100, endRadius: 150)
-                 )
-                 .padding(2)
-                 .overlay(Circle().stroke(randomColor, lineWidth: 2).blur(radius: 0.3))
-             Text("👍")
-                 .offset(x: 15, y: -15)
-         }
-         if clicked {
-             Text("Click")
-                 .font(.caption)
-                 .foregroundStyle(.red)
-         }
-     }
-     .frame(height: 70)
-     */
-    
-    /*Type2
-     VStack {
-         ZStack {
-             Rectangle()
-                 .fill(
-                     LinearGradient(colors: [randomColor, Color.white], startPoint: .bottom, endPoint: .top)
-                 )
-                 .frame(height: 70)
-             Image("TestImage")
-                 .resizable()
-                 .aspectRatio(contentMode: .fill)
-                 .frame(height: 30)
-                 .clipShape(Circle())
-                 .overlay(Circle().stroke(.black))
-             Text("👍")
-                 .offset(x: 15, y: -15)
-         }
-         if clicked {
-             Text("Click")
-                 .font(.caption)
-                 .foregroundStyle(.red)
-         }
-     }
-     .overlay(Rectangle().stroke(.black))
-     */
-
     
     // 로딩 데이터를 처리하는 함수
     func loadData() {

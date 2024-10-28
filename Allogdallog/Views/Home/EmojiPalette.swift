@@ -63,10 +63,11 @@ struct EmojiPalette: View {
                     .padding(10)
                 }
                 
-                if viewModel.selectedKeyword == "My" {
+                if viewModel.selectedKeyword == "커스텀" {
                     HStack {
                         Spacer()
-                        TextField("", text:$myNewEmoji)
+                        EmojiTextField(text: $myNewEmoji)
+                            .frame(width: 30)
                         Button(action: {
                             viewModel.addMyNewEmoji(emoji: myNewEmoji)
                         }) {

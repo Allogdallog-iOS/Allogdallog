@@ -24,7 +24,6 @@ struct DateClickPopUp: View {
                         Circle()
                             .frame(width: 35, height: 35)
                             .foregroundStyle(Color(hex: viewModel.clickedPost?.todayColor ?? "#000000"))
-                            .blur(radius: 5.0)
                     }
                     .frame(height: 140)
                     Spacer()

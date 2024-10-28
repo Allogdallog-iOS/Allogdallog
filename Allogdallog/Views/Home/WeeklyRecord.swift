@@ -13,8 +13,8 @@ struct WeeklyRecord: View {
     
     var body: some View {
         VStack {
-            Text("This Week")
-                .instrumentSansItalic(type: .semiBold, size: 17)
+            Text("이번주")
+                .gmarketSans(type: .bold, size: 15)
                 .padding(.bottom, 10)
                 .frame(maxWidth: .infinity,
                        alignment: .center)
@@ -23,17 +23,17 @@ struct WeeklyRecord: View {
                 // 주간 기록이 없을 때
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(.black)
+                            .stroke(.myGray)
                             .frame(width: 340, height: 95)
                         VStack(alignment: .center) {
                         Text("이번 주에는 아직 기록을 남기지 않았어요.")
-                            .instrumentSerif(type: .regular, size: 16)
+                            .gmarketSans(type: .medium, size: 15)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity,
                                    alignment: .center)
                             //.padding()
                         Text("오늘의 기록을 남겨볼까요?")
-                            .instrumentSerif(type: .regular, size: 16)
+                            .gmarketSans(type: .medium, size: 15)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity,
                                    alignment: .center)
@@ -52,11 +52,11 @@ struct WeeklyRecord: View {
                             VStack(alignment: .center) {
                                 ZStack {
                                     Circle()
-                                        .frame(width: 61, height: 61)
+                                        .stroke(lineWidth: 2)
+                                        .frame(width: 63, height: 63)
                                         .foregroundStyle(Color(hex:post.todayColor))
-                                        .blur(radius: 5)
                                     Circle()
-                                        .frame(width: 59, height: 59)
+                                        .frame(width: 57, height: 57)
                                         .foregroundStyle(.white)
                                         .overlay(
                                             Circle()
@@ -87,8 +87,8 @@ struct WeeklyRecord: View {
                                     
                                 }
                                 Text(viewModel.getDayOfWeek(for: post.todayDate))
-                                    .instrumentSerif(type: .regular, size: 12)
-                                    .foregroundStyle(.black)
+                                    .gmarketSans(type: .medium, size: 10)
+                                    .foregroundStyle(.myDarkGray)
                             }
                             .frame(width: 72, height: 120)
                             .offset(y:(index % 2 == 0 ? -5 : 5))
@@ -98,7 +98,6 @@ struct WeeklyRecord: View {
                 }
             }
         }
-        .padding(.horizontal, 20)
     }
 }
 

@@ -51,6 +51,18 @@
 		35D259F52C3D3ECF0052127B /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F42C3D3ECF0052127B /* SignUp.swift */; };
 		35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F62C3D3EE50052127B /* SignUpViewModel.swift */; };
 		35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D259F82C3D5E400052127B /* ImagePicker.swift */; };
+		35E0B82E2CCB9595006EC116 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B82D2CCB9595006EC116 /* EmojiTextField.swift */; };
+		35E0B8302CCE1D35006EC116 /* GmarketSans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B82F2CCE1D35006EC116 /* GmarketSans.swift */; };
+		35E0B8362CCE1E09006EC116 /* GmarketSansTTFMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35E0B8352CCE1E09006EC116 /* GmarketSansTTFMedium.ttf */; };
+		35E0B8372CCE1E09006EC116 /* GmarketSansTTFBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35E0B8332CCE1E09006EC116 /* GmarketSansTTFBold.ttf */; };
+		35E0B8382CCE1E09006EC116 /* GmarketSansTTFLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35E0B8342CCE1E09006EC116 /* GmarketSansTTFLight.ttf */; };
+		35E0B83C2CCE1FBF006EC116 /* GmarketSansModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B83B2CCE1FBF006EC116 /* GmarketSansModifier.swift */; };
+		35E0B83F2CCE41DC006EC116 /* TmoneyRoundWindExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35E0B83D2CCE41DC006EC116 /* TmoneyRoundWindExtraBold.ttf */; };
+		35E0B8402CCE41DC006EC116 /* TmoneyRoundWindRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35E0B83E2CCE41DC006EC116 /* TmoneyRoundWindRegular.ttf */; };
+		35E0B8442CCE4208006EC116 /* TmoneyRoundWind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B8432CCE4200006EC116 /* TmoneyRoundWind.swift */; };
+		35E0B8462CCE425F006EC116 /* TmoneyRoundWindModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B8452CCE4257006EC116 /* TmoneyRoundWindModifier.swift */; };
+		35E0B8482CCE8603006EC116 /* TabSelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B8472CCE8603006EC116 /* TabSelectionManager.swift */; };
+		35E0B84A2CCFB0AD006EC116 /* FriendPastRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0B8492CCFB0AD006EC116 /* FriendPastRecord.swift */; };
 		35E1F2A02C53AC7C00E163C2 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */; };
 		35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F325222C88281E006E2B49 /* FriendDailyRecord.swift */; };
 		975FE89F2C9C984A007637CF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FE89E2C9C984A007637CF /* Profile.swift */; };
@@ -138,6 +150,18 @@
 		35D259F42C3D3ECF0052127B /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		35D259F62C3D3EE50052127B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		35D259F82C3D5E400052127B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		35E0B82D2CCB9595006EC116 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
+		35E0B82F2CCE1D35006EC116 /* GmarketSans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GmarketSans.swift; sourceTree = "<group>"; };
+		35E0B8332CCE1E09006EC116 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
+		35E0B8342CCE1E09006EC116 /* GmarketSansTTFLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFLight.ttf; sourceTree = "<group>"; };
+		35E0B8352CCE1E09006EC116 /* GmarketSansTTFMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFMedium.ttf; sourceTree = "<group>"; };
+		35E0B83B2CCE1FBF006EC116 /* GmarketSansModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GmarketSansModifier.swift; sourceTree = "<group>"; };
+		35E0B83D2CCE41DC006EC116 /* TmoneyRoundWindExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TmoneyRoundWindExtraBold.ttf; sourceTree = "<group>"; };
+		35E0B83E2CCE41DC006EC116 /* TmoneyRoundWindRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TmoneyRoundWindRegular.ttf; sourceTree = "<group>"; };
+		35E0B8432CCE4200006EC116 /* TmoneyRoundWind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmoneyRoundWind.swift; sourceTree = "<group>"; };
+		35E0B8452CCE4257006EC116 /* TmoneyRoundWindModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmoneyRoundWindModifier.swift; sourceTree = "<group>"; };
+		35E0B8472CCE8603006EC116 /* TabSelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelectionManager.swift; sourceTree = "<group>"; };
+		35E0B8492CCFB0AD006EC116 /* FriendPastRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPastRecord.swift; sourceTree = "<group>"; };
 		35E1F29F2C53AC7C00E163C2 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		35F325222C88281E006E2B49 /* FriendDailyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDailyRecord.swift; sourceTree = "<group>"; };
 		975FE89E2C9C984A007637CF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -208,10 +232,12 @@
 		3501B22C2C9D8AF300314C0F /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
+				35E0B8452CCE4257006EC116 /* TmoneyRoundWindModifier.swift */,
 				35A511AE2C65F01400DA8668 /* CircularImageModifier.swift */,
 				35A5119B2C64A11400DA8668 /* CustomTextModifier.swift */,
 				3501B2532CB020CB00314C0F /* InstrumentSansItalicModifier.swift */,
 				3501B2572CB0347600314C0F /* InstrumentSerifModifier.swift */,
+				35E0B83B2CCE1FBF006EC116 /* GmarketSansModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -226,9 +252,16 @@
 				35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */,
 				353C5F632C92875900CDD111 /* Home.swift */,
 				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
+<<<<<<< HEAD
+=======
+				35E0B8492CCFB0AD006EC116 /* FriendPastRecord.swift */,
+				353C5F652C92891F00CDD111 /* FriendComments.swift */,
+>>>>>>> e119e6c647bc47df6d71a3cad54bf7e42d74be35
 				3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */,
 				3501B25D2CBE7F4C00314C0F /* ColorPalette.swift */,
 				3501B25F2CC08E3200314C0F /* EmojiPalette.swift */,
+				35E0B82D2CCB9595006EC116 /* EmojiTextField.swift */,
+				35E0B8472CCE8603006EC116 /* TabSelectionManager.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -268,6 +301,11 @@
 				3501B2422CAFFE9C00314C0F /* InstrumentSerif-Regular.ttf */,
 				3501B2462CB01C2500314C0F /* InstrumentSans-SemiBoldItalic.ttf */,
 				3501B2482CB01C2D00314C0F /* InstrumentSans-BoldItalic.ttf */,
+				35E0B8332CCE1E09006EC116 /* GmarketSansTTFBold.ttf */,
+				35E0B8342CCE1E09006EC116 /* GmarketSansTTFLight.ttf */,
+				35E0B8352CCE1E09006EC116 /* GmarketSansTTFMedium.ttf */,
+				35E0B83D2CCE41DC006EC116 /* TmoneyRoundWindExtraBold.ttf */,
+				35E0B83E2CCE41DC006EC116 /* TmoneyRoundWindRegular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -283,8 +321,10 @@
 		3501B24C2CB01FDB00314C0F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				35E0B8432CCE4200006EC116 /* TmoneyRoundWind.swift */,
 				3501B24F2CB0202800314C0F /* InstrumentSansItalic.swift */,
 				3501B2552CB033EA00314C0F /* InstrumentSerif.swift */,
+				35E0B82F2CCE1D35006EC116 /* GmarketSans.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -486,8 +526,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				97AD00532CC3BEF3007DB5EB /* LaunchScreen.storyboard in Resources */,
+				35E0B8362CCE1E09006EC116 /* GmarketSansTTFMedium.ttf in Resources */,
+				35E0B8372CCE1E09006EC116 /* GmarketSansTTFBold.ttf in Resources */,
+				35E0B8382CCE1E09006EC116 /* GmarketSansTTFLight.ttf in Resources */,
 				35A5118B2C58D9EB00DA8668 /* .gitignore in Resources */,
 				3501B2472CB01C2500314C0F /* InstrumentSans-SemiBoldItalic.ttf in Resources */,
+				35E0B83F2CCE41DC006EC116 /* TmoneyRoundWindExtraBold.ttf in Resources */,
+				35E0B8402CCE41DC006EC116 /* TmoneyRoundWindRegular.ttf in Resources */,
 				35459A9E2BF5E64F0049A19C /* Preview Assets.xcassets in Resources */,
 				3501B2492CB01C2D00314C0F /* InstrumentSans-BoldItalic.ttf in Resources */,
 				35459A9A2BF5E64F0049A19C /* Assets.xcassets in Resources */,
@@ -514,6 +559,7 @@
 				353C5F682C92F62E00CDD111 /* Comment.swift in Sources */,
 				35A5119C2C64A11400DA8668 /* CustomTextModifier.swift in Sources */,
 				3585377D2C20216100D65E23 /* MyPage.swift in Sources */,
+				35E0B8462CCE425F006EC116 /* TmoneyRoundWindModifier.swift in Sources */,
 				3501B25E2CBE7F4C00314C0F /* ColorPalette.swift in Sources */,
 				97AD00612CCB9821007DB5EB /* AccountSettings.swift in Sources */,
 				3501B2542CB020CB00314C0F /* InstrumentSansItalicModifier.swift in Sources */,
@@ -524,9 +570,16 @@
 				3501B2602CC08E3200314C0F /* EmojiPalette.swift in Sources */,
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
+<<<<<<< HEAD
 				97AD00632CCBCAFC007DB5EB /* AppNotification.swift in Sources */,
+=======
+				35E0B8302CCE1D35006EC116 /* GmarketSans.swift in Sources */,
+>>>>>>> e119e6c647bc47df6d71a3cad54bf7e42d74be35
 				35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */,
 				3501B2362C9D91BB00314C0F /* MyCalendarViewModel.swift in Sources */,
+				35E0B82E2CCB9595006EC116 /* EmojiTextField.swift in Sources */,
+				35E0B8442CCE4208006EC116 /* TmoneyRoundWind.swift in Sources */,
+				35E0B8482CCE8603006EC116 /* TabSelectionManager.swift in Sources */,
 				3501B25A2CB516D300314C0F /* DateClickPopUp.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
 				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
@@ -538,8 +591,10 @@
 				97AD005D2CC945D4007DB5EB /* Logout.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,
+				35E0B84A2CCFB0AD006EC116 /* FriendPastRecord.swift in Sources */,
 				35A511AD2C65DEE400DA8668 /* MyFriends.swift in Sources */,
 				97AD005B2CC6A0F0007DB5EB /* DeleteAccount.swift in Sources */,
+				35E0B83C2CCE1FBF006EC116 /* GmarketSansModifier.swift in Sources */,
 				35D259AD2C3D35620052127B /* SignIn.swift in Sources */,
 				35A511912C5B604100DA8668 /* FriendsList.swift in Sources */,
 				35D259F92C3D5E400052127B /* ImagePicker.swift in Sources */,
@@ -685,7 +740,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Allogdallog/Preview Content\"";
-				DEVELOPMENT_TEAM = 53CKJ35S75;
+				DEVELOPMENT_TEAM = C5BR2X737D;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -696,6 +751,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -706,7 +762,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.capstone.Allogdallog;
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = kr.co.capstoneios.Allogdallog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -727,7 +782,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Allogdallog/Preview Content\"";
-				DEVELOPMENT_TEAM = 53CKJ35S75;
+				DEVELOPMENT_TEAM = C5BR2X737D;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -738,6 +793,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -748,7 +804,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.capstone.Allogdallog;
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = kr.co.capstoneios.Allogdallog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
