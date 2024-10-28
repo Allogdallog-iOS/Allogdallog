@@ -49,7 +49,6 @@ class SignInViewModel: ObservableObject {
                 self.user?.friends = friends // friends 배열 업데이트
                 
                 // Firestore에서 사용자 정보를 업데이트
-                let data = document.data()
                 self.user?.nickname = document.get("nickname") as? String ?? ""
                 self.user?.profileImageUrl = document.get("profileImageUrl") as? String ?? ""
                 // 필요한 다른 필드도 업데이트할 수 있습니다.
@@ -66,7 +65,6 @@ class SignInViewModel: ObservableObject {
                 }
 
                 // 변경된 사용자 데이터 업데이트
-                let data = document.data()
                 self.user?.nickname = document.get("nickname") as? String ?? ""
                 self.user?.profileImageUrl = document.get("profileImageUrl") as? String ?? ""
                 // 필요한 다른 필드도 업데이트할 수 있습니다.

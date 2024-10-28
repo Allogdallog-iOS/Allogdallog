@@ -15,15 +15,15 @@ struct MyDailyRecordDetail: View {
         VStack {
             ScrollView {
                 VStack {
-                    Text("\(viewModel.getDate())")
-                        .instrumentSansItalic(type:.bold, size: 30)
+                    Text("\(viewModel.getTodayDateString())")
+                        .instrumentSansItalic(type:.bold, size: 25)
                         .foregroundStyle(.black)
                         .padding()
                     HStack {
-                        Spacer()
                         VStack(alignment: .center) {
-                            Text("color")
-                                .instrumentSerif(size: 24)
+                            Text("색상")
+                                .gmarketSans(type: .medium, size: 17)
+                                .foregroundStyle(.myDarkGray)
                             Spacer()
                             Button(action: {
                                 viewModel.isColorPaletteOpen.toggle()
@@ -31,7 +31,6 @@ struct MyDailyRecordDetail: View {
                                 Circle()
                                     .frame(width: 50, height: 50)
                                     .foregroundStyle(viewModel.selectedColor)
-                                    .blur(radius: 5)
                             }
                             .frame(height: 230)
                             .disabled(viewModel.postButtonsDisabled)
@@ -43,9 +42,10 @@ struct MyDailyRecordDetail: View {
                         }
                         .frame(height: 300)
                         Spacer()
-                        VStack() {
-                            Text("picture")
-                                .instrumentSerif(size: 24)
+                        VStack(alignment: .center) {
+                            Text("사진")
+                                .gmarketSans(type: .medium, size: 17)
+                                .foregroundStyle(.myDarkGray)
                             Spacer()
                             if let image = viewModel.todayImage {
                                 Button(action : {
@@ -59,6 +59,7 @@ struct MyDailyRecordDetail: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                         .overlay(RoundedRectangle(cornerRadius: 10)
                                             .stroke(.black)
+                                            .frame(width: 180, height: 230)
                                         )
                                 }
                                 .disabled(viewModel.postButtonsDisabled)
@@ -84,20 +85,18 @@ struct MyDailyRecordDetail: View {
                         }
                         .frame(height: 300)
                         Spacer()
-                        VStack() {
-                            Text("emoji")
-                                .instrumentSerif(size: 24)
+                        VStack(alignment: .center) {
+                            Text("이모티콘")
+                                .gmarketSans(type: .medium, size: 17)
+                                .foregroundStyle(.myDarkGray)
                             Spacer()
-                            HStack(alignment: .center) {
-                                Spacer()
-                                Button(action: {
-                                    viewModel.isEmojiPaletteOpen.toggle()
-                                }) {
-                                    Text(viewModel.selectedEmoji)
-                                        .font(.system(size: 50))
-                                }
-                                Spacer()
+                            Button(action: {
+                                viewModel.isEmojiPaletteOpen.toggle()
+                            }) {
+                                Text(viewModel.selectedEmoji)
+                                    .font(.system(size: 50))
                             }
+                            .disabled(viewModel.postButtonsDisabled)
                             .frame(height: 230)
                             Spacer()
                         }
@@ -105,7 +104,6 @@ struct MyDailyRecordDetail: View {
                             EmojiPalette()
                         }
                         .frame(height: 300)
-                        Spacer()
                     }
                     Spacer()
                     HStack {
@@ -168,34 +166,49 @@ struct MyDailyRecordDetail: View {
                         if !viewModel.todayPost.todayComments.isEmpty {
                             ForEach(viewModel.todayPost.todayComments) { comment in
                                 ZStack {
-                                    LinearGradient(colors: [Color.white, Color(hex: viewModel.todayPost.todayColor)], startPoint: .top, endPoint: .bottom)
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.black)
                                         .frame(height: 60)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                                        .padding(.vertical, 5)
                                     HStack {
                                         if let url = URL(string: comment.fromUserImgUrl) {
                                             AsyncImage(url: url) { image in
-                                                image
-                                                    .resizable()
-                                                    .circularImage(size: 45)
+                                                ZStack {
+                                                    image
+                                                        .resizable()
+                                                        .circularImage(size: 45)
+                                                    Circle()
+                                                        .stroke(.black)
+                                                        .frame(width: 45, height: 45)
+                                                }
                                             } placeholder: {
-                                                Image(systemName: "person.circle")
-                                                    .circularImage(size: 45)
+                                                ZStack {
+                                                    Image(systemName: "person.circle")
+                                                        .circularImage(size: 45)
+                                                    Circle()
+                                                        .stroke(.black)
+                                                        .frame(width: 45, height: 45)
+                                                }
                                             }
                                         } else {
-                                            Image(systemName: "person.circle")
-                                                .circularImage(size: 45)
+                                            ZStack {
+                                                Image(systemName: "person.circle")
+                                                    .circularImage(size: 45)
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 45, height: 45)
+                                            }
                                         }
                                         VStack {
                                             HStack {
                                                 Text("\(comment.fromUserNick)")
-                                                    .font(.caption2)
+                                                    .font(.caption)
                                                     .fontWeight(.semibold)
                                                 Spacer()
                                             }
                                             HStack {
                                                 Text("\(comment.comment)")
-                                                    .font(.caption2)
+                                                    .font(.caption)
                                                 Spacer()
                                             }
                                         }
@@ -209,6 +222,7 @@ struct MyDailyRecordDetail: View {
                     }
                 }
             }
+            .environmentObject(viewModel)
             .ignoresSafeArea(.keyboard)
         }
         .padding(.horizontal, 20)
