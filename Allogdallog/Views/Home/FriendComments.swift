@@ -67,7 +67,7 @@ struct FriendComments: View {
                                 Spacer()
                             }
                             .padding(.horizontal, 5)
-                            .padding(.bottom, 5)
+                            .padding(.vertical, 2)
                         }
                     }
                 }
