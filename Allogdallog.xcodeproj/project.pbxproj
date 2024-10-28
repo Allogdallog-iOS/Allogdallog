@@ -191,6 +191,7 @@
 		3501B22A2C9D8AB300314C0F /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				3501B2272C9D8AAE00314C0F /* MyCalendar.swift */,
 				3501B2592CB516D300314C0F /* DateClickPopUp.swift */,
 			);
 			path = Calendar;
@@ -223,7 +224,6 @@
 				353C5F652C92891F00CDD111 /* FriendComments.swift */,
 				35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */,
 				35A5118E2C5A314B00DA8668 /* WeeklyRecord.swift */,
-				3501B2272C9D8AAE00314C0F /* MyCalendar.swift */,
 				353C5F632C92875900CDD111 /* Home.swift */,
 				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
 				3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */,
