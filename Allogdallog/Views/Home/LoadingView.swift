@@ -24,15 +24,15 @@ struct LoadingView: View {
                 VStack {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle()) // 로딩 바 스타일 설정
-                        .scaleEffect(2) // 크기 조절
-                        .padding(.top, 20)
+                        .scaleEffect(1.5) // 크기 조절
+                        .padding(.top, 0)
                         .opacity(isLoading ? 1 : 0) // 로딩 중에만 보이도록 설정
 
                     // 로딩 중 메시지
                     Text("알록달록한 기록을 불러오는 중")
                         .font(.system(size: 15))
                         .foregroundColor(Color.gray)
-                        .padding(.top, 30)
+                        .padding(.top, 15)
                         .opacity(isLoading ? 1 : 0) // 로딩 중에만 보이도록 설정
                 }.frame(maxWidth: .infinity, maxHeight: .infinity) // 부모 뷰의 중앙에 배치
                

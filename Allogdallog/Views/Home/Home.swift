@@ -118,9 +118,7 @@ struct Home: View {
                 .environmentObject(tabSelection)
                 .navigationBarBackButtonHidden()
             }
-        } .onAppear {
-            // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
-            loadData()
+
         }
     }
             

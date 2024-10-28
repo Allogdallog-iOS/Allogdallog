@@ -22,39 +22,99 @@ struct DeleteAccount: View {
         VStack {
             if isProcessing {
                 ProgressView("처리 중...")
+                    .padding(.top, 60)
             } else {
-                SecureField("비밀번호를 입력하세요", text: $password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                Divider()
-                Button(action: {
-                    if password.isEmpty {
-                            alertMessage = "비밀번호를 입력해주세요."
-                            showAlert = true
-                    } else {
-                            deleteUserAccount()
-                            }
-                }) {
+                
+                HStack {
                     Text("회원 탈퇴")
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                        .padding(.bottom)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 15)
+                        .padding(.bottom, 5)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        if password.isEmpty {
+                                alertMessage = "비밀번호를 입력해주세요."
+                                showAlert = true
+                        } else {
+                            verifyPasswordAndDeleteAccount()
+                                }
+                    }) {
+                        Text("탈퇴")
+                            .font(.title3)
+                            //.foregroundStyle(.gray)
+                            .padding(.horizontal, 15)
+                            .padding(.bottom, 5)
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("알림"),
+                            message: Text(alertMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
                 }
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("알림"),
-                        message: Text(alertMessage),
-                        dismissButton: .default(Text("OK"))
-                    )
+                Divider()
+                
+                HStack{
+                    Text("비밀번호 확인")
+                        .padding(.leading)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 15)
+                    
+                    Spacer()
                 }
+                
+                SecureField("비밀번호를 입력하세요", text: $password)
+                    .customTextFieldStyle(height: 50)
+                    .padding(.top,5)
+                    .padding(.horizontal, 20)
+                
                 // 탈퇴 후 첫 화면으로 이동
                     NavigationLink(destination: ContentView(), isActive: $isDeleted) {
                     EmptyView() // 버튼을 감추고 자동으로 이동할 수 있게 함
                 }
             }
         }
-        .padding()
+        //.padding()
+        Spacer()
     }
+    
+    // 현재 로그인한 사용자의 계정을 Firebase에서 삭제
+        private func verifyPasswordAndDeleteAccount() {
+            guard let user = Auth.auth().currentUser else {
+                alertMessage = "로그인 되지 않은 계정입니다."
+                showAlert = true
+                return
+            }
+            
+            isProcessing = true
+            
+            // 사용자의 이메일을 통해 재인증을 시도
+            guard let email = user.email else {
+                alertMessage = "이메일 정보를 가져올 수 없습니다."
+                isProcessing = false
+                showAlert = true
+                return
+            }
+            
+            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+            
+            // 재인증 시도
+            user.reauthenticate(with: credential) { authResult, error in
+                if let error = error {
+                    alertMessage = "비밀번호가 올바르지 않습니다."
+                    isProcessing = false
+                    showAlert = true
+                    return
+                }
+                // 비밀번호 확인 성공, 계정 삭제 진행
+                deleteUserAccount()
+            }
+        }
     
     //현재 로그인한 사용자의 계정을 Firebase에서 삭제
     private func deleteUserAccount() {
@@ -102,7 +162,6 @@ struct DeleteAccount: View {
                                 // 최근 로그인하지 않은 경우, 재인증이 필요할 수 있음
                                 alertMessage = "You need to re-login before deleting the account."
                                 
-                                reauthenticateUser(user)
                             } else {
                                 alertMessage = "Account deletion failed: \(error.localizedDescription)"
                                 isProcessing = false

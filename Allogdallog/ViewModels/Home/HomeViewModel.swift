@@ -44,6 +44,7 @@ class HomeViewModel: ObservableObject {
         "슬픔": ["🥲", "😭", "😱", "🤕", "😵‍💫"],
         "커스텀": []
     ]
+    @Published var notifications: [AppNotification] = []
     
     private var db = Firestore.firestore()
     
@@ -73,7 +74,7 @@ class HomeViewModel: ObservableObject {
                 self.todayPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.todayPost.todayText = data?["todayText"] as? String ?? ""
                 self.todayPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "",
+                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
@@ -112,7 +113,7 @@ class HomeViewModel: ObservableObject {
                 self.friendPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
                 self.friendPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "",
+                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
@@ -179,21 +180,95 @@ class HomeViewModel: ObservableObject {
     func uploadComment(date: String) {
         let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
         
-        let commentId = UUID().uuidString
-        let newComment = Comment(id: commentId, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: myComment)
+        userPostRef.getDocument { (document, error) in
+            guard let document = document, document.exists else {
+                print("Post does not exist")
+                return
+            }
+            let postOwnerId = document.data()?["userId"] as? String ?? self.friendPost.userId
+            
+            let commentId = UUID().uuidString
+            let newComment = Comment(id: commentId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
+            
+            self.friendPost.todayComments.append(newComment)
+            
+            userPostRef.updateData([
+                "todayComments": FieldValue.arrayUnion([[
+                    "id": commentId,
+                    "fromUserNick": self.user.nickname,
+                    "fromUserImgUrl": self.user.profileImageUrl ?? "",
+                    "comment": self.myComment
+                ]])
+            ]){ error in
+                if let error = error {
+                    print("Error adding comment: \(error)")
+                } else {
+                    print("Post owner ID: \(postOwnerId)") // 포스트 소유자 ID 로그 추가
+                    self.createNotification(forComment: newComment, postOwnerId: postOwnerId)
+                }
+            }
+            
+            self.myComment = ""
+        }
+    }
+    
+    private func createNotification(forComment comment: Comment, postOwnerId: String) {
+        let notificationMessage = "\(comment.fromUserNick)님이 댓글 \"\(comment.comment)\"을 남겼습니다."
         
-        self.friendPost.todayComments.append(newComment)
+        print("Adding notification for userId: \(postOwnerId)")
         
-        userPostRef.updateData([
-            "todayComments": FieldValue.arrayUnion([[
-                "id": commentId,
-                "fromUserNick": self.user.nickname,
-                "fromUserImgUrl": self.user.profileImageUrl ?? "",
-                "comment": myComment
-            ]])
-        ])
-        
-        self.myComment = ""
+        db.collection("notifications").addDocument(data: [
+            "message": notificationMessage,
+            "timestamp": Timestamp(),
+            "userId": postOwnerId, // 알림을 수신할 사용자 ID
+            "fromUserId": comment.fromUserId, // 댓글 작성자 ID
+            "notificationType": "comment"
+        ]) { error in
+            if let error = error {
+                print("Error adding notification: \(error)")
+            } else {
+                print("Notification added successfully.")
+            }
+        }
+    }
+    
+    func listenForNotifications() {
+        db.collection("notifications").whereField("userId", isEqualTo: self.user.id)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error listening for notifications: \(error)")
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents found")
+                    return }
+                
+                self.notifications = []
+                print("Found \(documents.count) notifications")
+                
+                for document in documents {
+                    let data = document.data()
+                    
+                    print("Document data: \(data)")
+                    
+                    let message = data["message"] as? String ?? ""
+                    let timestamp = data["timestamp"] as? Timestamp ?? Timestamp()
+                    let fromUserId = data["fromUserId"] as? String ?? ""
+                    let notificationType = data["notificationType"] as? String ?? ""
+                
+                    let notification = AppNotification(
+                        message: message,
+                        timestamp: timestamp.dateValue(),
+                        fromUserId: fromUserId,
+                        notificationType: notificationType
+                    )
+                    self.notifications.append(notification)
+                    
+                    // 추가된 알림 확인용 로그
+                    print("New notification received: \(notification)")
+                }
+            }
     }
     
     func fetchImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
