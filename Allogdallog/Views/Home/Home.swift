@@ -100,11 +100,10 @@ struct Home: View {
                     }
                     .tag(1)
                     VStack {
-                        MyPage()
+                        MyPage(user: viewModel.user)
                         Profile(user:viewModel.user)
                         FriendsList(user: viewModel.user)
                         Logout()
-                        DeleteAccount()
                         Spacer()
                     }.environmentObject(viewModel)
                     .tabItem {
@@ -117,29 +116,12 @@ struct Home: View {
                 .environmentObject(viewModel)
                 .environmentObject(tabSelection)
                 .navigationBarBackButtonHidden()
+                .onAppear {
+                    // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
+                    loadData()
+                }
             }
-<<<<<<< HEAD
-            .tabItem {
-                Label("캘린더", systemImage: "calendar")
-            }
-            .tag(2)
-            VStack {
-                MyPage(user: viewModel.user)
-                Profile(user:viewModel.user)
-                FriendsList(user: viewModel.user)
-                Logout()
-                Spacer()
-            }.environmentObject(viewModel)
-            .tabItem {
-                Label("마이페이지", systemImage: "person.fill")
-            }
-            .tag(3)
-            
-=======
-        } .onAppear {
-            // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
-            loadData()
-        }
+
     }
             
     // 로딩 데이터를 처리하는 함수
@@ -148,7 +130,7 @@ struct Home: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
             isLoading = false
->>>>>>> e119e6c647bc47df6d71a3cad54bf7e42d74be35
+
         }
     }
 }

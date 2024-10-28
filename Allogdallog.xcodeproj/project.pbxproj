@@ -253,10 +253,14 @@
 				353C5F632C92875900CDD111 /* Home.swift */,
 				35F325222C88281E006E2B49 /* FriendDailyRecord.swift */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				35E0B8492CCFB0AD006EC116 /* FriendPastRecord.swift */,
 				353C5F652C92891F00CDD111 /* FriendComments.swift */,
 >>>>>>> e119e6c647bc47df6d71a3cad54bf7e42d74be35
+=======
+        
+>>>>>>> 17e9efea7bdb02c43fdb7b6fe0dbd62a540c9abf
 				3501B25B2CB7EE9500314C0F /* MyDailyRecordDetail.swift */,
 				3501B25D2CBE7F4C00314C0F /* ColorPalette.swift */,
 				3501B25F2CC08E3200314C0F /* EmojiPalette.swift */,
@@ -571,10 +575,14 @@
 				35459A982BF5E64D0049A19C /* ContentView.swift in Sources */,
 				35D259F72C3D3EE50052127B /* SignUpViewModel.swift in Sources */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				97AD00632CCBCAFC007DB5EB /* AppNotification.swift in Sources */,
 =======
 				35E0B8302CCE1D35006EC116 /* GmarketSans.swift in Sources */,
 >>>>>>> e119e6c647bc47df6d71a3cad54bf7e42d74be35
+=======
+
+>>>>>>> 17e9efea7bdb02c43fdb7b6fe0dbd62a540c9abf
 				35F325232C88281E006E2B49 /* FriendDailyRecord.swift in Sources */,
 				3501B2362C9D91BB00314C0F /* MyCalendarViewModel.swift in Sources */,
 				35E0B82E2CCB9595006EC116 /* EmojiTextField.swift in Sources */,
