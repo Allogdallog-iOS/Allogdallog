@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class MyCalendarViewModel: ObservableObject {
     
-    @Published var selectedUserId: String
+    @Published var user: User
     @Published var month: Date
     @Published var offset: CGSize = CGSize()
     @Published var recoredPosts: [Post] = []
@@ -22,8 +22,8 @@ class MyCalendarViewModel: ObservableObject {
     
     private var db = Firestore.firestore()
     
-    init(selectedUserId: String) {
-        self.selectedUserId = selectedUserId
+    init(user: User) {
+        self.user = user
         self.month = Date()
         fetchPostForMonth(self.month)
     }
@@ -46,7 +46,7 @@ class MyCalendarViewModel: ObservableObject {
     }
     
     func fetchPostsDate(from startDate: Date, to endDate: Date, completion: @escaping([Date: [Post]]) -> Void) {
-        let postRef = db.collection("posts").document(self.selectedUserId).collection("posts")
+        let postRef = db.collection("posts").document(self.user.selectedUser).collection("posts")
         
         postRef
             .whereField("todayDate", isGreaterThanOrEqualTo: startDate)
@@ -80,7 +80,7 @@ class MyCalendarViewModel: ObservableObject {
     }
     
     func loadImageFromFirebase(selectedUserId: String, date: String, completion: @escaping (UIImage?) -> Void) {
-        let storageRef = Storage.storage().reference(withPath: "post_images/\(self.selectedUserId)/\(date)")
+        let storageRef = Storage.storage().reference(withPath: "post_images/\(self.user.selectedUser)/\(date)")
         
         storageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
             if let error = error {
@@ -116,13 +116,6 @@ class MyCalendarViewModel: ObservableObject {
         return posts[date]
     }
      
-    /*
-    func getDate(for day: Int) -> Date {
-        return Calendar.current.date(byAdding: .day, value: day, to: startOfMonth())!
-    }
-     */
-    
-    
     func getDate(for index: Int) -> Date {
         let calendar = Calendar.current
         guard let firstDayOfMonth = calendar.date(
@@ -179,7 +172,7 @@ class MyCalendarViewModel: ObservableObject {
     
     func getDayOfWeek(for date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "E"
         
         return dateFormatter.string(from: date)
@@ -210,6 +203,13 @@ class MyCalendarViewModel: ObservableObject {
         }
         return weekPosts
     }
+    
+    func getDateString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.M.d"
+        guard let dateString = formatter.string(for: date) else { return "Date Error" }
+        return dateString
+    }
 }
 
 extension MyCalendar {
@@ -219,5 +219,13 @@ extension MyCalendar {
         return formatter
     }()
     
-    static let weekdaySymbols = Calendar.current.shortWeekdaySymbols
+    static let weekdaySymbols = Calendar.current.shortWeekdaySymbols(in: Locale(identifier: "ko_KR"))
+}
+
+extension Calendar {
+    func shortWeekdaySymbols(in locale: Locale) -> [String] {
+        var calendar = self
+        calendar.locale = locale
+        return calendar.shortWeekdaySymbols
+    }
 }

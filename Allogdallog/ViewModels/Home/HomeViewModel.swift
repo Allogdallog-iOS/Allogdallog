@@ -18,30 +18,31 @@ class HomeViewModel: ObservableObject {
     @Published var isImagePickerPresented: Bool = false
     @Published var todayPost: Post
     @Published var todayImage: UIImage? = nil
+    @Published var selectedDate: String = ""
     @Published var selectedColor: Color = Color.blue
-    @Published var selectedKeyword: String = "Joy"
+    @Published var selectedKeyword: String = "기쁨"
     @Published var selectedEmoji: String = "😊"
     @Published var errorMessage: String? = nil
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
+    @Published var pastFriendPost: Post
     @Published var friendImage: UIImage? = nil
-    @Published var friendSelectedColor: Color = Color.gray
     @Published var postButtonsDisabled: Bool = false
     @Published var myComment: String = ""
     @Published var isColorPaletteOpen: Bool = false
     @Published var isEmojiPaletteOpen: Bool = false
-    @Published var paletteKeys: [String] = ["Joy", "Calm", "Sadness", "My"]
+    @Published var paletteKeys: [String] = ["기쁨", "차분", "슬픔", "커스텀"]
     @Published var colorPalettes: [String: [Color]] = [
-        "Joy": [.yellow, .orange, .pink, .green, .mint],
-        "Calm": [.blue, .teal, .purple, .brown],
-        "Sadness": [.black, .gray, .blue, .indigo],
-        "My": []
+        "기쁨": [.yellow, .orange, .pink, .green, .mint],
+        "차분": [.blue, .teal, .purple, .brown],
+        "슬픔": [.black, .gray, .blue, .indigo],
+        "커스텀": []
     ]
     @Published var emojiPalettes: [String: [String]] = [
-        "Joy": ["😊","😀", "😄", "😆", "😝"],
-        "Calm": ["🙂", "😐", "🙃", "🫠", "😴"],
-        "Sadness": ["🥲", "😭", "😱", "🤕", "😵‍💫"],
-        "My": []
+        "기쁨": ["😊","😀", "😄", "😆", "😝"],
+        "차분": ["🙂", "😐", "🙃", "🫠", "😴"],
+        "슬픔": ["🥲", "😭", "😱", "🤕", "😵‍💫"],
+        "커스텀": []
     ]
     
     private var db = Firestore.firestore()
@@ -50,13 +51,14 @@ class HomeViewModel: ObservableObject {
         self.user = user
         self.todayPost = Post()
         self.friendPost = Post()
-        self.colorPalettes["My"] = self.user.myColors.map { Color(hex: $0) }
-        self.emojiPalettes["My"] = self.user.myEmojis
+        self.pastFriendPost = Post()
+        self.colorPalettes["커스텀"] = self.user.myColors.map { Color(hex: $0) }
+        self.emojiPalettes["커스텀"] = self.user.myEmojis
         fetchPost()
     }
     
     func fetchPost() {
-        let postRef = db.collection("posts/\(self.user.id)/posts").document(getDate())
+        let postRef = db.collection("posts/\(self.user.id)/posts").document(getTodayDateString())
         
         postRef.getDocument { document, error in
             if let document = document, document.exists {
@@ -86,6 +88,7 @@ class HomeViewModel: ObservableObject {
                 }
                 
                 self.selectedColor = Color(hex: self.todayPost.todayColor)
+                self.selectedEmoji = self.todayPost.todayText
                 
             } else {
                 self.user.postUploaded = false
@@ -93,15 +96,18 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func fetchFriendPost() {
-        let postRef = db.collection("posts/\(self.user.selectedUser)/posts").document(getDate())
+    func fetchFriendPost(date: String) {
+        let postRef = db.collection("posts/\(self.user.selectedUser)/posts").document(date)
         
+        self.friendPost = Post()
+
         postRef.getDocument { document, error in
             if let document = document, document.exists {
                 
                 self.friendPostUploaded = true
                 let data = document.data()
                 
+                self.friendPost.id = data?["id"] as? String ?? ""
                 self.friendPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
                 self.friendPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
@@ -111,15 +117,6 @@ class HomeViewModel: ObservableObject {
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
                 }
-                self.friendSelectedColor = Color(hex: self.friendPost.todayColor)
-                
-                self.fetchImage(from: self.friendPost.todayImgUrl) { image in
-                    if let image = image {
-                        self.friendImage = image
-                    } else {
-                        print("Failed to load image")
-                    }
-                }
                 
             } else {
                 self.friendPostUploaded = false
@@ -128,30 +125,25 @@ class HomeViewModel: ObservableObject {
     }
     
     func uploadPost() {
-        
         self.todayPost.todayDate = Date()
         self.todayPost.todayColor = selectedColor.toHextString()
         self.todayPost.todayText = selectedEmoji
         
+        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getTodayDateString())
+    
         guard let currentUserId = Auth.auth().currentUser?.uid else {
             print("No current user logged in")
             return
         }
         
-        print("todayImg: \(self.todayImage == nil)")
-        print("todayText: \(self.todayPost.todayText)")
-        print("todayColor: \(self.todayPost.todayColor)")
-        
         guard self.todayImage != nil, !self.todayPost.todayText.isEmpty, !self.todayPost.todayColor.isEmpty else {
             errorMessage = "모든 항목을 기입해주세요"
             return
         }
-        
+    
         self.postButtonsDisabled = true
         
         let todayPostId = UUID().uuidString
-        
-        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getDate())
         
         guard let todayImageToUpload = todayImage else { return }
         
@@ -184,8 +176,8 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func uploadComment() {
-        let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(getDate())
+    func uploadComment(date: String) {
+        let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
         
         let commentId = UUID().uuidString
         let newComment = Comment(id: commentId, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: myComment)
@@ -233,7 +225,7 @@ class HomeViewModel: ObservableObject {
             return
         }
             
-        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getDate())
+        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getTodayDateString())
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         
@@ -268,7 +260,7 @@ class HomeViewModel: ObservableObject {
         let userRef =  self.db.collection("users").document(self.user.id)
         
         if !self.user.myColors.contains(color) {
-            self.colorPalettes["My"]?.append(Color(hex:color))
+            self.colorPalettes["커스텀"]?.append(Color(hex:color))
             self.user.myColors.append(color)
                 
             userRef.updateData([
@@ -283,7 +275,7 @@ class HomeViewModel: ObservableObject {
         let userRef =  self.db.collection("users").document(self.user.id)
         
         if !self.user.myEmojis.contains(emoji) {
-            self.emojiPalettes["My"]?.append(emoji)
+            self.emojiPalettes["커스텀"]?.append(emoji)
             self.user.myEmojis.append(emoji)
             
             userRef.updateData([
@@ -302,7 +294,7 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    func getDate() -> String {
+    func getTodayDateString() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.M.d"
         guard let dateString = formatter.string(for: Date()) else { return "Date Error" }
@@ -361,7 +353,8 @@ extension Color {
     }
     
     func toHextString() -> String {
-        guard let components = cgColor?.components else {
+        let uiColor = UIColor(self)
+        guard let components = uiColor.cgColor.components else {
             return ""
         }
         let red = Int(components[0] * 255.0)

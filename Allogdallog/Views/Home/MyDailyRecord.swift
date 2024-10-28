@@ -15,31 +15,36 @@ struct MyDailyRecord: View {
     var body: some View {
         NavigationLink(destination: MyDailyRecordDetail().environmentObject(viewModel), label: {
             VStack {
-                Text("Today's Me")
-                    .instrumentSansItalic(type:.bold, size: 30)
+                Text("오늘의 나는?")
+                    .gmarketSans(type: .bold, size: 22)
                     .foregroundStyle(.black)
                     .padding()
                 
                 HStack() {
-                    Spacer()
                     VStack(alignment: .center) {
-                        Text("color")
-                            .instrumentSerif(size: 24)
-                            .foregroundStyle(.black)
+                        Text("색상")
+                            .gmarketSans(type: .medium, size: 15)
+                            .foregroundStyle(.myDarkGray)
                         Spacer()
                         HStack {
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : Color.blue)
+                            /*
                             Circle()
                                 .frame(width: 50, height: 50)
-                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : viewModel.selectedColor)
-                                .blur(radius: 5)
+                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : Color.blue)
+                             */
                         }
                         .frame(height: 200)
                     }
+                    .padding(.leading, 10)
                     Spacer()
                     VStack {
-                        Text("picture")
-                            .instrumentSerif(size: 24)
-                            .foregroundStyle(.black)
+                        Text("사진")
+                            .gmarketSans(type: .medium, size: 15)
+                            .foregroundStyle(.myDarkGray)
                         Spacer()
                         VStack(alignment: .center) {
                             if viewModel.user.postUploaded {
@@ -78,9 +83,9 @@ struct MyDailyRecord: View {
                     }
                     Spacer()
                     VStack(alignment: .center) {
-                        Text("emoji")
-                            .instrumentSerif(size: 24)
-                            .foregroundStyle(.black)
+                        Text("이모티콘")
+                            .gmarketSans(type: .medium, size: 15)
+                            .foregroundStyle(.myDarkGray)
                         Spacer()
                         HStack(alignment: .center) {
                             Text(viewModel.user.postUploaded ? viewModel.todayPost.todayText : "😊")
@@ -88,11 +93,11 @@ struct MyDailyRecord: View {
                         }
                         .frame(height: 200)
                     }
-                    Spacer()
+                    .padding(.trailing, 10)
                 }
                 .frame(height: 230)
+                .padding(.top, 10)
             }
-            .padding(.horizontal, 20)
         })
     }
 }

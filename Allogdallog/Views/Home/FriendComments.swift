@@ -27,32 +27,47 @@ struct FriendComments: View {
                             HStack {
                                 if let url = URL(string: comment.fromUserImgUrl) {
                                     AsyncImage(url: url) { image in
-                                        image
-                                            .resizable()
-                                            .circularImage(size: 45)
+                                        ZStack {
+                                            image
+                                                .resizable()
+                                                .circularImage(size: 40)
+                                            Circle()
+                                                .stroke(.black)
+                                                .frame(width: 40, height: 40)
+                                        }
                                     } placeholder: {
-                                        Image(systemName: "person.circle")
-                                            .circularImage(size: 45)
+                                        ZStack {
+                                            Image(systemName: "person.circle")
+                                                .circularImage(size: 40)
+                                            Circle()
+                                                .stroke(.black)
+                                                .frame(width: 40, height: 40)
+                                        }
                                     }
                                 } else {
                                     Image(systemName: "person.circle")
-                                        .circularImage(size: 45)
+                                        .circularImage(size: 40)
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 40, height: 40)
                                 }
                                 VStack {
                                     HStack {
                                         Text("\(comment.fromUserNick)")
-                                            .font(.caption2)
-                                            .fontWeight(.semibold)
+                                            .gmarketSans(type: .bold, size: 12)
                                         Spacer()
                                     }
+                                    .padding(.bottom, 5)
                                     HStack {
                                         Text("\(comment.comment)")
-                                            .font(.caption2)
+                                            .gmarketSans(type: .medium, size: 12)
                                         Spacer()
                                     }
                                 }
                                 Spacer()
                             }
+                            .padding(.horizontal, 5)
+                            .padding(.bottom, 5)
                         }
                     }
                 }
@@ -79,7 +94,11 @@ struct FriendComments: View {
                             .padding()
                             .textFieldStyle(PlainTextFieldStyle())
                         Button(action: {
-                            viewModel.uploadComment()
+                            if viewModel.selectedDate.isEmpty {
+                                viewModel.uploadComment(date: viewModel.getTodayDateString())
+                            } else {
+                                viewModel.uploadComment(date: viewModel.selectedDate)
+                            }
                         }) {
                             Image(systemName: "arrow.up.circle.fill")
                                 .resizable()
@@ -97,7 +116,6 @@ struct FriendComments: View {
                 }
             }
         }
-        .padding(.horizontal, 20)
     }
 }
 
