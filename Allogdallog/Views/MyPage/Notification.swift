@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Notification: View {
+    
+    @StateObject var viewModel: HomeViewModel
+    
     var body: some View {
         VStack {
             HStack {
@@ -19,11 +22,16 @@ struct Notification: View {
             }
             Divider()
             
+            List(viewModel.notifications) { notification in
+                Text(notification.message)
+                            .font(.body)
+                            .padding()
+            }.onAppear {
+                print("Current notifications count: \(viewModel.notifications.count)")
+                viewModel.listenForNotifications()
+            }
+            
             Spacer()
         }
     }
-}
-
-#Preview {
-    Notification()
 }

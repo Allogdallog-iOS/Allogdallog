@@ -69,8 +69,9 @@ struct DeleteAccount: View {
                 }
                 
                 SecureField("비밀번호를 입력하세요", text: $password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal, 20)
+                    .customTextFieldStyle(height: 50)
+                    .padding(.top,5)
+                    .padding(.horizontal, 20)
                 
                 // 탈퇴 후 첫 화면으로 이동
                     NavigationLink(destination: ContentView(), isActive: $isDeleted) {

@@ -12,14 +12,16 @@ import UIKit
 struct Post: Identifiable, Codable {
     
     var id: String = ""
+    var userId: String
     var todayDate: Date
     var todayImgUrl: String = ""
     var todayColor: String = ""
     var todayText: String = ""
     var todayComments: [Comment] = []
     
-    init() {
+    init(userId: String) {
         self.id = ""
+        self.userId = userId
         self.todayDate = Date()
         self.todayImgUrl = ""
         self.todayColor = ""
@@ -29,20 +31,23 @@ struct Post: Identifiable, Codable {
     
     init(id: String, data: [String: Any]) {
         self.id = id
+        self.userId = data["userId"] as? String ?? ""
         self.todayDate = (data["todayDate"] as? Timestamp)?.dateValue() ?? Date()
         self.todayImgUrl = data["todayImgUrl"] as? String ?? ""
         self.todayColor = data["todayColor"] as? String ?? ""
         self.todayText = data["todayText"] as? String ?? ""
         self.todayComments = (data["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
             Comment(id: comment["id"] as? String ?? "",
+            fromUserId: comment["fromUserId"] as? String ?? "",
             fromUserNick: comment["fromUserNick"] as? String ?? "",
             fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
             comment: comment["comment"] as? String ?? "")
         }
     }
     
-    init(id: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayComments: [Comment] = []) {
+    init(id: String = "",userId: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayComments: [Comment] = []) {
         self.id = id
+        self.userId = userId
         self.todayDate = todayDate
         self.todayImgUrl = todayImgUrl
         self.todayColor = todayColor
