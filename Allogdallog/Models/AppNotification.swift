@@ -8,9 +8,13 @@
 import Foundation
 
 struct AppNotification: Identifiable {
-    var id: String { message + timestamp.description } // 고유 ID 생성
+    //var id: String { message + timestamp.description }
+    var id: String
+    var userId: String
     let message: String
     let timestamp: Date
     let fromUserId: String
     let notificationType: String
+    var isRead: Bool
+    
 }

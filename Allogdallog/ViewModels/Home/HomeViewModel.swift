@@ -45,6 +45,7 @@ class HomeViewModel: ObservableObject {
         "커스텀": []
     ]
     @Published var notifications: [AppNotification] = []
+    @Published var hasNewNotification: Bool = false
     
     private var db = Firestore.firestore()
     
@@ -156,23 +157,33 @@ class HomeViewModel: ObservableObject {
             
             self.todayPost.todayImgUrl = url.absoluteString
             
+            let postData: [String: Any] = [
+                "id": todayPostId,
+                "userId": currentUserId, // 게시물 소유자 ID 추가
+                "todayDate": self.todayPost.todayDate,
+                "todayImgUrl": url.absoluteString,
+                "todayColor": self.todayPost.todayColor,
+                "todayText": self.todayPost.todayText,
+                "todayComments": self.todayPost.todayComments
+                   ]
+            
             if self.user.postUploaded {
-                userPostRef.updateData([
-                    "todayImgUrl": url.absoluteString,
-                    "todayColor": self.todayPost.todayColor,
-                    "todayText": self.todayPost.todayText,
-                    "todayComments": self.todayPost.todayComments
-                ])
+                userPostRef.updateData(postData) { error in
+                    if let error = error {
+                        print("Error updating post: \(error)")
+                    } else {
+                        print("Post updated successfully.")
+                    }
+                }
             } else {
                 self.user.postUploaded = true
-                userPostRef.setData([
-                    "id": todayPostId,
-                    "todayDate": self.todayPost.todayDate,
-                    "todayImgUrl": url.absoluteString,
-                    "todayColor": self.todayPost.todayColor,
-                    "todayText": self.todayPost.todayText,
-                    "todayComments": self.todayPost.todayComments
-                ])
+                userPostRef.setData(postData) { error in
+                    if let error = error {
+                        print("Error creating post: \(error)")
+                    } else {
+                        print("Post created successfully.")
+                    }
+                }
             }
         }
     }
@@ -185,7 +196,11 @@ class HomeViewModel: ObservableObject {
                 print("Post does not exist")
                 return
             }
-            let postOwnerId = document.data()?["userId"] as? String ?? self.friendPost.userId
+            let postOwnerId = document.data()?["userId"] as? String ?? ""
+            guard !postOwnerId.isEmpty else {
+                print("Error: Post owner ID is not available.")
+                return
+                    }
             
             let commentId = UUID().uuidString
             let newComment = Comment(id: commentId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
@@ -215,14 +230,15 @@ class HomeViewModel: ObservableObject {
     private func createNotification(forComment comment: Comment, postOwnerId: String) {
         let notificationMessage = "\(comment.fromUserNick)님이 댓글 \"\(comment.comment)\"을 남겼습니다."
         
-        print("Adding notification for userId: \(postOwnerId)")
+        //print("Adding notification for userId: \(postOwnerId)")
         
         db.collection("notifications").addDocument(data: [
             "message": notificationMessage,
             "timestamp": Timestamp(),
             "userId": postOwnerId, // 알림을 수신할 사용자 ID
             "fromUserId": comment.fromUserId, // 댓글 작성자 ID
-            "notificationType": "comment"
+            "notificationType": "comment",
+            "isRead": false
         ]) { error in
             if let error = error {
                 print("Error adding notification: \(error)")
@@ -233,7 +249,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func listenForNotifications() {
-        db.collection("notifications").whereField("userId", isEqualTo: self.user.id)
+        db.collection("notifications")
+            .whereField("userId", isEqualTo: self.user.id)
+            //.whereField("isRead", isEqualTo: false)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
                     print("Error listening for notifications: \(error)")
@@ -249,26 +267,59 @@ class HomeViewModel: ObservableObject {
                 
                 for document in documents {
                     let data = document.data()
-                    
-                    print("Document data: \(data)")
-                    
                     let message = data["message"] as? String ?? ""
                     let timestamp = data["timestamp"] as? Timestamp ?? Timestamp()
                     let fromUserId = data["fromUserId"] as? String ?? ""
                     let notificationType = data["notificationType"] as? String ?? ""
+                    let isRead = data["isRead"] as? Bool ?? false
                 
                     let notification = AppNotification(
+                        id: document.documentID,
+                        userId: self.user.id,
                         message: message,
                         timestamp: timestamp.dateValue(),
                         fromUserId: fromUserId,
-                        notificationType: notificationType
+                        notificationType: notificationType,
+                        isRead: isRead
                     )
                     self.notifications.append(notification)
-                    
-                    // 추가된 알림 확인용 로그
-                    print("New notification received: \(notification)")
+                    print("Notification added: \(notification)")
+                }
+                DispatchQueue.main.async {
+                    self.hasNewNotification = !self.notifications.allSatisfy { $0.isRead }
+                    print("hasNewNotification: \(self.hasNewNotification)")
+                    }
+            }
+    }
+    
+    func markNotificationAsRead(notification: AppNotification) {
+        let db = Firestore.firestore()
+        
+        let notificationRef = db.collection("notifications").document(notification.id)
+        notificationRef.updateData([
+            "isRead": true
+        ]) { error in
+            if let error = error {
+                print("Error updating notification: \(error.localizedDescription)")
+            } else {
+                print("Notification marked as read")
+                // 읽음 상태가 업데이트된 후 로컬 알림 배열에서도 해당 알림의 상태를 업데이트
+                if let index = self.notifications.firstIndex(where: { $0.id == notification.id }) {
+                    self.notifications[index].isRead = true
                 }
             }
+        }
+    }
+    
+    func updateNotificationAsRead(notification: AppNotification) {
+        let db = Firestore.firestore()
+        db.collection("notifications").document(notification.id).updateData(["isRead":true]) { error in
+            if let error = error {
+                print("Error updating notification: \(error.localizedDescription)")
+            } else {
+                print("Notification \(notification.id) marked as read")
+            }
+        }
     }
     
     func fetchImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {

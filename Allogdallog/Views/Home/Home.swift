@@ -15,7 +15,7 @@ struct Home: View {
     @StateObject private var calendarViewModel: MyCalendarViewModel
     @StateObject private var tabSelection = TabSelectionManager()
     @State private var path = NavigationPath()
-    @State private var isLoading = true  // 로딩 상태 변수
+    @State private var isLoading = true
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(user: user))
@@ -25,8 +25,7 @@ struct Home: View {
     var body: some View {
         ZStack {
             if isLoading {
-                // 로딩 중일 때는 LoadingView를 표시
-                LoadingView()
+                    LoadingView()
             } else {
                 // 로딩이 끝났을 때 홈뷰 내용 표시
                 TabView(selection: $tabSelection.selectedTab) {
@@ -106,22 +105,20 @@ struct Home: View {
                         Logout()
                         Spacer()
                     }.environmentObject(viewModel)
-                    .tabItem {
-                        Label("마이페이지", systemImage: "person.fill")
-                    }
-                    .tag(2)
+                        .tabItem {
+                            Label("마이페이지", systemImage: "person.fill")
+                        }
+                        .tag(2)
                     
                 }
                 .tint(.black)
                 .environmentObject(viewModel)
                 .environmentObject(tabSelection)
                 .navigationBarBackButtonHidden()
-                .onAppear {
-                    // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
-                    loadData()
-                }
             }
-
+        }.onAppear {
+            loadData()
+        }
     }
             
     // 로딩 데이터를 처리하는 함수
@@ -130,7 +127,8 @@ struct Home: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
             isLoading = false
-
+            print("Loading complete, isLoading set to false")
+            
         }
     }
 }
