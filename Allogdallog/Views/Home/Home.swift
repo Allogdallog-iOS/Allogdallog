@@ -15,7 +15,7 @@ struct Home: View {
     @StateObject private var calendarViewModel: MyCalendarViewModel
     @StateObject private var tabSelection = TabSelectionManager()
     @State private var path = NavigationPath()
-    @State private var isLoading = true  // 로딩 상태 변수
+    @State private var isLoading = true
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(user: user))
@@ -25,8 +25,7 @@ struct Home: View {
     var body: some View {
         ZStack {
             if isLoading {
-                // 로딩 중일 때는 LoadingView를 표시
-                LoadingView()
+                    LoadingView()
             } else {
                 // 로딩이 끝났을 때 홈뷰 내용 표시
                 TabView(selection: $tabSelection.selectedTab) {
@@ -100,17 +99,16 @@ struct Home: View {
                     }
                     .tag(1)
                     VStack {
-                        MyPage()
+                        MyPage(user: viewModel.user)
                         Profile(user:viewModel.user)
                         FriendsList(user: viewModel.user)
                         Logout()
-                        DeleteAccount()
                         Spacer()
                     }.environmentObject(viewModel)
-                    .tabItem {
-                        Label("마이페이지", systemImage: "person.fill")
-                    }
-                    .tag(2)
+                        .tabItem {
+                            Label("마이페이지", systemImage: "person.fill")
+                        }
+                        .tag(2)
                     
                 }
                 .tint(.black)
@@ -118,7 +116,8 @@ struct Home: View {
                 .environmentObject(tabSelection)
                 .navigationBarBackButtonHidden()
             }
-
+        }.onAppear {
+            loadData()
         }
     }
             
@@ -128,6 +127,8 @@ struct Home: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
             isLoading = false
+            print("Loading complete, isLoading set to false")
+            
         }
     }
 }
