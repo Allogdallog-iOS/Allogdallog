@@ -303,7 +303,7 @@ struct MyFriends: View {
                     }
                 }
                 .padding(.horizontal, 5)
-                .padding(.vertical, 10)
+                .padding(.vertical, 18)
             }
         }
     }

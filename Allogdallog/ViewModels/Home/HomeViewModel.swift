@@ -48,6 +48,8 @@ class HomeViewModel: ObservableObject {
         "슬픔": ["🥲", "😭", "😱", "🤕", "😵‍💫"],
         "커스텀": []
     ]
+    @Published var notifications: [AppNotification] = []
+    @Published var hasNewNotification: Bool = false
     
     private var db = Firestore.firestore()
     
@@ -62,6 +64,7 @@ class HomeViewModel: ObservableObject {
         self.colorPalettes["커스텀"] = self.user.myColors.map { Color(hex: $0) }
         self.emojiPalettes["커스텀"] = self.user.myEmojis
         fetchPost()
+        fetchUserProfile()
     }
     
     func fetchPost() {
@@ -81,7 +84,7 @@ class HomeViewModel: ObservableObject {
                 self.todayPost.todayText = data?["todayText"] as? String ?? ""
                 self.todayPost.todayShape = data?["todayShape"] as? String ?? ""
                 self.todayPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "",
+                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
@@ -122,7 +125,7 @@ class HomeViewModel: ObservableObject {
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
                 self.friendPost.todayShape = data?["todayShape"] as? String ?? ""
                 self.friendPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "",
+                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
@@ -166,6 +169,16 @@ class HomeViewModel: ObservableObject {
             
             self.todayPost.todayImgUrl = url.absoluteString
             
+            let postData: [String: Any] = [
+                "id": todayPostId,
+                "userId": currentUserId, // 게시물 소유자 ID 추가
+                "todayDate": self.todayPost.todayDate,
+                "todayImgUrl": url.absoluteString,
+                "todayColor": self.todayPost.todayColor,
+                "todayText": self.todayPost.todayText,
+                "todayComments": self.todayPost.todayComments
+                   ]
+            
             if self.user.postUploaded {
                 userPostRef.updateData([
                     "todayImgUrl": url.absoluteString,
@@ -192,21 +205,135 @@ class HomeViewModel: ObservableObject {
     func uploadComment(date: String) {
         let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
         
-        let commentId = UUID().uuidString
-        let newComment = Comment(id: commentId, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: myComment)
+        userPostRef.getDocument { (document, error) in
+            guard let document = document, document.exists else {
+                print("Post does not exist")
+                return
+            }
+            let postOwnerId = document.data()?["userId"] as? String ?? ""
+            guard !postOwnerId.isEmpty else {
+                print("Error: Post owner ID is not available.")
+                return
+                    }
+            
+            let commentId = UUID().uuidString
+            let newComment = Comment(id: commentId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
+            
+            self.friendPost.todayComments.append(newComment)
+            
+            userPostRef.updateData([
+                "todayComments": FieldValue.arrayUnion([[
+                    "id": commentId,
+                    "fromUserNick": self.user.nickname,
+                    "fromUserImgUrl": self.user.profileImageUrl ?? "",
+                    "comment": self.myComment
+                ]])
+            ]){ error in
+                if let error = error {
+                    print("Error adding comment: \(error)")
+                } else {
+                    print("Post owner ID: \(postOwnerId)") // 포스트 소유자 ID 로그 추가
+                    self.createNotification(forComment: newComment, postOwnerId: postOwnerId)
+                }
+            }
+            
+            self.myComment = ""
+        }
+    }
+    
+    private func createNotification(forComment comment: Comment, postOwnerId: String) {
+        let notificationMessage = "\(comment.fromUserNick)님이 댓글 \"\(comment.comment)\"을 남겼습니다."
         
-        self.friendPost.todayComments.append(newComment)
+        //print("Adding notification for userId: \(postOwnerId)")
         
-        userPostRef.updateData([
-            "todayComments": FieldValue.arrayUnion([[
-                "id": commentId,
-                "fromUserNick": self.user.nickname,
-                "fromUserImgUrl": self.user.profileImageUrl ?? "",
-                "comment": myComment
-            ]])
-        ])
+        db.collection("notifications").addDocument(data: [
+            "message": notificationMessage,
+            "timestamp": Timestamp(),
+            "userId": postOwnerId, // 알림을 수신할 사용자 ID
+            "fromUserId": comment.fromUserId, // 댓글 작성자 ID
+            "notificationType": "comment",
+            "isRead": false
+        ]) { error in
+            if let error = error {
+                print("Error adding notification: \(error)")
+            } else {
+                print("Notification added successfully.")
+            }
+        }
+    }
+    
+    func listenForNotifications() {
+        db.collection("notifications")
+            .whereField("userId", isEqualTo: self.user.id)
+            //.whereField("isRead", isEqualTo: false)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error listening for notifications: \(error)")
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents found")
+                    return }
+                
+                self.notifications = []
+                print("Found \(documents.count) notifications")
+                
+                for document in documents {
+                    let data = document.data()
+                    let message = data["message"] as? String ?? ""
+                    let timestamp = data["timestamp"] as? Timestamp ?? Timestamp()
+                    let fromUserId = data["fromUserId"] as? String ?? ""
+                    let notificationType = data["notificationType"] as? String ?? ""
+                    let isRead = data["isRead"] as? Bool ?? false
+                
+                    let notification = AppNotification(
+                        id: document.documentID,
+                        userId: self.user.id,
+                        message: message,
+                        timestamp: timestamp.dateValue(),
+                        fromUserId: fromUserId,
+                        notificationType: notificationType,
+                        isRead: isRead
+                    )
+                    self.notifications.append(notification)
+                    print("Notification added: \(notification)")
+                }
+                DispatchQueue.main.async {
+                    self.hasNewNotification = !self.notifications.allSatisfy { $0.isRead }
+                    print("hasNewNotification: \(self.hasNewNotification)")
+                    }
+            }
+    }
+    
+    func markNotificationAsRead(notification: AppNotification) {
+        let db = Firestore.firestore()
         
-        self.myComment = ""
+        let notificationRef = db.collection("notifications").document(notification.id)
+        notificationRef.updateData([
+            "isRead": true
+        ]) { error in
+            if let error = error {
+                print("Error updating notification: \(error.localizedDescription)")
+            } else {
+                print("Notification marked as read")
+                // 읽음 상태가 업데이트된 후 로컬 알림 배열에서도 해당 알림의 상태를 업데이트
+                if let index = self.notifications.firstIndex(where: { $0.id == notification.id }) {
+                    self.notifications[index].isRead = true
+                }
+            }
+        }
+    }
+    
+    func updateNotificationAsRead(notification: AppNotification) {
+        let db = Firestore.firestore()
+        db.collection("notifications").document(notification.id).updateData(["isRead":true]) { error in
+            if let error = error {
+                print("Error updating notification: \(error.localizedDescription)")
+            } else {
+                print("Notification \(notification.id) marked as read")
+            }
+        }
     }
     
     func fetchImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
@@ -268,6 +395,24 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchUserProfile() {
+        let db = Firestore.firestore()
+            db.collection("users").document(user.id).getDocument { document, error in
+                if let document = document, document.exists {
+                    let data = document.data()
+                    self.user.nickname = data?["nickname"] as? String ?? ""
+                    self.user.profileImageUrl = data?["profileImageUrl"] as? String ?? ""
+                    // 필요하면 추가 데이터 처리
+                } else {
+                    print("User does not exist")
+                }
+            }
+        }
+    
+    func refreshData() {
+            fetchUserProfile()
+        }
     
     func addMyNewColor(color: String) {
         let userRef =  self.db.collection("users").document(self.user.id)

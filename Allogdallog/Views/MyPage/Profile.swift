@@ -9,21 +9,15 @@ import SwiftUI
 
 struct Profile: View {
     
-    @StateObject private var viewModel: ProfileViewModel
+    @EnvironmentObject private var viewModel: ProfileViewModel
     @EnvironmentObject private var homeViewModel: HomeViewModel
-
-    init(user: User) {
-        _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
-    }
-    
-    //var user: User
     
     var body: some View {
             
         VStack (alignment: .center) {
             HStack (alignment: .center) {
                 VStack (alignment: .leading) {
-                    if let imageUrl = viewModel.user.profileImageUrl, let url = URL(string: imageUrl) {
+                    if let imageUrl = homeViewModel.user.profileImageUrl, let url = URL(string: imageUrl) {
                         AsyncImage(url: url) { image in
                             ZStack {
                                 // 원형 배경을 만들기
@@ -85,7 +79,7 @@ struct Profile: View {
                 
                 VStack(alignment: .leading) {
                     
-                    Text(viewModel.user.nickname)
+                    Text(homeViewModel.user.nickname)
                         .font(.system(size: 22))
                         .padding(.top)
                         .padding(.leading)
