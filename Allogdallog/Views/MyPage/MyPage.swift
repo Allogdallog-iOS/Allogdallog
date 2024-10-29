@@ -26,8 +26,8 @@ struct MyPage: View {
                 Text("마이페이지")
                     .font(.title2)
                     .fontWeight(.semibold)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 5)
+                    .padding(.horizontal, 17)
+                    .padding(.vertical, 8)
                 
                 Spacer()
                 
