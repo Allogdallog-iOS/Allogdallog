@@ -51,9 +51,13 @@ struct Home: View {
                                             .frame(height: maxHeight * 0.65)
                                         Divider()
                                             .padding(.vertical, 5)
-                                        WeeklyRecord()
-                                            .environmentObject(calendarViewModel)
-                                            .frame(height: maxHeight * 0.35)
+                                        Button(action: {
+                                            tabSelection.selectedTab = 1
+                                        }) {
+                                            WeeklyRecord()
+                                                .environmentObject(calendarViewModel)
+                                                .frame(height: maxHeight * 0.35)
+                                        }
                                     }
                                 } else {
                                     ScrollView {

@@ -28,7 +28,7 @@ struct MyFriends: View {
                                             Circle()
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 56, height: 56)
-                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
+                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                             ZStack {
                                                 // 원형 배경을 만들기
                                                 Circle()
@@ -53,7 +53,7 @@ struct MyFriends: View {
                                             Circle()
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 56, height: 56)
-                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
+                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                             ZStack {
                                                 // 원형 배경을 만들기
                                                 Circle()
@@ -77,7 +77,7 @@ struct MyFriends: View {
                                             Circle()
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 56, height: 56)
-                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
+                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                             ZStack {
                                                 // 원형 배경을 만들기
                                                 Circle()
@@ -102,7 +102,7 @@ struct MyFriends: View {
                                             Circle()
                                                 .stroke(lineWidth: 2)
                                                 .frame(width: 56, height: 56)
-                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
+                                                .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                             ZStack {
                                                 // 원형 배경을 만들기
                                                 Circle()
@@ -129,7 +129,7 @@ struct MyFriends: View {
                                     Circle()
                                         .stroke(lineWidth: 2)
                                         .frame(width: 56, height: 56)
-                                        .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? viewModel.selectedColor : Color.clear)
+                                        .foregroundColor(viewModel.user.selectedUser == viewModel.user.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                     ZStack {
                                         // 원형 배경을 만들기
                                         Circle()
@@ -171,7 +171,7 @@ struct MyFriends: View {
                                                 Circle()
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 56, height: 56)
-                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
+                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                                 ZStack {
                                                     // 원형 배경을 만들기
                                                     Circle()
@@ -196,7 +196,7 @@ struct MyFriends: View {
                                                 Circle()
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 56, height: 56)
-                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
+                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                                 ZStack {
                                                     // 원형 배경을 만들기
                                                     Circle()
@@ -221,7 +221,7 @@ struct MyFriends: View {
                                                 Circle()
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 56, height: 56)
-                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
+                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                                 ZStack {
                                                     // 원형 배경을 만들기
                                                     Circle()
@@ -246,7 +246,7 @@ struct MyFriends: View {
                                                 Circle()
                                                     .stroke(lineWidth: 2)
                                                     .frame(width: 56, height: 56)
-                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
+                                                    .foregroundColor(viewModel.user.selectedUser == friend.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                                 ZStack {
                                                     // 원형 배경을 만들기
                                                     Circle()
@@ -273,7 +273,7 @@ struct MyFriends: View {
                                         Circle()
                                             .stroke(lineWidth: 2)
                                             .frame(width: 56, height: 56)
-                                            .foregroundColor(viewModel.user.selectedUser == friend.id ? viewModel.selectedColor : Color.clear)
+                                            .foregroundColor(viewModel.user.selectedUser == friend.id ? Color(hex:viewModel.todayPost.todayColor) : Color.clear)
                                         ZStack {
                                             // 원형 배경을 만들기
                                             Circle()
@@ -296,7 +296,7 @@ struct MyFriends: View {
                                 }
                                 
                                 Text(friend.nickname)
-                                    .font(.caption)
+                                    .gmarketSans(type: .medium, size: 10)
                                     .foregroundStyle(.black)
                             }
                         }
