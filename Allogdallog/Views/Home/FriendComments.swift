@@ -37,7 +37,7 @@ struct FriendComments: View {
                                         }
                                     } placeholder: {
                                         ZStack {
-                                            Image(systemName: "person.circle")
+                                            Image(systemName: "person.crop.circle.fill")
                                                 .circularImage(size: 40)
                                             Circle()
                                                 .stroke(.black)
@@ -45,7 +45,7 @@ struct FriendComments: View {
                                         }
                                     }
                                 } else {
-                                    Image(systemName: "person.circle")
+                                    Image(systemName: "person.crop.circle.fill")
                                         .circularImage(size: 40)
                                     Circle()
                                         .stroke(.black)
@@ -82,11 +82,11 @@ struct FriendComments: View {
                                 .resizable()
                                 .circularImage(size: 45)
                         } placeholder: {
-                            Image(systemName: "person.circle")
+                            Image(systemName: "person.crop.circle.fill")
                                 .circularImage(size: 45)
                         }
                     } else {
-                        Image(systemName: "person.circle")
+                        Image(systemName: "person.crop.circle.fill")
                             .circularImage(size: 45)
                     }
                     HStack {

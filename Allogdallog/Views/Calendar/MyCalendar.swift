@@ -23,54 +23,52 @@ struct MyCalendar: View {
     var body: some View {
         ZStack {
             if isLoading {
-                // 로딩 중일 때는 LoadingView를 표시
                 LoadingView()
             } else {
-                // 로딩이 끝났을 때 홈뷰 내용 표시
-                ZStack {
-                    VStack {
-                        Spacer()
-                        headerView
-                        ScrollView {
-                            calendarGridView
+                    ZStack {
+                        VStack {
+                            Spacer()
+                            headerView
+                            ScrollView {
+                                calendarGridView
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                    }
-                    .gesture(
-                     DragGesture()
-                         .onChanged { gesture in
-                             viewModel.offset = gesture.translation
-                         }
-                         .onEnded { gesture in
-                             if gesture.translation.width < -50 {
-                                 viewModel.changeMonth(by: 1)
-                             } else if gesture.translation.width > 50 {
-                                 viewModel.changeMonth(by: -1)
-                             }
-                             viewModel.offset = CGSize()
-                         }
-                    )
-                    .onChange(of: homeViewModel.user.selectedUser) {
-                        viewModel.user.selectedUser = homeViewModel.user.selectedUser
-                        viewModel.fetchPostForMonth(viewModel.month)
-                    }
-                    Color.black.opacity(isPopUpOpen ? 0.3 : 0)
-                        .ignoresSafeArea(edges: .all)
-                        .onTapGesture {
-                            isPopUpOpen.toggle()
+                        .gesture(
+                            DragGesture()
+                                .onChanged { gesture in
+                                    viewModel.offset = gesture.translation
+                                }
+                                .onEnded { gesture in
+                                    if gesture.translation.width < -50 {
+                                        viewModel.changeMonth(by: 1)
+                                    } else if gesture.translation.width > 50 {
+                                        viewModel.changeMonth(by: -1)
+                                    }
+                                    viewModel.offset = CGSize()
+                                }
+                        )
+                        .onChange(of: homeViewModel.user.selectedUser) {
+                            viewModel.user.selectedUser = homeViewModel.user.selectedUser
+                            viewModel.fetchPostForMonth(viewModel.month)
                         }
-                    
-                    if isPopUpOpen {
-                        DateClickPopUp()
-                            .transition(.scale)
-                            .background(Color.white)
-                            .frame(width: 250, height: 350.0)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .shadow(radius: 10)
-                            .zIndex(1.0)
+                        Color.black.opacity(isPopUpOpen ? 0.3 : 0)
+                            .ignoresSafeArea(edges: .all)
+                            .onTapGesture {
+                                isPopUpOpen.toggle()
+                            }
+                        
+                        if isPopUpOpen {
+                            DateClickPopUp()
+                                .transition(.scale)
+                                .background(Color.white)
+                                .frame(width: 250, height: 350.0)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .shadow(radius: 10)
+                                .zIndex(1.0)
+                        }
                     }
                 }
-            }
         }.onAppear {
             // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
             loadData()

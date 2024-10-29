@@ -57,6 +57,7 @@ class HomeViewModel: ObservableObject {
         self.colorPalettes["커스텀"] = self.user.myColors.map { Color(hex: $0) }
         self.emojiPalettes["커스텀"] = self.user.myEmojis
         fetchPost()
+        fetchUserProfile()
     }
     
     func fetchPost() {
@@ -381,6 +382,24 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchUserProfile() {
+        let db = Firestore.firestore()
+            db.collection("users").document(user.id).getDocument { document, error in
+                if let document = document, document.exists {
+                    let data = document.data()
+                    self.user.nickname = data?["nickname"] as? String ?? ""
+                    self.user.profileImageUrl = data?["profileImageUrl"] as? String ?? ""
+                    // 필요하면 추가 데이터 처리
+                } else {
+                    print("User does not exist")
+                }
+            }
+        }
+    
+    func refreshData() {
+            fetchUserProfile()
+        }
     
     func addMyNewColor(color: String) {
         let userRef =  self.db.collection("users").document(self.user.id)

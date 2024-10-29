@@ -14,12 +14,14 @@ struct Home: View {
     @StateObject private var viewModel: HomeViewModel
     @StateObject private var calendarViewModel: MyCalendarViewModel
     @StateObject private var tabSelection = TabSelectionManager()
+    @StateObject private var profileViewModel : ProfileViewModel
     @State private var path = NavigationPath()
     @State private var isLoading = true
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(user: user))
         _calendarViewModel = StateObject(wrappedValue: MyCalendarViewModel(user: user))
+        _profileViewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
     }
     
     var body: some View {
@@ -29,82 +31,112 @@ struct Home: View {
             } else {
                 // 로딩이 끝났을 때 홈뷰 내용 표시
                 TabView(selection: $tabSelection.selectedTab) {
-                    VStack {
+                    ScrollView {
+                    VStack(spacing: 0) {
                         HStack {
                             Text("알록달록")
                                 .font(.title2)
                                 .fontWeight(.semibold)
                                 .padding(.horizontal, 15)
-                                .padding(.vertical, 5)
+                                .padding(.vertical, 12)
                             Spacer()
                         }
                         Divider()
                         MyFriends()
                         Divider()
                         GeometryReader { geometry in
-                            let maxHeight = geometry.size.height - 20
+                            //let maxHeight = geometry.size.height - 20
                             VStack {
                                 if viewModel.user.selectedUser == viewModel.user.id {
                                     VStack(alignment: .leading) {
                                         MyDailyRecord()
-                                            .frame(height: maxHeight * 0.65)
+                                            .frame(height: 340)
+                                            //.frame(height: maxHeight * 0.65)
                                         Divider()
                                             .padding(.vertical, 5)
                                         WeeklyRecord()
                                             .environmentObject(calendarViewModel)
-                                            .frame(height: maxHeight * 0.35)
+                                            .frame(height: 180)
+                                            //.frame(height: maxHeight * 0.35)
                                     }
                                 } else {
                                     ScrollView {
                                         VStack(alignment: .leading) {
                                             FriendDailyRecord()
-                                                .frame(height: maxHeight * 0.55)
+                                                .frame(height: 300)
+                                            //.frame(height: maxHeight * 0.55)
                                             FriendComments()
-                                                .frame(height: maxHeight * 0.45)
+                                                .frame(height: 230)
+                                            //.frame(height: maxHeight * 0.45)
                                         }
                                     }
                                 }
                             }
                         }
+                        .frame(height: 560)
                     }
                     .padding(.horizontal, 15)
+                }
+                .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
+                    viewModel.refreshData()
+                    loadData() // 데이터 새로 고침
+                }
                     .tabItem {
                         Label("홈", systemImage: "house.fill")
                     }
                     .tag(0)
-                    VStack {
-                        HStack {
-                            Text("알록달록")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 5)
-                            Spacer()
-                        }
-                        Divider()
-                        MyFriends()
-                        Divider()
-                        GeometryReader { geometry in
-                            let maxHeight = geometry.size.height - 20
-                            VStack {
-                                MyCalendar(user: viewModel.user)
-                                    .environmentObject(calendarViewModel)
-                                    .frame(height: maxHeight)
+                    
+                    ScrollView {
+                        VStack(spacing: 0){
+                            HStack {
+                                Text("알록달록")
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 12)
+                                Spacer()
                             }
+                            Divider()
+                            MyFriends()
+                            Divider()
+                            GeometryReader { geometry in
+                                let maxHeight = geometry.size.height - 20
+                                VStack {
+                                    MyCalendar(user: viewModel.user)
+                                        .environmentObject(calendarViewModel)
+                                        .frame(height: maxHeight)
+                                }
+                            }.padding(.vertical, 15)
+                            .frame(height: 550)
                         }
+                        .padding(.horizontal, 15)
                     }
-                    .padding(.horizontal, 15)
+                    .refreshable {
+                        viewModel.refreshData()
+                        loadData() // 데이터 새로 고침
+                    }
+                        
                     .tabItem {
                         Label("캘린더", systemImage: "calendar")
                     }
                     .tag(1)
-                    VStack {
-                        MyPage(user: viewModel.user)
-                        Profile(user:viewModel.user)
-                        FriendsList(user: viewModel.user)
-                        Logout()
-                        Spacer()
-                    }.environmentObject(viewModel)
+                    
+                    ScrollView {
+                        VStack(spacing: 0){
+                            MyPage(user: viewModel.user)
+                            Profile().environmentObject(profileViewModel)
+                            FriendsList(user: viewModel.user)
+                            Logout()
+                            Spacer()
+                        }.environmentObject(viewModel)
+                            //.padding(.horizontal, 15)
+                            .padding(.vertical, 12)
+                            .frame(height: 735)
+                    }
+                    .refreshable {
+                        viewModel.refreshData()
+                        loadData() // 데이터 새로 고침
+                    }
                         .tabItem {
                             Label("마이페이지", systemImage: "person.fill")
                         }
@@ -121,11 +153,8 @@ struct Home: View {
         }
     }
             
-    // 로딩 데이터를 처리하는 함수
     func loadData() {
-        // 로딩 작업 시작 (네트워크 작업, 데이터 처리 등)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
             isLoading = false
             print("Loading complete, isLoading set to false")
             

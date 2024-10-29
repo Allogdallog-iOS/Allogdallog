@@ -39,7 +39,7 @@ struct FriendsList: View {
                         //.padding(.horizontal, 15)
                             //.padding(.vertical, 0)
             }
-                           }
+                           }.padding(.top, 8)
             /*VStack {
                            FriendSearch(user: viewModel.user)
                        }
