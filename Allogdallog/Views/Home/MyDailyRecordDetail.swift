@@ -35,18 +35,16 @@ struct MyDailyRecordDetail: View {
                                         .resizable()
                                         .frame(width: 50, height: 50)
                                         .foregroundStyle(viewModel.selectedColor)
-                                    if !hasBeenTapped {
+                                    if !hasBeenTapped && !viewModel.user.postUploaded {
                                         Text("두 번 클릭시 모양이 바뀌어요!")
                                             .gmarketSans(type: .medium, size: 10)
                                             .foregroundStyle(.myGray)
-                                            .offset(y: -80)
+                                            .offset(y: -90)
                                     }
-                                }
-                                .onTapGesture {
-                                    hasBeenTapped = true
                                 }
                             }
                             .onTapGesture(count: 2) {
+                                hasBeenTapped = true
                                 currentShapeIndex = (currentShapeIndex + 1) % viewModel.shapes.count
                                 viewModel.selectedShape = viewModel.shapes[currentShapeIndex]
                             }

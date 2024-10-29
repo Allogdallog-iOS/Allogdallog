@@ -171,6 +171,7 @@ class HomeViewModel: ObservableObject {
                     "todayImgUrl": url.absoluteString,
                     "todayColor": self.todayPost.todayColor,
                     "todayText": self.todayPost.todayText,
+                    "todayShape": self.todayPost.todayShape,
                     "todayComments": self.todayPost.todayComments
                 ])
             } else {
@@ -181,6 +182,7 @@ class HomeViewModel: ObservableObject {
                     "todayImgUrl": url.absoluteString,
                     "todayColor": self.todayPost.todayColor,
                     "todayText": self.todayPost.todayText,
+                    "todayShape": self.todayPost.todayShape,
                     "todayComments": self.todayPost.todayComments
                 ])
             }
