@@ -21,9 +21,19 @@ struct DateClickPopUp: View {
                 HStack(alignment: .center) {
                     Spacer()
                     VStack {
-                        Circle()
-                            .frame(width: 35, height: 35)
-                            .foregroundStyle(Color(hex: viewModel.clickedPost?.todayColor ?? "#000000"))
+                        if let todayShape = viewModel.clickedPost?.todayShape {
+                            if todayShape.isEmpty {
+                                Image(systemName: "circle.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundStyle(Color(hex: viewModel.clickedPost?.todayColor ?? "#000000"))
+                            } else {
+                                Image(systemName: viewModel.clickedPost?.todayShape ?? "circle.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundStyle(Color(hex: viewModel.clickedPost?.todayColor ?? "#000000"))
+                            }
+                        }
                     }
                     .frame(height: 140)
                     Spacer()
@@ -66,36 +76,46 @@ struct DateClickPopUp: View {
                                         image
                                             .resizable()
                                             .circularImage(size: 35)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 35, height: 35)
+                                            )
                                     } placeholder: {
                                         Image(systemName: "person.circle")
                                             .circularImage(size: 35)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 35, height: 35)
+                                            )
                                     }
-                                    .padding(.trailing, 10.0)
+                                    .padding(.trailing, 8)
                                 }
                                 VStack {
                                     HStack {
                                         Text("\(comment.fromUserNick)")
-                                            .font(.caption2)
-                                            .fontWeight(.semibold)
+                                            .gmarketSans(type: .bold, size: 10)
                                         Spacer()
                                     }
+                                    .padding(.bottom, 3)
                                     HStack {
                                         Text("\(comment.comment)")
-                                            .font(.caption2)
-                                            .fontWeight(.semibold)
+                                            .gmarketSans(type: .medium, size: 10)
                                         Spacer()
                                     }
                                 }
                                 Spacer()
                             }
                             .frame(height: 25.0)
-                            .padding()
+                            .padding(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10.0)
                                     .fill(.opacity(0.05))
                                     .stroke(.gray)
                             )
-                            .padding([.leading, .trailing], 10.0)
+                            .padding(.horizontal, 10.0)
+                            .padding(.vertical, 3.0)
                         }
                     }
                 }

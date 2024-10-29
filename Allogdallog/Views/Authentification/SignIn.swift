@@ -21,17 +21,18 @@ struct SignIn: View {
                 Spacer()
                 
                 Text("로그인")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                
+                    .gmarketSans(type: .bold, size: 20)
                 TextField("이메일", text: $viewModel.email)
                     .customTextFieldStyle(height: 50)
+                    .gmarketSans(type: .medium, size: 14)
                 SecureField("비밀번호", text: $viewModel.password)
                     .customTextFieldStyle(height: 50)
+                    .gmarketSans(type: .medium, size: 14)
                 Button(action: {
                     viewModel.signIn()
                 }) {
                     Text("로그인")
+                        .gmarketSans(type: .medium, size: 15)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.black)
@@ -54,7 +55,7 @@ struct SignIn: View {
                 }
                 NavigationLink(value: "SignUp") {
                     Text("회원가입")
-                        .font(.caption)
+                        .gmarketSans(type: .medium, size: 10)
                         .foregroundStyle(.gray)
                 }
                 .navigationDestination(for: String.self) { value in
