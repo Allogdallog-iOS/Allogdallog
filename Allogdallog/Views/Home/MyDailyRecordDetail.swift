@@ -17,7 +17,7 @@ struct MyDailyRecordDetail: View {
         VStack {
             ScrollView {
                 VStack {
-                    Text("\(viewModel.getTodayDateString())")
+                    Text("\(viewModel.getDateString(date: Date()))")
                         .instrumentSansItalic(type:.bold, size: 25)
                         .foregroundStyle(.black)
                         .padding()
@@ -48,7 +48,7 @@ struct MyDailyRecordDetail: View {
                                 currentShapeIndex = (currentShapeIndex + 1) % viewModel.shapes.count
                                 viewModel.selectedShape = viewModel.shapes[currentShapeIndex]
                             }
-                            .frame(width: 90, height: 230)
+                            .frame(width: 90, height: 210)
                             .disabled(viewModel.postButtonsDisabled)
                             Spacer()
                             
@@ -56,7 +56,7 @@ struct MyDailyRecordDetail: View {
                         .sheet(isPresented: $viewModel.isColorPaletteOpen) {
                             ColorPalette()
                         }
-                        .frame(height: 300)
+                        .frame(height: 290)
                         Spacer()
                         VStack(alignment: .center) {
                             Text("사진")
@@ -99,7 +99,7 @@ struct MyDailyRecordDetail: View {
                         .sheet(isPresented: $viewModel.isImagePickerPresented) {
                             ImagePicker(image: $viewModel.todayImage, isPresented: $viewModel.isImagePickerPresented)
                         }
-                        .frame(height: 300)
+                        .frame(height: 290)
                         Spacer()
                         VStack(alignment: .center) {
                             Text("이모티콘")
@@ -113,15 +113,15 @@ struct MyDailyRecordDetail: View {
                                     .font(.system(size: 50))
                             }
                             .disabled(viewModel.postButtonsDisabled)
-                            .frame(width: 90, height: 230)
+                            .frame(width: 90, height: 210)
                             Spacer()
                         }
                         .sheet(isPresented: $viewModel.isEmojiPaletteOpen) {
                             EmojiPalette()
                         }
-                        .frame(height: 300)
+                        .frame(height: 290)
                     }
-                    Spacer()
+                    .padding(.bottom, 10)
                     HStack {
                         Spacer()
                         HStack {
@@ -174,7 +174,11 @@ struct MyDailyRecordDetail: View {
                         .frame(width: 165)
                         Spacer()
                     }
-                    Spacer()
+                    .padding(.bottom, 5 )
+                    Text(viewModel.errorMessage ?? " ")
+                        .foregroundStyle(.red)
+                        .gmarketSans(type: .medium, size: 15)
+                        .padding(.bottom, 5)
                     Divider()
                 }
                 ScrollView {

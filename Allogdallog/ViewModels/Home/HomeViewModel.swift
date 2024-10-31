@@ -18,34 +18,39 @@ class HomeViewModel: ObservableObject {
     @Published var isImagePickerPresented: Bool = false
     @Published var todayPost: Post
     @Published var todayImage: UIImage? = nil
+    @Published var pastImage: UIImage? = nil
     @Published var selectedDate: String = ""
     @Published var selectedColor: Color = Color.blue
+    @Published var pastSelectedColor: Color = Color.blue
     @Published var selectedShape: String = "circle.fill"
     @Published var selectedKeyword: String = "기쁨"
     @Published var selectedEmoji: String = "😊"
+    @Published var clickedPost: Post = Post()
     @Published var errorMessage: String? = nil
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
-    @Published var pastFriendPost: Post
     @Published var friendImage: UIImage? = nil
     @Published var postButtonsDisabled: Bool = false
     @Published var myComment: String = ""
+    @Published var paletteShowingPost: Post = Post()
     @Published var isColorPaletteOpen: Bool = false
     @Published var isEmojiPaletteOpen: Bool = false
-    @Published var shapes = ["circle.fill", "square.fill", "triangle.fill", "star.fill", "heart.fill"]
+    @Published var shapes = ["circle.fill", "square.fill", "triangle.fill", "star.fill", "suit.heart.fill", "suit.spade.fill", "suit.club.fill"]
     @Published var colors: [Color] = [.yellow, .orange, .pink, .green, .mint, .teal, .purple, .brown, .blue, .indigo, .gray, .black]
-    @Published var paletteKeys: [String] = ["기쁨", "차분", "슬픔", "커스텀"]
+    @Published var paletteKeys: [String] = ["기쁨", "분노", "불안", "슬픔", "커스텀"]
     @Published var colorPalettes: [String: [Color]] = [
         "기쁨": [],
-        "차분": [],
+        "분노": [],
+        "불안": [],
         "슬픔": [],
         "커스텀": []
         
     ]
     @Published var emojiPalettes: [String: [String]] = [
-        "기쁨": ["😊","😀", "😄", "😆", "😝"],
-        "차분": ["🙂", "😐", "🙃", "🫠", "😴"],
-        "슬픔": ["🥲", "😭", "😱", "🤕", "😵‍💫"],
+        "기쁨": ["😊","😀", "😄", "😆", "😝", "😎", "🥳", "🫶", "✌️", "🙌"],
+        "분노": ["🤨", "😖", "😤", "😡", "🤯", "😮‍💨", "🤮", "👿", "👊", "🤦"],
+        "불안": ["🙃", "😞", "🥺", "😶", "🫨", "😰", "🤒", "😮", "🙄", "😬"],
+        "슬픔": ["🥲", "😭", "😱", "🤕", "😵‍💫", "🫠","🤧", "🤢", "👎", "☠️"],
         "커스텀": []
     ]
     @Published var notifications: [AppNotification] = []
@@ -57,18 +62,19 @@ class HomeViewModel: ObservableObject {
         self.user = user
         self.todayPost = Post()
         self.friendPost = Post()
-        self.pastFriendPost = Post()
         self.colorPalettes["기쁨"] = self.colors
-        self.colorPalettes["차분"] = self.colors.map { debrightened(color: $0, amount: 0.8)}
+        self.colorPalettes["분노"] = self.colors.map { debrightened(color: $0, amount: 1.2)}
+        self.colorPalettes["불안"] = self.colors.map { debrightened(color: $0, amount: 0.8)}
         self.colorPalettes["슬픔"] = self.colors.map { debrightened(color: $0, amount: 0.6)}
         self.colorPalettes["커스텀"] = self.user.myColors.map { Color(hex: $0) }
         self.emojiPalettes["커스텀"] = self.user.myEmojis
+        self.todayPost.todayColor = self.selectedColor.toHextString()
         fetchPost()
         fetchUserProfile()
     }
     
     func fetchPost() {
-        let postRef = db.collection("posts/\(self.user.id)/posts").document(getTodayDateString())
+        let postRef = db.collection("posts/\(self.user.id)/posts").document(getDateString(date: Date()))
         
         postRef.getDocument { document, error in
             if let document = document, document.exists {
@@ -84,10 +90,12 @@ class HomeViewModel: ObservableObject {
                 self.todayPost.todayText = data?["todayText"] as? String ?? ""
                 self.todayPost.todayShape = data?["todayShape"] as? String ?? ""
                 self.todayPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
-                    fromUserNick: comment["fromUserNick"] as? String ?? "",
-                    fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
-                    comment: comment["comment"] as? String ?? "")
+                    Comment(id: comment["id"] as? String ?? "",
+                            postId: comment["postId"] as? String ?? "",
+                            fromUserId: comment["fromUserId"] as? String ?? "",
+                            fromUserNick: comment["fromUserNick"] as? String ?? "",
+                            fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
+                            comment: comment["comment"] as? String ?? "")
                 }
                 
                 self.fetchImage(from: self.todayPost.todayImgUrl) { image in
@@ -108,11 +116,21 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func fetchPastPost() {
+        self.fetchImage(from: self.clickedPost.todayImgUrl) { image in
+            if let image = image {
+                self.pastImage = image
+            } else {
+                print("Failed to load image")
+            }
+        }
+    }
+    
     func fetchFriendPost(date: String) {
         let postRef = db.collection("posts/\(self.user.selectedUser)/posts").document(date)
         
         self.friendPost = Post()
-
+        
         postRef.getDocument { document, error in
             if let document = document, document.exists {
                 
@@ -125,10 +143,12 @@ class HomeViewModel: ObservableObject {
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
                 self.friendPost.todayShape = data?["todayShape"] as? String ?? ""
                 self.friendPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
-                    fromUserNick: comment["fromUserNick"] as? String ?? "",
-                    fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
-                    comment: comment["comment"] as? String ?? "")
+                    Comment(id: comment["id"] as? String ?? "",
+                            postId: comment["postId"] as? String ?? "",
+                            fromUserId: comment["fromUserId"] as? String ?? "",
+                            fromUserNick: comment["fromUserNick"] as? String ?? "",
+                            fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
+                            comment: comment["comment"] as? String ?? "")
                 }
                 
             } else {
@@ -143,8 +163,8 @@ class HomeViewModel: ObservableObject {
         self.todayPost.todayText = selectedEmoji
         self.todayPost.todayShape = selectedShape
         
-        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getTodayDateString())
-    
+        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getDateString(date: Date()))
+        
         guard let currentUserId = Auth.auth().currentUser?.uid else {
             print("No current user logged in")
             return
@@ -154,7 +174,7 @@ class HomeViewModel: ObservableObject {
             errorMessage = "모든 항목을 기입해주세요"
             return
         }
-    
+        
         self.postButtonsDisabled = true
         
         let todayPostId = UUID().uuidString
@@ -177,7 +197,7 @@ class HomeViewModel: ObservableObject {
                 "todayColor": self.todayPost.todayColor,
                 "todayText": self.todayPost.todayText,
                 "todayComments": self.todayPost.todayComments
-                   ]
+            ]
             
             if self.user.postUploaded {
                 userPostRef.updateData([
@@ -202,28 +222,64 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func uploadPastPost(date: String) {
+        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(date)
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else {
+            print("No current user logged in")
+            return
+        }
+        
+        guard let pastImageToUpload = pastImage else { return }
+        
+        self.uploadImage(uid: currentUserId, image: pastImageToUpload) { url in
+            guard let url = url else {
+                self.errorMessage = "이미지 등록에 실패했습니다."
+                return
+            }
+            
+            self.clickedPost.todayImgUrl = url.absoluteString
+            
+            userPostRef.updateData([
+                "todayImgUrl": url.absoluteString,
+                "todayColor": self.clickedPost.todayColor,
+                "todayText": self.clickedPost.todayText,
+                "todayShape": self.clickedPost.todayShape,
+                "todayComments": self.clickedPost.todayComments
+            ])
+
+        }
+    }
+    
     func uploadComment(date: String) {
         let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
+        var postId  = ""
         
         userPostRef.getDocument { (document, error) in
-            guard let document = document, document.exists else {
+            
+            if let document = document, document.exists {
+                let data = document.data()
+                postId = data?["id"] as? String ?? ""
+                
+            } else {
                 print("Post does not exist")
                 return
             }
-            let postOwnerId = document.data()?["userId"] as? String ?? ""
+            let postOwnerId = document!.data()?["userId"] as? String ?? ""
             guard !postOwnerId.isEmpty else {
                 print("Error: Post owner ID is not available.")
                 return
-                    }
+            }
             
             let commentId = UUID().uuidString
-            let newComment = Comment(id: commentId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
+            let newComment = Comment(id: commentId, postId: postId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
             
             self.friendPost.todayComments.append(newComment)
             
             userPostRef.updateData([
                 "todayComments": FieldValue.arrayUnion([[
                     "id": commentId,
+                    "postId": postId,
                     "fromUserNick": self.user.nickname,
                     "fromUserImgUrl": self.user.profileImageUrl ?? "",
                     "comment": self.myComment
@@ -265,7 +321,7 @@ class HomeViewModel: ObservableObject {
     func listenForNotifications() {
         db.collection("notifications")
             .whereField("userId", isEqualTo: self.user.id)
-            //.whereField("isRead", isEqualTo: false)
+        //.whereField("isRead", isEqualTo: false)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
                     print("Error listening for notifications: \(error)")
@@ -286,7 +342,7 @@ class HomeViewModel: ObservableObject {
                     let fromUserId = data["fromUserId"] as? String ?? ""
                     let notificationType = data["notificationType"] as? String ?? ""
                     let isRead = data["isRead"] as? Bool ?? false
-                
+                    
                     let notification = AppNotification(
                         id: document.documentID,
                         userId: self.user.id,
@@ -302,7 +358,7 @@ class HomeViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.hasNewNotification = !self.notifications.allSatisfy { $0.isRead }
                     print("hasNewNotification: \(self.hasNewNotification)")
-                    }
+                }
             }
     }
     
@@ -364,8 +420,8 @@ class HomeViewModel: ObservableObject {
             completion(nil)
             return
         }
-            
-        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getTodayDateString())
+        
+        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getDateString(date: Date()))
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         
@@ -379,12 +435,12 @@ class HomeViewModel: ObservableObject {
             }
         }
         storageRef.putData(imageData, metadata: metadata) { metadata, error in
-                if let error = error {
-                    print("Failed to upload image: \(error)")
-                    completion(nil)
-                    return
-                }
-                
+            if let error = error {
+                print("Failed to upload image: \(error)")
+                completion(nil)
+                return
+            }
+            
             storageRef.downloadURL { url, error in
                 if let error = error {
                     print("Failed to retrieve download URL: \(error)")
@@ -398,21 +454,21 @@ class HomeViewModel: ObservableObject {
     
     func fetchUserProfile() {
         let db = Firestore.firestore()
-            db.collection("users").document(user.id).getDocument { document, error in
-                if let document = document, document.exists {
-                    let data = document.data()
-                    self.user.nickname = data?["nickname"] as? String ?? ""
-                    self.user.profileImageUrl = data?["profileImageUrl"] as? String ?? ""
-                    // 필요하면 추가 데이터 처리
-                } else {
-                    print("User does not exist")
-                }
+        db.collection("users").document(user.id).getDocument { document, error in
+            if let document = document, document.exists {
+                let data = document.data()
+                self.user.nickname = data?["nickname"] as? String ?? ""
+                self.user.profileImageUrl = data?["profileImageUrl"] as? String ?? ""
+                // 필요하면 추가 데이터 처리
+            } else {
+                print("User does not exist")
             }
         }
+    }
     
     func refreshData() {
-            fetchUserProfile()
-        }
+        fetchUserProfile()
+    }
     
     func addMyNewColor(color: String) {
         let userRef =  self.db.collection("users").document(self.user.id)
@@ -420,13 +476,22 @@ class HomeViewModel: ObservableObject {
         if !self.user.myColors.contains(color) {
             self.colorPalettes["커스텀"]?.append(Color(hex:color))
             self.user.myColors.append(color)
-                
+            
             userRef.updateData([
                 "myColors": self.user.myColors
             ])
         } else {
             print("이미 있는 색상입니다.")
         }
+    }
+    
+    func deleteMyColor(color: String) {
+        let userRef =  self.db.collection("users").document(self.user.id)
+        
+        self.user.myColors.removeAll { $0 == color }
+        userRef.updateData([
+            "myColors": self.user.myColors
+        ])
     }
     
     func addMyNewEmoji(emoji: String) {
@@ -444,6 +509,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    
     func isEqualWithSelectedId() -> Bool {
         if self.user.selectedUser == self.user.id {
             return true
@@ -452,10 +518,10 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    func getTodayDateString() -> String {
+    func getDateString(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.M.d"
-        guard let dateString = formatter.string(for: Date()) else { return "Date Error" }
+        guard let dateString = formatter.string(for: date) else { return "Date Error" }
         return dateString
     }
     

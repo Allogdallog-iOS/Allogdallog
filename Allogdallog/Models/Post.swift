@@ -40,14 +40,15 @@ struct Post: Identifiable, Codable {
         self.todayShape = data["todayShape"] as? String ?? ""
         self.todayComments = (data["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
             Comment(id: comment["id"] as? String ?? "",
-            fromUserId: comment["fromUserId"] as? String ?? "",
-            fromUserNick: comment["fromUserNick"] as? String ?? "",
-            fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
-            comment: comment["comment"] as? String ?? "")
+                    postId: comment["postId"] as? String ?? "",
+                    fromUserId: comment["fromUserId"] as? String ?? "",
+                    fromUserNick: comment["fromUserNick"] as? String ?? "",
+                    fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
+                    comment: comment["comment"] as? String ?? "")
         }
     }
     
-    init(id: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayShape: String = "",todayComments: [Comment] = []) {
+    init(id: String = "", userId: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayShape: String = "",todayComments: [Comment] = []) {
         self.id = id
         self.userId = userId
         self.todayDate = todayDate

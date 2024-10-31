@@ -15,7 +15,7 @@ struct FriendComments: View {
         VStack {
             HStack {
                 Text("반응 \(viewModel.friendPost.todayComments.count)개")
-                    .font(.callout)
+                    .gmarketSans(type: .medium, size: 12)
                 Spacer()
             }
             
@@ -81,9 +81,19 @@ struct FriendComments: View {
                             image
                                 .resizable()
                                 .circularImage(size: 45)
+                                .overlay(
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 45, height: 45)
+                                )
                         } placeholder: {
                             Image(systemName: "person.crop.circle.fill")
                                 .circularImage(size: 45)
+                                .overlay(
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 45, height: 45)
+                                )
                         }
                     } else {
                         Image(systemName: "person.crop.circle.fill")
@@ -96,7 +106,7 @@ struct FriendComments: View {
                             .gmarketSans(type: .medium, size: 15)
                         Button(action: {
                             if viewModel.selectedDate.isEmpty {
-                                viewModel.uploadComment(date: viewModel.getTodayDateString())
+                                viewModel.uploadComment(date: viewModel.getDateString(date: Date()))
                             } else {
                                 viewModel.uploadComment(date: viewModel.selectedDate)
                             }

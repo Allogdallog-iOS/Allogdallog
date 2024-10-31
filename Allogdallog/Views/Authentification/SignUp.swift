@@ -17,8 +17,7 @@ struct SignUp: View {
             Spacer()
             
             Text("회원가입")
-                .font(.title2)
-                .fontWeight(.semibold)
+                .gmarketSans(type: .bold, size: 20)
             
             if let image = viewModel.profileImage {
                 Button(action: {
@@ -52,15 +51,19 @@ struct SignUp: View {
             
             TextField("이메일", text: $viewModel.email)
                 .customTextFieldStyle(height: 50)
+                .gmarketSans(type: .medium, size: 15)
             SecureField("비밀번호", text: $viewModel.password)
                 .customTextFieldStyle(height: 50)
+                .gmarketSans(type: .medium, size: 15)
             TextField("닉네임", text: $viewModel.nickname)
                 .customTextFieldStyle(height: 50)
+                .gmarketSans(type: .medium, size: 15)
             
             Button(action: {
                 viewModel.signUp()
             }) {
                 Text("회원가입")
+                    .gmarketSans(type: .medium, size: 15)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(.black)

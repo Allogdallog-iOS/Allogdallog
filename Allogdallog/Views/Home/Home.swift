@@ -27,11 +27,10 @@ struct Home: View {
     var body: some View {
         ZStack {
             if isLoading {
-                    LoadingView()
+                LoadingView()
             } else {
                 // 로딩이 끝났을 때 홈뷰 내용 표시
                 TabView(selection: $tabSelection.selectedTab) {
-                    ScrollView {
                     VStack(spacing: 0) {
                         HStack {
                             Text("알록달록")
@@ -42,16 +41,14 @@ struct Home: View {
                             Spacer()
                         }
                         Divider()
-                        MyFriends()
-                        Divider()
-                        GeometryReader { geometry in
-                            //let maxHeight = geometry.size.height - 20
+                        ScrollView {
+                            MyFriends()
+                            Divider()
                             VStack {
                                 if viewModel.user.selectedUser == viewModel.user.id {
                                     VStack(alignment: .leading) {
                                         MyDailyRecord()
                                             .frame(height: 340)
-                                            //.frame(height: maxHeight * 0.65)
                                         Divider()
                                             .padding(.vertical, 5)
                                         Button(action: {
@@ -59,47 +56,41 @@ struct Home: View {
                                         }) {
                                             WeeklyRecord()
                                                 .environmentObject(calendarViewModel)
-                                                .frame(height: maxHeight * 0.35)
                                         }
                                     }
                                 } else {
                                     ScrollView {
                                         VStack(alignment: .leading) {
                                             FriendDailyRecord()
-                                                .frame(height: 300)
-                                            //.frame(height: maxHeight * 0.55)
+                                                .frame(height: 280)
                                             FriendComments()
                                                 .frame(height: 230)
-                                            //.frame(height: maxHeight * 0.45)
                                         }
                                     }
                                 }
                             }
                         }
-                        .frame(height: 560)
+                        .padding(.horizontal, 12)
+                        .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
+                            viewModel.refreshData()
+                            loadData() // 데이터 새로 고침
+                        }
                     }
-                    .padding(.horizontal, 15)
-                }
-                .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
-                    viewModel.refreshData()
-                    loadData() // 데이터 새로 고침
-                }
                     .tabItem {
                         Label("홈", systemImage: "house.fill")
                     }
                     .tag(0)
-                    
-                    ScrollView {
-                        VStack(spacing: 0){
-                            HStack {
-                                Text("알록달록")
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 12)
-                                Spacer()
-                            }
-                            Divider()
+                    VStack(spacing: 0) {
+                        HStack {
+                            Text("알록달록")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 12)
+                            Spacer()
+                        }
+                        Divider()
+                        ScrollView {
                             MyFriends()
                             Divider()
                             GeometryReader { geometry in
@@ -110,20 +101,18 @@ struct Home: View {
                                         .frame(height: maxHeight)
                                 }
                             }.padding(.vertical, 15)
-                            .frame(height: 550)
+                            .frame(height: 520)
                         }
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal, 12)
+                        .refreshable {
+                            viewModel.refreshData()
+                            loadData() // 데이터 새로 고침
+                        }
                     }
-                    .refreshable {
-                        viewModel.refreshData()
-                        loadData() // 데이터 새로 고침
-                    }
-                        
                     .tabItem {
                         Label("캘린더", systemImage: "calendar")
                     }
                     .tag(1)
-                    
                     ScrollView {
                         VStack(spacing: 0){
                             MyPage(user: viewModel.user)

@@ -94,5 +94,6 @@ struct MyDailyRecord: View {
                 .padding(.top, 10)
             }
         })
+        .tint(.black)
     }
 }
