@@ -70,7 +70,6 @@ struct MyCalendar: View {
                     }
                 }
         }.onAppear {
-            // 데이터 로딩을 시뮬레이션하거나 실제 네트워크 요청을 이곳에 추가합니다.
             loadData()
         }
     }
@@ -231,11 +230,8 @@ struct MyCalendar: View {
         }
     }
     
-    // 로딩 데이터를 처리하는 함수
     func loadData() {
-        // 로딩 작업 시작 (네트워크 작업, 데이터 처리 등)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            // 로딩이 끝나면 isLoading을 false로 설정하여 로딩 화면을 숨김
             isLoading = false
         }
     }

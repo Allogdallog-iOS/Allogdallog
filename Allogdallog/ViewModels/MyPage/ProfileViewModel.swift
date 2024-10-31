@@ -27,6 +27,7 @@ class ProfileViewModel: ObservableObject {
     @Published var receivedRequests: [FriendRequest] = []
     @Published var postUploaded: Bool = false
     @Published var selectedUser: String = ""
+    @Published var todayPostId: String = ""
     
     private var db = Firestore.firestore()
     

@@ -31,6 +31,7 @@
 		35459A9A2BF5E64F0049A19C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35459A992BF5E64F0049A19C /* Assets.xcassets */; };
 		35459A9E2BF5E64F0049A19C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35459A9D2BF5E64F0049A19C /* Preview Assets.xcassets */; };
 		354F7D4D2CD30F53003581EA /* MyDailyRecordModify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F7D4C2CD30F53003581EA /* MyDailyRecordModify.swift */; };
+
 		3585377D2C20216100D65E23 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377C2C20216100D65E23 /* MyPage.swift */; };
 		35A5118B2C58D9EB00DA8668 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 35A5118A2C58D9EB00DA8668 /* .gitignore */; };
 		35A5118D2C5A313D00DA8668 /* MyDailyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */; };
@@ -101,6 +102,7 @@
 		97BD8AC22CCFD41D00647D01 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 97BD8AC12CCFD41D00647D01 /* FirebaseStorage */; };
 		97BD8AC42CCFD41D00647D01 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 97BD8AC32CCFD41D00647D01 /* FirebaseStorageCombine-Community */; };
 		97BD8AC62CCFD41D00647D01 /* FirebaseVertexAI in Frameworks */ = {isa = PBXBuildFile; productRef = 97BD8AC52CCFD41D00647D01 /* FirebaseVertexAI */; };
+		97BD8ACA2CD2A7FE00647D01 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD8AC92CD2A7FE00647D01 /* PostDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -177,6 +179,7 @@
 		97AD005E2CCB861E007DB5EB /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		97AD00602CCB9821007DB5EB /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		97AD00622CCBCAFC007DB5EB /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
+		97BD8AC92CD2A7FE00647D01 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +400,7 @@
 				975FE8A82C9CE899007637CF /* Notification.swift */,
 				97AD005E2CCB861E007DB5EB /* Setting.swift */,
 				97AD00602CCB9821007DB5EB /* AccountSettings.swift */,
+				97BD8AC92CD2A7FE00647D01 /* PostDetailView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -559,6 +563,7 @@
 				35A5119C2C64A11400DA8668 /* CustomTextModifier.swift in Sources */,
 				3585377D2C20216100D65E23 /* MyPage.swift in Sources */,
 				35E0B8462CCE425F006EC116 /* TmoneyRoundWindModifier.swift in Sources */,
+				97BD8ACA2CD2A7FE00647D01 /* PostDetailView.swift in Sources */,
 				3501B25E2CBE7F4C00314C0F /* ColorPalette.swift in Sources */,
 				97AD00612CCB9821007DB5EB /* AccountSettings.swift in Sources */,
 				3501B2542CB020CB00314C0F /* InstrumentSansItalicModifier.swift in Sources */,

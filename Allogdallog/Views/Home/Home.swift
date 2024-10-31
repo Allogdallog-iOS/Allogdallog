@@ -33,11 +33,11 @@ struct Home: View {
                 TabView(selection: $tabSelection.selectedTab) {
                     VStack(spacing: 0) {
                         HStack {
-                            Text("알록달록")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 12)
+                            Image("image/logo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 42)
+                                .clipped()
                             Spacer()
                         }
                         Divider()
@@ -76,6 +76,11 @@ struct Home: View {
                             loadData() // 데이터 새로 고침
                         }
                     }
+                    .padding(.horizontal, 15)
+                }
+                .refreshable {
+                    viewModel.refreshData()
+                    loadData() // 데이터 새로 고침
                     .tabItem {
                         Label("홈", systemImage: "house.fill")
                     }
