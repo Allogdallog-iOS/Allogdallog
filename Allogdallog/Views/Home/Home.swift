@@ -45,7 +45,7 @@ struct Home: View {
                         MyFriends()
                         Divider()
                         GeometryReader { geometry in
-                            //let maxHeight = geometry.size.height - 20
+                            let maxHeight = geometry.size.height - 20
                             VStack {
                                 if viewModel.user.selectedUser == viewModel.user.id {
                                     VStack(alignment: .leading) {

@@ -34,7 +34,7 @@ struct Notification: View {
                         /*.onTapGesture {
                             viewModel.markNotificationAsRead(notification: notification)
                         }*/
-                }
+                }.padding(.trailing, 10)
                 .listRowInsets(EdgeInsets())
             }//.listStyle(PlainListStyle())
             .background(Color.white)
