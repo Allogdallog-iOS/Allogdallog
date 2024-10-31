@@ -48,7 +48,7 @@ struct Post: Identifiable, Codable {
         }
     }
     
-    init(id: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayShape: String = "",todayComments: [Comment] = []) {
+    init(id: String = "", userId: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayShape: String = "",todayComments: [Comment] = []) {
         self.id = id
         self.userId = userId
         self.todayDate = todayDate

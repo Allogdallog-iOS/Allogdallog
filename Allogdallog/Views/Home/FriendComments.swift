@@ -20,105 +20,106 @@ struct FriendComments: View {
             }
             
             Divider()
-            ScrollView {
-                VStack {
-                    if !viewModel.friendPost.todayComments.isEmpty {
-                        ForEach(viewModel.friendPost.todayComments) { comment in
-                            HStack {
-                                if let url = URL(string: comment.fromUserImgUrl) {
-                                    AsyncImage(url: url) { image in
-                                        ZStack {
-                                            image
-                                                .resizable()
-                                                .circularImage(size: 40)
-                                            Circle()
-                                                .stroke(.black)
-                                                .frame(width: 40, height: 40)
+                ScrollView {
+                    VStack {
+                        if !viewModel.friendPost.todayComments.isEmpty {
+                            ForEach(viewModel.friendPost.todayComments) { comment in
+                                HStack {
+                                    if let url = URL(string: comment.fromUserImgUrl) {
+                                        AsyncImage(url: url) { image in
+                                            ZStack {
+                                                image
+                                                    .resizable()
+                                                    .circularImage(size: 40)
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 40, height: 40)
+                                            }
+                                        } placeholder: {
+                                            ZStack {
+                                                Image(systemName: "person.crop.circle.fill")
+                                                    .circularImage(size: 40)
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 40, height: 40)
+                                            }
                                         }
-                                    } placeholder: {
-                                        ZStack {
-                                            Image(systemName: "person.crop.circle.fill")
-                                                .circularImage(size: 40)
-                                            Circle()
-                                                .stroke(.black)
-                                                .frame(width: 40, height: 40)
+                                    } else {
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .circularImage(size: 40)
+                                        Circle()
+                                            .stroke(.black)
+                                            .frame(width: 40, height: 40)
+                                    }
+                                    VStack {
+                                        HStack {
+                                            Text("\(comment.fromUserNick)")
+                                                .gmarketSans(type: .bold, size: 12)
+                                            Spacer()
+                                        }
+                                        .padding(.bottom, 3)
+                                        HStack {
+                                            Text("\(comment.comment)")
+                                                .gmarketSans(type: .medium, size: 12)
+                                            Spacer()
                                         }
                                     }
-                                } else {
-                                    Image(systemName: "person.crop.circle.fill")
-                                        .circularImage(size: 40)
-                                    Circle()
-                                        .stroke(.black)
-                                        .frame(width: 40, height: 40)
+                                    Spacer()
                                 }
-                                VStack {
-                                    HStack {
-                                        Text("\(comment.fromUserNick)")
-                                            .gmarketSans(type: .bold, size: 12)
-                                        Spacer()
-                                    }
-                                    .padding(.bottom, 3)
-                                    HStack {
-                                        Text("\(comment.comment)")
-                                            .gmarketSans(type: .medium, size: 12)
-                                        Spacer()
-                                    }
-                                }
-                                Spacer()
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
                             }
-                            .padding(.horizontal, 5)
-                            .padding(.vertical, 2)
                         }
                     }
-                }
-            }
-            .frame(height: 120)
-            VStack {
-                Divider()
-                HStack {
-                    if let url = URL(string: viewModel.user.profileImageUrl ?? "") {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .circularImage(size: 45)
-                        } placeholder: {
+                    .padding(.bottom, 70)
+                }.frame(height: 120)
+                    Divider()
+                    HStack {
+                        if let url = URL(string: viewModel.user.profileImageUrl ?? "") {
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .circularImage(size: 45)
+                            } placeholder: {
+                                Image(systemName: "person.crop.circle.fill")
+                                    .circularImage(size: 45)
+                            }
+                        } else {
                             Image(systemName: "person.crop.circle.fill")
                                 .circularImage(size: 45)
                         }
-                    } else {
-                        Image(systemName: "person.crop.circle.fill")
-                            .circularImage(size: 45)
-                    }
-                    HStack {
-                        TextField("반응을 남겨주세요!", text: $viewModel.myComment)
-                            .padding()
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .gmarketSans(type: .medium, size: 15)
-                        Button(action: {
-                            if viewModel.selectedDate.isEmpty {
-                                viewModel.uploadComment(date: viewModel.getTodayDateString())
-                            } else {
-                                viewModel.uploadComment(date: viewModel.selectedDate)
+                        HStack {
+                            TextField("반응을 남겨주세요!", text: $viewModel.myComment)
+                                .padding()
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .gmarketSans(type: .medium, size: 15)
+                            Button(action: {
+                                if viewModel.selectedDate.isEmpty {
+                                    viewModel.uploadComment(date: viewModel.getTodayDateString())
+                                } else {
+                                    viewModel.uploadComment(date: viewModel.selectedDate)
+                                }
+                            }) {
+                                Image(systemName: "arrow.up.circle.fill")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .padding(.horizontal, 10)
+                                    .foregroundStyle(.myGray)
                             }
-                        }) {
-                            Image(systemName: "arrow.up.circle.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .padding(.horizontal, 10)
-                                .foregroundStyle(.myGray)
+                            .disabled(!viewModel.friendPostUploaded)
                         }
-                        .disabled(!viewModel.friendPostUploaded)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0)
+                            .stroke(Color.myLightGray)
+                        )
                     }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 40)
-                    .overlay(RoundedRectangle(cornerRadius: 10.0)
-                        .stroke(Color.myLightGray)
-                    )
-                }
-            }
+                    //.padding()
+                    .background(Color.white)
+
+            } 
         }
     }
-}
 
 #Preview {
     FriendComments()
