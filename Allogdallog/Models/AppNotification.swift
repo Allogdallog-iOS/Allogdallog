@@ -15,6 +15,7 @@ struct AppNotification: Identifiable {
     let timestamp: Date
     let fromUserId: String
     let notificationType: String
+    var postId: String?
     var isRead: Bool
     
 }

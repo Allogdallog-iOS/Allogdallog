@@ -38,6 +38,7 @@ struct Post: Identifiable, Codable {
         self.todayText = data["todayText"] as? String ?? ""
         self.todayComments = (data["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
             Comment(id: comment["id"] as? String ?? "",
+            postId: comment["postId"] as? String ?? "",
             fromUserId: comment["fromUserId"] as? String ?? "",
             fromUserNick: comment["fromUserNick"] as? String ?? "",
             fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",

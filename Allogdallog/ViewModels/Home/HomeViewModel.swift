@@ -25,6 +25,7 @@ class HomeViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
+    @Published var detailPost: Post
     @Published var pastFriendPost: Post
     @Published var friendImage: UIImage? = nil
     @Published var postButtonsDisabled: Bool = false
@@ -46,12 +47,15 @@ class HomeViewModel: ObservableObject {
     ]
     @Published var notifications: [AppNotification] = []
     @Published var hasNewNotification: Bool = false
+    @Published var todayPostId: String? //= ""
+    @Published var selectedPostId: String?
     
     private var db = Firestore.firestore()
     
     init(user: User) {
         self.user = user
         self.todayPost = Post()
+        self.detailPost = Post()
         self.friendPost = Post()
         self.pastFriendPost = Post()
         self.colorPalettes["커스텀"] = self.user.myColors.map { Color(hex: $0) }
@@ -76,7 +80,9 @@ class HomeViewModel: ObservableObject {
                 self.todayPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.todayPost.todayText = data?["todayText"] as? String ?? ""
                 self.todayPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
+                    Comment(id: comment["id"] as? String ?? "",
+                    postId: comment["postId"] as? String ?? "",
+                    fromUserId: comment["fromUserId"] as? String ?? "",
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
@@ -115,7 +121,9 @@ class HomeViewModel: ObservableObject {
                 self.friendPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
                 self.friendPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                    Comment(id: comment["id"] as? String ?? "", fromUserId: comment["fromUserId"] as? String ?? "",
+                    Comment(id: comment["id"] as? String ?? "",
+                    postId: comment["postId"] as? String ?? "",
+                    fromUserId: comment["fromUserId"] as? String ?? "",
                     fromUserNick: comment["fromUserNick"] as? String ?? "",
                     fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
                     comment: comment["comment"] as? String ?? "")
@@ -127,6 +135,131 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func navigateToPost(by postId: String) {
+        let postsRef = db.collection("posts/\(self.user.id)/posts")
+        let dispatchGroup = DispatchGroup()
+        var found = false
+
+        postsRef.getDocuments { snapshot, error in
+            guard let snapshot = snapshot else {
+                print("Error fetching documents: \(error?.localizedDescription ?? "")")
+                return
+            }
+
+        for document in snapshot.documents {
+                // 찾았으면 더 이상 실행하지 않음
+                if found { break }
+                       
+                dispatchGroup.enter()
+                let documentId = document.documentID
+                print("Checking document with ID: \(documentId)")
+                let postRef = postsRef.document(documentId)
+            
+            self.detailPost = Post()
+                
+            postRef.getDocument { docSnapshot, error in
+                if let error = error {
+                    print("Error fetching document: \(error.localizedDescription)")
+                } else if let docSnapshot = docSnapshot, docSnapshot.exists {
+                    let data = docSnapshot.data()
+                    let fetchedPostId = data?["id"] as? String ?? ""
+                    print("Found postId: \(fetchedPostId) for date: \(documentId)")
+
+                if fetchedPostId == postId {
+                    print("Post found with postId: \(postId) in document: \(documentId)")
+                    found = true
+                        
+                    self.user.postUploaded = true
+                    self.postButtonsDisabled = true
+                    
+                    self.detailPost.id = fetchedPostId
+                    self.detailPost.todayDate = data?["todayDate"] as? Date ?? Date()
+                    self.detailPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
+                    self.detailPost.todayColor = data?["todayColor"] as? String ?? ""
+                    self.detailPost.todayText = data?["todayText"] as? String ?? ""
+                    self.detailPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
+                        Comment(id: comment["id"] as? String ?? "",
+                                postId: comment["postId"] as? String ?? "",
+                                fromUserId: comment["fromUserId"] as? String ?? "",
+                                fromUserNick: comment["fromUserNick"] as? String ?? "",
+                                fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
+                                comment: comment["comment"] as? String ?? "")
+                            }
+                } else {
+                    self.user.postUploaded = false
+                }
+            }
+                dispatchGroup.leave()
+                
+                    }
+                }
+            dispatchGroup.notify(queue: .main) {
+                       if !found {
+                           print("No post found with postId \(postId)")
+                       }
+                   }
+            }
+        }
+    
+    /*func navigateToPost(postId: String) {
+        let postRef = db.collection("posts/\(self.user.id)/posts\(postDate)").whereField("id", isEqualTo: postId)
+        
+        postRef.getDocuments { querySnapshot, error in
+              if let error = error {
+                  print("Error fetching document: \(error.localizedDescription)")
+                  return
+              }
+            
+            guard let document = querySnapshot?.documents.first else {
+                    DispatchQueue.main.async {
+                        self.user.postUploaded = false
+                        print("Post does not exist")
+                    }
+                    return
+                }
+            
+            //if let document = document, document.exists {
+            DispatchQueue.main.async {
+                    
+                    self.user.postUploaded = true
+                    self.postButtonsDisabled = true
+                    let data = document.data()
+                    
+                    self.todayPost.id = data["id"] as? String ?? ""
+                    self.todayPost.todayDate = data["todayDate"] as? Date ?? Date()
+                    self.todayPost.todayImgUrl = data["todayImgUrl"] as? String ?? ""
+                    self.todayPost.todayColor = data["todayColor"] as? String ?? ""
+                    self.todayPost.todayText = data["todayText"] as? String ?? ""
+                    self.todayPost.todayComments = (data["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
+                        Comment(id: comment["id"] as? String ?? "",
+                                postId: comment["postId"] as? String ?? "",
+                                fromUserId: comment["fromUserId"] as? String ?? "",
+                                fromUserNick: comment["fromUserNick"] as? String ?? "",
+                                fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
+                                comment: comment["comment"] as? String ?? "")
+                    }
+                    
+                    self.fetchImage(from: self.todayPost.todayImgUrl) { image in
+                        if let image = image {
+                            self.todayImage = image
+                        } else {
+                            print("Failed to load image")
+                        }
+                    }
+                    
+                    self.selectedColor = Color(hex: self.todayPost.todayColor)
+                    self.selectedEmoji = self.todayPost.todayText
+                }
+            }
+        
+        /*else {
+                DispatchQueue.main.async {
+                    self.user.postUploaded = false
+                    print("Post does not exist")
+                }
+            } */
+    }*/
+    
     func uploadPost() {
         self.todayPost.todayDate = Date()
         self.todayPost.todayColor = selectedColor.toHextString()
@@ -136,6 +269,7 @@ class HomeViewModel: ObservableObject {
     
         guard let currentUserId = Auth.auth().currentUser?.uid else {
             print("No current user logged in")
+           
             return
         }
         
@@ -145,7 +279,7 @@ class HomeViewModel: ObservableObject {
         }
     
         self.postButtonsDisabled = true
-        
+
         let todayPostId = UUID().uuidString
         
         guard let todayImageToUpload = todayImage else { return }
@@ -190,48 +324,59 @@ class HomeViewModel: ObservableObject {
     }
     
     func uploadComment(date: String) {
-        let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
-        
-        userPostRef.getDocument { (document, error) in
-            guard let document = document, document.exists else {
-                print("Post does not exist")
-                return
-            }
-            let postOwnerId = document.data()?["userId"] as? String ?? ""
-            guard !postOwnerId.isEmpty else {
-                print("Error: Post owner ID is not available.")
-                return
-                    }
+            let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
+            var postId  = ""
             
-            let commentId = UUID().uuidString
-            let newComment = Comment(id: commentId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
-            
-            self.friendPost.todayComments.append(newComment)
-            
-            userPostRef.updateData([
-                "todayComments": FieldValue.arrayUnion([[
-                    "id": commentId,
-                    "fromUserNick": self.user.nickname,
-                    "fromUserImgUrl": self.user.profileImageUrl ?? "",
-                    "comment": self.myComment
-                ]])
-            ]){ error in
-                if let error = error {
-                    print("Error adding comment: \(error)")
+            userPostRef.getDocument { (document, error) in
+                
+                if let document = document, document.exists {
+                    let data = document.data()
+                    postId = data?["id"] as? String ?? ""
+                    
                 } else {
-                    print("Post owner ID: \(postOwnerId)") // 포스트 소유자 ID 로그 추가
-                    self.createNotification(forComment: newComment, postOwnerId: postOwnerId)
+                    print("Post does not exist")
+                    return
                 }
+                let postOwnerId = document!.data()?["userId"] as? String ?? ""
+                guard !postOwnerId.isEmpty else {
+                    print("Error: Post owner ID is not available.")
+                    return
+                }
+                guard !postId.isEmpty else {
+                    print("Error: postId is empty.")
+                    return
+                }
+                
+                let commentId = UUID().uuidString
+                let newComment = Comment(id: commentId, postId: postId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
+                
+                self.friendPost.todayComments.append(newComment)
+                
+                userPostRef.updateData([
+                    "todayComments": FieldValue.arrayUnion([[
+                        "id": commentId,
+                        "postId": postId,
+                        "fromUserNick": self.user.nickname,
+                        "fromUserImgUrl": self.user.profileImageUrl ?? "",
+                        "comment": self.myComment
+                    ]])
+                ]){ error in
+                    if let error = error {
+                        print("Error adding comment: \(error)")
+                    } else {
+                        print("Post owner ID: \(postOwnerId)") // 포스트 소유자 ID 로그 추가
+                        self.createNotification(forComment: newComment, postOwnerId: postOwnerId, postId: postId)
+                    }
+                }
+                
+                self.myComment = ""
             }
-            
-            self.myComment = ""
         }
-    }
-    
-    private func createNotification(forComment comment: Comment, postOwnerId: String) {
-        let notificationMessage = "\(comment.fromUserNick)님이 댓글 \"\(comment.comment)\"을 남겼습니다."
         
-        //print("Adding notification for userId: \(postOwnerId)")
+    
+    private func createNotification(forComment comment: Comment, postOwnerId: String, postId: String) {
+        let notificationMessage = "\(comment.fromUserNick)님이 댓글 \"\(comment.comment)\"을 남겼습니다."
+
         
         db.collection("notifications").addDocument(data: [
             "message": notificationMessage,
@@ -239,6 +384,7 @@ class HomeViewModel: ObservableObject {
             "userId": postOwnerId, // 알림을 수신할 사용자 ID
             "fromUserId": comment.fromUserId, // 댓글 작성자 ID
             "notificationType": "comment",
+            "postId": postId,
             "isRead": false
         ]) { error in
             if let error = error {
@@ -281,6 +427,7 @@ class HomeViewModel: ObservableObject {
                         timestamp: timestamp.dateValue(),
                         fromUserId: fromUserId,
                         notificationType: notificationType,
+                        postId: data["postId"] as? String,
                         isRead: isRead
                     )
                     self.notifications.append(notification)
