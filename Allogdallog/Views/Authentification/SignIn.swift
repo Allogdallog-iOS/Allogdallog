@@ -53,14 +53,19 @@ struct SignIn: View {
                             }
                     }
                 }
-                NavigationLink(value: "SignUp") {
-                    Text("회원가입")
-                        .gmarketSans(type: .medium, size: 10)
-                        .foregroundStyle(.gray)
-                }
-                .navigationDestination(for: String.self) { value in
-                    if value == "SignUp" {
-                        SignUp()
+                HStack {
+                    Text("회원이 아니신가요?")
+                        .gmarketSans(type: .medium, size: 12)
+                        .foregroundStyle(.myGray)
+                    NavigationLink(value: "SignUp") {
+                        Text("회원가입")
+                            .gmarketSans(type: .medium, size: 12)
+                            .foregroundStyle(.gray)
+                    }
+                    .navigationDestination(for: String.self) { value in
+                        if value == "SignUp" {
+                            SignUp()
+                        }
                     }
                 }
                 

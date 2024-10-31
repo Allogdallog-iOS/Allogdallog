@@ -16,7 +16,7 @@ struct FriendDailyRecord: View {
             HStack {
                 Spacer()
                 if viewModel.selectedDate.isEmpty {
-                    Text("\(viewModel.getTodayDateString())")
+                    Text("\(viewModel.getDateString(date: Date()))")
                         .instrumentSansItalic(type:.bold, size: 25)
                 } else {
                     Text(viewModel.selectedDate)
@@ -31,6 +31,7 @@ struct FriendDailyRecord: View {
                         .stroke()
                         .frame(height: 200)
                     Text("아직 게시글을 작성하지 않았어요.")
+                        .gmarketSans(type: .medium, size: 15)
                 }
                 .padding(.horizontal, 5)
             } else {

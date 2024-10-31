@@ -10,6 +10,7 @@ import SwiftUI
 struct MyFriends: View {
     @EnvironmentObject private var viewModel: HomeViewModel
     @EnvironmentObject private var profileViewModel: ProfileViewModel
+    @State private var friends: [Friend] = []
     
     var body: some View {
         VStack {
@@ -39,7 +40,7 @@ struct MyFriends: View {
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
                                                     .foregroundStyle(Color.myLightGray)
-                                                    .frame(width: 60, height: 60)
+                                                    .frame(width: 58, height: 58)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
                                                         Circle()
@@ -63,7 +64,7 @@ struct MyFriends: View {
                                                 image
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
-                                                    .frame(width: 60, height: 60)
+                                                    .frame(width: 58, height: 58)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
                                                         Circle()
@@ -88,7 +89,7 @@ struct MyFriends: View {
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
                                                     .foregroundStyle(Color.myLightGray)
-                                                    .frame(width: 60, height: 60)
+                                                    .frame(width: 58, height: 58)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
                                                         Circle()
@@ -113,7 +114,7 @@ struct MyFriends: View {
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
                                                     .foregroundStyle(Color.myLightGray)
-                                                    .frame(width: 60, height: 60)
+                                                    .frame(width: 58, height: 58)
                                                     .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                     .overlay(
                                                         Circle()
@@ -140,7 +141,7 @@ struct MyFriends: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                             .foregroundStyle(Color.myLightGray)
-                                            .frame(width: 60, height: 60)
+                                            .frame(width: 58, height: 58)
                                             .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                             .overlay(
                                                 Circle()
@@ -160,7 +161,7 @@ struct MyFriends: View {
                         Button(action: {
                             viewModel.user.selectedUser = friend.id
                             viewModel.selectedDate.removeAll()
-                            viewModel.fetchFriendPost(date: viewModel.getTodayDateString())
+                            viewModel.fetchFriendPost(date: viewModel.getDateString(date: Date()))
                         }) {
                             VStack {
                                 if let imageUrl = friend.profileImageUrl, let url = URL(string: imageUrl) {
@@ -182,7 +183,7 @@ struct MyFriends: View {
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
                                                         .foregroundStyle(Color.myLightGray)
-                                                        .frame(width: 60, height: 60)
+                                                        .frame(width: 58, height: 58)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
                                                             Circle()
@@ -207,7 +208,7 @@ struct MyFriends: View {
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
                                                         .foregroundStyle(Color.myLightGray)
-                                                        .frame(width: 60, height: 60)
+                                                        .frame(width: 58, height: 58)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
                                                             Circle()
@@ -232,7 +233,7 @@ struct MyFriends: View {
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
                                                         .foregroundStyle(Color.myLightGray)
-                                                        .frame(width: 60, height: 60)
+                                                        .frame(width: 58, height: 58)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
                                                             Circle()
@@ -257,7 +258,7 @@ struct MyFriends: View {
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fill)
                                                         .foregroundStyle(Color.myLightGray)
-                                                        .frame(width: 60, height: 60)
+                                                        .frame(width: 58, height: 58)
                                                         .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                         .overlay(
                                                             Circle()
@@ -284,7 +285,7 @@ struct MyFriends: View {
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fill)
                                                 .foregroundStyle(Color.myLightGray)
-                                                .frame(width: 60, height: 60)
+                                                .frame(width: 58, height: 58)
                                                 .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
                                                 .overlay(
                                                     Circle()

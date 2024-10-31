@@ -15,7 +15,7 @@ struct FriendComments: View {
         VStack {
             HStack {
                 Text("반응 \(viewModel.friendPost.todayComments.count)개")
-                    .font(.callout)
+                    .gmarketSans(type: .medium, size: 12)
                 Spacer()
             }
             
@@ -71,40 +71,45 @@ struct FriendComments: View {
                             }
                         }
                     }
-                    .padding(.bottom, 70)
-                }.frame(height: 120)
-                    Divider()
-                    HStack {
-                        if let url = URL(string: viewModel.user.profileImageUrl ?? "") {
-                            AsyncImage(url: url) { image in
-                                image
-                                    .resizable()
-                                    .circularImage(size: 45)
-                            } placeholder: {
-                                Image(systemName: "person.crop.circle.fill")
-                                    .circularImage(size: 45)
-                            }
-                        } else {
+                }
+            }
+            .frame(height: 120)
+            VStack {
+                Divider()
+                HStack {
+                    if let url = URL(string: viewModel.user.profileImageUrl ?? "") {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .circularImage(size: 45)
+                                .overlay(
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 45, height: 45)
+                                )
+                        } placeholder: {
                             Image(systemName: "person.crop.circle.fill")
                                 .circularImage(size: 45)
+                                .overlay(
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 45, height: 45)
+                                )
                         }
-                        HStack {
-                            TextField("반응을 남겨주세요!", text: $viewModel.myComment)
-                                .padding()
-                                .textFieldStyle(PlainTextFieldStyle())
-                                .gmarketSans(type: .medium, size: 15)
-                            Button(action: {
-                                if viewModel.selectedDate.isEmpty {
-                                    viewModel.uploadComment(date: viewModel.getTodayDateString())
-                                } else {
-                                    viewModel.uploadComment(date: viewModel.selectedDate)
-                                }
-                            }) {
-                                Image(systemName: "arrow.up.circle.fill")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .padding(.horizontal, 10)
-                                    .foregroundStyle(.myGray)
+                    } else {
+                        Image(systemName: "person.crop.circle.fill")
+                            .circularImage(size: 45)
+                    }
+                    HStack {
+                        TextField("반응을 남겨주세요!", text: $viewModel.myComment)
+                            .padding()
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .gmarketSans(type: .medium, size: 15)
+                        Button(action: {
+                            if viewModel.selectedDate.isEmpty {
+                                viewModel.uploadComment(date: viewModel.getDateString(date: Date()))
+                            } else {
+                                viewModel.uploadComment(date: viewModel.selectedDate)
                             }
                             .disabled(!viewModel.friendPostUploaded)
                         }

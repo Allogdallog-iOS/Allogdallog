@@ -68,6 +68,7 @@ struct EmojiPalette: View {
                         Spacer()
                         EmojiTextField(text: $myNewEmoji)
                             .frame(width: 30)
+                            .padding(.trailing)
                         Button(action: {
                             viewModel.addMyNewEmoji(emoji: myNewEmoji)
                         }) {

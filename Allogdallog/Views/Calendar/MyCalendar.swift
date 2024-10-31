@@ -59,7 +59,7 @@ struct MyCalendar: View {
                             }
                         
                         if isPopUpOpen {
-                            DateClickPopUp()
+                            DateClickPopUp(isPopUpOpen: $isPopUpOpen)
                                 .transition(.scale)
                                 .background(Color.white)
                                 .frame(width: 250, height: 350.0)
@@ -122,7 +122,6 @@ struct MyCalendar: View {
                     if index > -1 && index < daysInMonth {
                         let date = viewModel.getDate(for: index)
                         let day = Calendar.current.component(.day, from: date)
-                        //let clicked = clickedCurrentDate == date
                         let postForDate = viewModel.postForDate(for: date)
                         
                         CellView(date: date, day: day, post: postForDate, isPopUpOpen: $isPopUpOpen)
@@ -182,7 +181,11 @@ struct MyCalendar: View {
                 VStack {
                     Button(action: {
                         if homeViewModel.user.id == homeViewModel.user.selectedUser {
-                            viewModel.clickedPost = viewModel.postForDate(for: self.date)
+                            let post = viewModel.postForDate(for: self.date)
+                            homeViewModel.selectedDate = viewModel.getDateString(date: self.date)
+                            homeViewModel.clickedPost = post
+                            homeViewModel.fetchPastPost()
+                            viewModel.clickedPost = post
                             isPopUpOpen.toggle()
                         } else {
                             homeViewModel.selectedDate = viewModel.getDateString(date: self.date)

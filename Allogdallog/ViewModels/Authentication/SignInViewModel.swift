@@ -22,7 +22,7 @@ class SignInViewModel: ObservableObject {
     func signIn() {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             if let error = error {
-                self?.errorMessage = error.localizedDescription
+                self?.errorMessage = "아이디와 비밀번호를 확인해주세요."
                 return
             }
             guard let authResult = authResult else {return}

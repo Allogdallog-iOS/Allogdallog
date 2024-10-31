@@ -60,11 +60,13 @@ struct ProfileEdit: View {
                         profileviewModel.isImagePickerPresented
                             .toggle()
                     }) {
-                        ZStack { Image(uiImage: image)
+                        ZStack {
+                            Image(uiImage: image)
                                 .resizable()
-                                .circularImage(size: 100)
-                                //.frame(width: 100, height: 100)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
                                 .clipShape(Circle())
+                                
                             Image(systemName: "photo.badge.plus.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

@@ -10,7 +10,9 @@ import SwiftUI
 struct ColorPalette: View {
     
     @EnvironmentObject private var viewModel: HomeViewModel
+    @State private var selectedColor: Color = Color.blue
     @State private var myNewColor: Color = Color.white
+    @State private var isShowingDeleteBubble: Bool = false
     
     let columns: [GridItem] = Array(repeating: GridItem(.flexible()), count:5)
     
@@ -35,13 +37,30 @@ struct ColorPalette: View {
             }
             Spacer()
             ZStack {
-                Circle()
-                    .frame(width: 150, height: 150)
-                    .foregroundStyle(viewModel.selectedColor)
-                if viewModel.selectedColor == Color.white {
-                    Circle()
-                        .stroke(.myGray)
+                if viewModel.selectedDate.isEmpty {
+                    Image(systemName: viewModel.selectedShape)
+                        .resizable()
                         .frame(width: 150, height: 150)
+                        .foregroundStyle(viewModel.selectedColor)
+                    if viewModel.selectedColor == Color.white {
+                        let imageName = viewModel.selectedShape.replacingOccurrences(of: ".fill", with: "")
+                        Image(systemName: imageName)
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .foregroundStyle(.myGray)
+                    }
+                } else {
+                    Image(systemName: viewModel.clickedPost.todayShape)
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .foregroundStyle(Color(hex: viewModel.clickedPost.todayColor))
+                    if Color(hex: viewModel.clickedPost.todayColor) == Color.white {
+                        let imageName = viewModel.clickedPost.todayShape.replacingOccurrences(of: ".fill", with: "")
+                        Image(systemName: imageName)
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .foregroundStyle(.myGray)
+                    }
                 }
             }
             .frame(height: 190)
@@ -119,6 +138,36 @@ struct ColorPalette: View {
                                             }
                                         }
                                     }
+                                    .simultaneousGesture(
+                                        LongPressGesture(minimumDuration: 1.0)
+                                            .onEnded { _ in
+                                                withAnimation {
+                                                    viewModel.deleteMyColor(color: color.toHextString())
+                                                }
+                                            }
+                                        
+                                    )
+                                    /*
+                                    .onLongPressGesture(minimumDuration: 1.0) {
+                                        if viewModel.selectedKeyword == "My" {
+                                            viewModel.deleteMyColor(color: color.toHextString())
+                                                
+                                            Button(action: {
+                                                viewModel.deleteMyColor(color: color.toHextString())
+                                            }) {
+                                                ZStack {
+                                                    RoundedRectangle(cornerRadius: 10)
+                                                        .foregroundStyle(.myLightGray)
+                                                        .frame(width: 35, height: 20)
+                                                }
+                                                Text("삭제")
+                                                    .gmarketSans(type: .medium, size: 15)
+                                            }
+                                                
+                                        }
+                                    }
+                                    */
+                                    
                                 }
                             }
                         }

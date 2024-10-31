@@ -73,6 +73,20 @@ class MyCalendarViewModel: ObservableObject {
             }
     }
     
+    func deletePost() {
+        self.posts.removeValue(forKey: self.clickedPost?.todayDate ?? Date())
+        
+        let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getDateString(date: self.clickedPost?.todayDate ?? Date()))
+        
+        userPostRef.delete() { error in
+            if let error = error {
+                print("게시물을 삭제하는 과정에서 에러가 발생했습니다.")
+            } else {
+                print("성공적으로 게시글을 삭제했습니다.")
+            }
+        }
+    }
+    
     func formateDateToString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.M.d"
