@@ -103,6 +103,7 @@
 		97BD8AC42CCFD41D00647D01 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 97BD8AC32CCFD41D00647D01 /* FirebaseStorageCombine-Community */; };
 		97BD8AC62CCFD41D00647D01 /* FirebaseVertexAI in Frameworks */ = {isa = PBXBuildFile; productRef = 97BD8AC52CCFD41D00647D01 /* FirebaseVertexAI */; };
 		97BD8ACA2CD2A7FE00647D01 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD8AC92CD2A7FE00647D01 /* PostDetailView.swift */; };
+		97BD8ACC2CD378B800647D01 /* DetailComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD8ACB2CD378B800647D01 /* DetailComments.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +181,7 @@
 		97AD00602CCB9821007DB5EB /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		97AD00622CCBCAFC007DB5EB /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		97BD8AC92CD2A7FE00647D01 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
+		97BD8ACB2CD378B800647D01 /* DetailComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailComments.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +403,7 @@
 				97AD005E2CCB861E007DB5EB /* Setting.swift */,
 				97AD00602CCB9821007DB5EB /* AccountSettings.swift */,
 				97BD8AC92CD2A7FE00647D01 /* PostDetailView.swift */,
+				97BD8ACB2CD378B800647D01 /* DetailComments.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				354F7D4D2CD30F53003581EA /* MyDailyRecordModify.swift in Sources */,
 				3501B25A2CB516D300314C0F /* DateClickPopUp.swift in Sources */,
 				35A511962C6483EB00DA8668 /* User.swift in Sources */,
+				97BD8ACC2CD378B800647D01 /* DetailComments.swift in Sources */,
 				35A511B92C7877E100DA8668 /* Post.swift in Sources */,
 				3501B2232C9D0AAE00314C0F /* MyPageViewModel.swift in Sources */,
 				35A511AF2C65F01400DA8668 /* CircularImageModifier.swift in Sources */,

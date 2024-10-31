@@ -29,7 +29,7 @@ class HomeViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
-    @Published var detailPost: Post
+    @Published var detailPost = Post()
     @Published var pastFriendPost: Post
     @Published var friendImage: UIImage? = nil
     @Published var postButtonsDisabled: Bool = false
@@ -163,10 +163,13 @@ class HomeViewModel: ObservableObject {
     }
     
     func navigateToPost(by postId: String) {
+        
+        self.detailPost = Post()
+        
         let postsRef = db.collection("posts/\(self.user.id)/posts")
         let dispatchGroup = DispatchGroup()
         var found = false
-
+        
         postsRef.getDocuments { snapshot, error in
             guard let snapshot = snapshot else {
                 print("Error fetching documents: \(error?.localizedDescription ?? "")")
@@ -181,8 +184,6 @@ class HomeViewModel: ObservableObject {
                 let documentId = document.documentID
                 print("Checking document with ID: \(documentId)")
                 let postRef = postsRef.document(documentId)
-            
-            self.detailPost = Post()
                 
             postRef.getDocument { docSnapshot, error in
                 if let error = error {
@@ -203,6 +204,7 @@ class HomeViewModel: ObservableObject {
                     self.detailPost.todayDate = data?["todayDate"] as? Date ?? Date()
                     self.detailPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
                     self.detailPost.todayColor = data?["todayColor"] as? String ?? ""
+                    self.detailPost.todayShape = data?["todayShape"] as? String ?? ""
                     self.detailPost.todayText = data?["todayText"] as? String ?? ""
                     self.detailPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
                         Comment(id: comment["id"] as? String ?? "",
@@ -327,6 +329,7 @@ class HomeViewModel: ObservableObject {
                 "todayImgUrl": url.absoluteString,
                 "todayColor": self.todayPost.todayColor,
                 "todayText": self.todayPost.todayText,
+                "todayShape": self.todayPost.todayShape,
                 "todayComments": self.todayPost.todayComments
             ]
             
@@ -342,6 +345,7 @@ class HomeViewModel: ObservableObject {
                 self.user.postUploaded = true
                 userPostRef.setData([
                     "id": todayPostId,
+                    "userId": currentUserId, 
                     "todayDate": self.todayPost.todayDate,
                     "todayImgUrl": url.absoluteString,
                     "todayColor": self.todayPost.todayColor,
@@ -422,6 +426,7 @@ class HomeViewModel: ObservableObject {
                     print("Post does not exist")
                     return
                 }
+                
                 let postOwnerId = document!.data()?["userId"] as? String ?? ""
                 guard !postOwnerId.isEmpty else {
                     print("Error: Post owner ID is not available.")

@@ -105,7 +105,7 @@ struct DeleteAccount: View {
             
             // 재인증 시도
             user.reauthenticate(with: credential) { authResult, error in
-                if let error = error {
+                if error != nil {
                     alertMessage = "비밀번호가 올바르지 않습니다."
                     isProcessing = false
                     showAlert = true
