@@ -57,7 +57,7 @@ struct FriendComments: View {
                                             .gmarketSans(type: .bold, size: 12)
                                         Spacer()
                                     }
-                                    .padding(.bottom, 5)
+                                    .padding(.bottom, 3)
                                     HStack {
                                         Text("\(comment.comment)")
                                             .gmarketSans(type: .medium, size: 12)
@@ -93,6 +93,7 @@ struct FriendComments: View {
                         TextField("반응을 남겨주세요!", text: $viewModel.myComment)
                             .padding()
                             .textFieldStyle(PlainTextFieldStyle())
+                            .gmarketSans(type: .medium, size: 15)
                         Button(action: {
                             if viewModel.selectedDate.isEmpty {
                                 viewModel.uploadComment(date: viewModel.getTodayDateString())

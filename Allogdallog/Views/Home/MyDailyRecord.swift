@@ -27,15 +27,10 @@ struct MyDailyRecord: View {
                             .foregroundStyle(.myDarkGray)
                         Spacer()
                         HStack {
-                            Image(systemName: "star.fill")
+                            Image(systemName: (viewModel.user.postUploaded ? viewModel.todayPost.todayShape : "circle.fill"))
                                 .resizable()
                                 .frame(width: 50, height: 50)
                                 .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : Color.blue)
-                            /*
-                            Circle()
-                                .frame(width: 50, height: 50)
-                                .foregroundStyle(viewModel.user.postUploaded ? Color(hex: viewModel.todayPost.todayColor) : Color.blue)
-                             */
                         }
                         .frame(height: 200)
                     }

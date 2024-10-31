@@ -20,6 +20,7 @@ class HomeViewModel: ObservableObject {
     @Published var todayImage: UIImage? = nil
     @Published var selectedDate: String = ""
     @Published var selectedColor: Color = Color.blue
+    @Published var selectedShape: String = "circle.fill"
     @Published var selectedKeyword: String = "기쁨"
     @Published var selectedEmoji: String = "😊"
     @Published var errorMessage: String? = nil
@@ -32,12 +33,15 @@ class HomeViewModel: ObservableObject {
     @Published var myComment: String = ""
     @Published var isColorPaletteOpen: Bool = false
     @Published var isEmojiPaletteOpen: Bool = false
+    @Published var shapes = ["circle.fill", "square.fill", "triangle.fill", "star.fill", "heart.fill"]
+    @Published var colors: [Color] = [.yellow, .orange, .pink, .green, .mint, .teal, .purple, .brown, .blue, .indigo, .gray, .black]
     @Published var paletteKeys: [String] = ["기쁨", "차분", "슬픔", "커스텀"]
     @Published var colorPalettes: [String: [Color]] = [
-        "기쁨": [.yellow, .orange, .pink, .green, .mint],
-        "차분": [.blue, .teal, .purple, .brown],
-        "슬픔": [.black, .gray, .blue, .indigo],
+        "기쁨": [],
+        "차분": [],
+        "슬픔": [],
         "커스텀": []
+        
     ]
     @Published var emojiPalettes: [String: [String]] = [
         "기쁨": ["😊","😀", "😄", "😆", "😝"],
@@ -58,6 +62,9 @@ class HomeViewModel: ObservableObject {
         self.detailPost = Post()
         self.friendPost = Post()
         self.pastFriendPost = Post()
+        self.colorPalettes["기쁨"] = self.colors
+        self.colorPalettes["차분"] = self.colors.map { debrightened(color: $0, amount: 0.8)}
+        self.colorPalettes["슬픔"] = self.colors.map { debrightened(color: $0, amount: 0.6)}
         self.colorPalettes["커스텀"] = self.user.myColors.map { Color(hex: $0) }
         self.emojiPalettes["커스텀"] = self.user.myEmojis
         fetchPost()
@@ -77,8 +84,9 @@ class HomeViewModel: ObservableObject {
                 self.todayPost.id = data?["id"] as? String ?? ""
                 self.todayPost.todayDate = data?["todayDate"] as? Date ?? Date()
                 self.todayPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
-                self.todayPost.todayColor = data?["todayColor"] as? String ?? ""
+                self.todayPost.todayColor = data?["todayColor"] as? String ?? Color.blue.toHextString()
                 self.todayPost.todayText = data?["todayText"] as? String ?? ""
+                self.todayPost.todayShape = data?["todayShape"] as? String ?? ""
                 self.todayPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
                     Comment(id: comment["id"] as? String ?? "",
                     postId: comment["postId"] as? String ?? "",
@@ -98,6 +106,7 @@ class HomeViewModel: ObservableObject {
                 
                 self.selectedColor = Color(hex: self.todayPost.todayColor)
                 self.selectedEmoji = self.todayPost.todayText
+                self.selectedShape = self.todayPost.todayShape
                 
             } else {
                 self.user.postUploaded = false
@@ -120,6 +129,7 @@ class HomeViewModel: ObservableObject {
                 self.friendPost.todayImgUrl = data?["todayImgUrl"] as? String ?? ""
                 self.friendPost.todayColor = data?["todayColor"] as? String ?? ""
                 self.friendPost.todayText = data?["todayText"] as? String ?? ""
+                self.friendPost.todayShape = data?["todayShape"] as? String ?? ""
                 self.friendPost.todayComments = (data?["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
                     Comment(id: comment["id"] as? String ?? "",
                     postId: comment["postId"] as? String ?? "",
@@ -264,6 +274,7 @@ class HomeViewModel: ObservableObject {
         self.todayPost.todayDate = Date()
         self.todayPost.todayColor = selectedColor.toHextString()
         self.todayPost.todayText = selectedEmoji
+        self.todayPost.todayShape = selectedShape
         
         let userPostRef =  self.db.collection("posts/\(self.user.id)/posts").document(getTodayDateString())
     
@@ -303,22 +314,24 @@ class HomeViewModel: ObservableObject {
                    ]
             
             if self.user.postUploaded {
-                userPostRef.updateData(postData) { error in
-                    if let error = error {
-                        print("Error updating post: \(error)")
-                    } else {
-                        print("Post updated successfully.")
-                    }
-                }
+                userPostRef.updateData([
+                    "todayImgUrl": url.absoluteString,
+                    "todayColor": self.todayPost.todayColor,
+                    "todayText": self.todayPost.todayText,
+                    "todayShape": self.todayPost.todayShape,
+                    "todayComments": self.todayPost.todayComments
+                ])
             } else {
                 self.user.postUploaded = true
-                userPostRef.setData(postData) { error in
-                    if let error = error {
-                        print("Error creating post: \(error)")
-                    } else {
-                        print("Post created successfully.")
-                    }
-                }
+                userPostRef.setData([
+                    "id": todayPostId,
+                    "todayDate": self.todayPost.todayDate,
+                    "todayImgUrl": url.absoluteString,
+                    "todayColor": self.todayPost.todayColor,
+                    "todayText": self.todayPost.todayText,
+                    "todayShape": self.todayPost.todayShape,
+                    "todayComments": self.todayPost.todayComments
+                ])
             }
         }
     }
@@ -612,6 +625,17 @@ class HomeViewModel: ObservableObject {
         
         let weekDatesString: [String] = weekDates.map(formatter.string)
         return weekDatesString
+    }
+    
+    func debrightened(color: Color, amount: CGFloat) -> Color {
+        let uiColor = UIColor(color)
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+        
+        uiColor.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        return Color(hue: hue, saturation: saturation * amount, brightness: brightness * amount, opacity: alpha)
     }
 
 }

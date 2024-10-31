@@ -42,7 +42,8 @@ struct FriendDailyRecord: View {
                             .foregroundStyle(.myDarkGray)
                         Spacer()
                         VStack(alignment: .center) {
-                            Circle()
+                            Image(systemName: viewModel.friendPost.todayShape)
+                                .resizable()
                                 .frame(width: 50, height: 50)
                                 .foregroundStyle(Color(hex: viewModel.friendPost.todayColor))
                         }

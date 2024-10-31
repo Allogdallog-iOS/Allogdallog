@@ -17,6 +17,7 @@ struct Post: Identifiable, Codable {
     var todayImgUrl: String = ""
     var todayColor: String = ""
     var todayText: String = ""
+    var todayShape: String = ""
     var todayComments: [Comment] = []
     
     init(userId: String) {
@@ -36,6 +37,7 @@ struct Post: Identifiable, Codable {
         self.todayImgUrl = data["todayImgUrl"] as? String ?? ""
         self.todayColor = data["todayColor"] as? String ?? ""
         self.todayText = data["todayText"] as? String ?? ""
+        self.todayShape = data["todayShape"] as? String ?? ""
         self.todayComments = (data["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
             Comment(id: comment["id"] as? String ?? "",
             postId: comment["postId"] as? String ?? "",
@@ -46,13 +48,14 @@ struct Post: Identifiable, Codable {
         }
     }
     
-    init(id: String = "",userId: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayComments: [Comment] = []) {
+    init(id: String = "", todayDate: Date = Date(), todayImgUrl: String = "", todayColor: String = "", todayText: String = "" , todayShape: String = "",todayComments: [Comment] = []) {
         self.id = id
         self.userId = userId
         self.todayDate = todayDate
         self.todayImgUrl = todayImgUrl
         self.todayColor = todayColor
         self.todayText = todayText
+        self.todayShape = todayShape
         self.todayComments = todayComments
     }
 }

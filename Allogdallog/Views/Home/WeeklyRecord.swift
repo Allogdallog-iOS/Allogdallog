@@ -52,46 +52,48 @@ struct WeeklyRecord: View {
                             VStack(alignment: .center) {
                                 ZStack {
                                     Circle()
-                                        .stroke(lineWidth: 2)
                                         .frame(width: 63, height: 63)
-                                        .foregroundStyle(Color(hex:post.todayColor))
-                                    Circle()
-                                        .frame(width: 57, height: 57)
                                         .foregroundStyle(.white)
-                                        .overlay(
-                                            Circle()
-                                                .stroke(.black)
-                                        )
-                                    if let url = URL(string: post.todayImgUrl) {
-                                        AsyncImage(url: url) { image in
-                                            image
-                                                .resizable()
-                                                .frame(width: 30, height: 45)
-                                                .aspectRatio(contentMode: .fill)
-                                                .clipShape(RoundedRectangle(cornerRadius: 5))
-                                                .overlay(RoundedRectangle(cornerRadius: 5)
-                                                    .stroke(.black)
-                                                )
-                                        } placeholder: {
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 10)
-                                                    .stroke(.black)
-                                                    .frame(width: 30, height: 45)
-                                                Image(systemName: "photo")
-                                                    .foregroundStyle(.black)
-                                            }
-                                        }
-                                    }
-                                    Text(post.todayText)
-                                        .offset(x: 15, y: 20)
+                                        .shadow(color: Color(hex: post.todayColor), radius: 3)
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 63, height: 63)
+                                     if let url = URL(string: post.todayImgUrl) {
+                                         AsyncImage(url: url) { image in
+                                             image
+                                                 .resizable()
+                                                 .aspectRatio(contentMode: .fill)
+                                                 .frame(width: 32, height: 47)
+                                                 .clipShape(RoundedRectangle(cornerRadius: 5))
+                                                 .overlay(
+                                                    RoundedRectangle(cornerRadius: 5)
+                                                        .stroke(.black)
+                                                 )
+                                         } placeholder: {
+                                             ZStack {
+                                                 RoundedRectangle(cornerRadius: 10)
+                                                     .stroke(.black)
+                                                     .frame(width: 32, height: 47)
+                                                 Image(systemName: "photo")
+                                                     .foregroundStyle(.black)
+                                             }
+                                         }
+                                     }
+                                     Image(systemName: post.todayShape)
+                                         .resizable()
+                                         .frame(width: 20, height: 20)
+                                         .foregroundStyle(Color(hex:post.todayColor))
+                                         .offset(x: -15, y: -22)
                                     
+                                     Text(post.todayText)
+                                         .offset(x: 15, y: 22)
                                 }
                                 Text(viewModel.getDayOfWeek(for: post.todayDate))
                                     .gmarketSans(type: .medium, size: 10)
                                     .foregroundStyle(.myDarkGray)
                             }
-                            .frame(width: 72, height: 120)
-                            .offset(y:(index % 2 == 0 ? -5 : 5))
+                            .frame(width: 70, height: 110)
+                            .offset(y:(index % 2 == 0 ? -7 : 7))
                         }
                     }
                 }
@@ -101,6 +103,91 @@ struct WeeklyRecord: View {
     }
 }
 
+/*
+ ZStack {
+     Circle()
+         .stroke(lineWidth: 2)
+         .frame(width: 64, height: 64)
+         .foregroundStyle(Color(hex: post.todayColor))
+     Circle()
+         .stroke(.black)
+         .frame(width: 58, height: 58)
+      if let url = URL(string: post.todayImgUrl) {
+          Image(systemName: post.todayShape)
+              .resizable()
+              .frame(width: 52, height: 52)
+          AsyncImage(url: url) { image in
+              image
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .frame(width: 50, height: 50)
+                  .clipped()
+                  .mask(
+                     Image(systemName: post.todayShape)
+                         .resizable()
+                         .aspectRatio(contentMode: .fit)
+                  )
+          } placeholder: {
+              ZStack {
+                  Circle()
+                      .stroke(.black)
+                      .frame(width: 64, height: 64)
+                  Image(systemName: "questionmark")
+                      .foregroundStyle(.black)
+              }
+          }
+      }
+     /*
+      Image(systemName: post.todayShape)
+          .resizable()
+          .frame(width: 20, height: 20)
+          .foregroundStyle(Color(hex:post.todayColor))
+          .offset(x: -19, y: -25)
+      */
+      Text(post.todayText)
+          .font(.system(size: 20))
+          .offset(x: 19, y: 25)
+ */
+
+/*
+ ZStack {
+     Circle()
+         .stroke(lineWidth: 2)
+         .frame(width: 63, height: 63)
+         .foregroundStyle(Color(hex: post.todayColor))
+     Circle()
+         .stroke(.black)
+         .frame(width: 57, height: 57)
+      if let url = URL(string: post.todayImgUrl) {
+          AsyncImage(url: url) { image in
+              image
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .frame(width: 30, height: 45)
+                  .clipShape(RoundedRectangle(cornerRadius: 5))
+                  .overlay(
+                     RoundedRectangle(cornerRadius: 5)
+                         .stroke(.black)
+                  )
+          } placeholder: {
+              ZStack {
+                  RoundedRectangle(cornerRadius: 10)
+                      .stroke(.black)
+                      .frame(width: 30, height: 45)
+                  Image(systemName: "photo")
+                      .foregroundStyle(.black)
+              }
+          }
+      }
+      Image(systemName: post.todayShape)
+          .resizable()
+          .frame(width: 20, height: 20)
+          .foregroundStyle(Color(hex:post.todayColor))
+          .offset(x: -15, y: -20)
+     
+      Text(post.todayText)
+          .offset(x: 15, y: 20)
+ */
 
 #Preview {
     WeeklyRecord()

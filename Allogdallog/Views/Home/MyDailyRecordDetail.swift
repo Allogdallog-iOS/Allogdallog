@@ -10,6 +10,8 @@ import SwiftUI
 struct MyDailyRecordDetail: View {
     
     @EnvironmentObject private var viewModel: HomeViewModel
+    @State private var currentShapeIndex = 0
+    @State private var hasBeenTapped = false
     
     var body: some View {
         VStack {
@@ -28,11 +30,25 @@ struct MyDailyRecordDetail: View {
                             Button(action: {
                                 viewModel.isColorPaletteOpen.toggle()
                             }) {
-                                Circle()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundStyle(viewModel.selectedColor)
+                                ZStack {
+                                    Image(systemName: viewModel.selectedShape)
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                        .foregroundStyle(viewModel.selectedColor)
+                                    if !hasBeenTapped && !viewModel.user.postUploaded {
+                                        Text("두 번 클릭시 모양이 바뀌어요!")
+                                            .gmarketSans(type: .medium, size: 10)
+                                            .foregroundStyle(.myGray)
+                                            .offset(y: -90)
+                                    }
+                                }
                             }
-                            .frame(height: 230)
+                            .onTapGesture(count: 2) {
+                                hasBeenTapped = true
+                                currentShapeIndex = (currentShapeIndex + 1) % viewModel.shapes.count
+                                viewModel.selectedShape = viewModel.shapes[currentShapeIndex]
+                            }
+                            .frame(width: 90, height: 230)
                             .disabled(viewModel.postButtonsDisabled)
                             Spacer()
                             
@@ -55,11 +71,11 @@ struct MyDailyRecordDetail: View {
                                     Image(uiImage: image)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 180, height: 230)
+                                        .frame(width: 165, height: 210)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                         .overlay(RoundedRectangle(cornerRadius: 10)
                                             .stroke(.black)
-                                            .frame(width: 180, height: 230)
+                                            .frame(width: 165, height: 210)
                                         )
                                 }
                                 .disabled(viewModel.postButtonsDisabled)
@@ -71,7 +87,7 @@ struct MyDailyRecordDetail: View {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(.black)
-                                            .frame(width: 180, height: 230)
+                                            .frame(width: 165, height: 210)
                                         Image(systemName: "photo.badge.plus.fill")
                                             .foregroundStyle(.black)
                                     }
@@ -97,7 +113,7 @@ struct MyDailyRecordDetail: View {
                                     .font(.system(size: 50))
                             }
                             .disabled(viewModel.postButtonsDisabled)
-                            .frame(height: 230)
+                            .frame(width: 90, height: 230)
                             Spacer()
                         }
                         .sheet(isPresented: $viewModel.isEmojiPaletteOpen) {
@@ -155,7 +171,7 @@ struct MyDailyRecordDetail: View {
                             }
                             Spacer()
                         }
-                        .frame(width: 180)
+                        .frame(width: 165)
                         Spacer()
                     }
                     Spacer()
