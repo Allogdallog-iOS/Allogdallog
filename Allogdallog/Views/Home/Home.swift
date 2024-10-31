@@ -34,11 +34,11 @@ struct Home: View {
                     ScrollView {
                     VStack(spacing: 0) {
                         HStack {
-                            Text("알록달록")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 12)
+                            Image("image/logo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 42)
+                                .clipped()
                             Spacer()
                         }
                         Divider()
@@ -80,7 +80,7 @@ struct Home: View {
                     }
                     .padding(.horizontal, 15)
                 }
-                .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
+                .refreshable {
                     viewModel.refreshData()
                     loadData() // 데이터 새로 고침
                 }
@@ -92,11 +92,12 @@ struct Home: View {
                     ScrollView {
                         VStack(spacing: 0){
                             HStack {
-                                Text("알록달록")
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 12)
+                                Image("image/logo")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 100, height: 42)
+                                    .clipped()
+                                    
                                 Spacer()
                             }
                             Divider()

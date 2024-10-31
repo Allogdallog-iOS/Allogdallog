@@ -10,6 +10,7 @@ import SwiftUI
 struct Notification: View {
     
     @ObservedObject var viewModel: HomeViewModel
+    @EnvironmentObject var tabSelection: TabSelectionManager
     
     var body: some View {
         VStack(spacing: 0) {
@@ -24,14 +25,17 @@ struct Notification: View {
                 .padding(.bottom, 0)
             
             List(viewModel.notifications.sorted { $0.timestamp > $1.timestamp }) { notification in
-                Text(notification.message).onTapGesture {
-                    print("Notification tapped, setting hasNewNotification to false")
-                    viewModel.markNotificationAsRead(notification: notification)
+                
+            NavigationLink(destination: PostDetailView(viewModel: viewModel, postId: notification.postId ?? "")) {
+                    Text(notification.message)
+                        .font(.body)
+                        .padding(25)
+                        .background(Color.white)
+                        /*.onTapGesture {
+                            viewModel.markNotificationAsRead(notification: notification)
+                        }*/
                 }
-                            .font(.body)
-                            .padding(25)
-                            .background(Color.white)
-                            .listRowInsets(EdgeInsets())
+                .listRowInsets(EdgeInsets())
             }//.listStyle(PlainListStyle())
             .background(Color.white)
             
