@@ -95,7 +95,7 @@ struct DetailComments: View {
                             .gmarketSans(type: .medium, size: 15)
                         Button(action: {
                             if viewModel.selectedDate.isEmpty {
-                                viewModel.uploadComment(date: viewModel.getTodayDateString())
+                                viewModel.uploadComment(date: viewModel.getDateString(date: Date()))
                             } else {
                                 viewModel.uploadComment(date: viewModel.selectedDate)
                             }

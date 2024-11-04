@@ -39,7 +39,7 @@ struct PostDetailView: View {
                 HStack {
                     Spacer()
                     if viewModel.selectedDate.isEmpty {
-                        Text("\(viewModel.getTodayDateString())")
+                        Text("\(viewModel.getDateString(date: Date()))")
                             .instrumentSansItalic(type:.bold, size: 25)
                     } else {
                         Text(viewModel.selectedDate)

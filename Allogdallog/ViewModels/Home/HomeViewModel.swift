@@ -30,13 +30,15 @@ class HomeViewModel: ObservableObject {
     @Published var friendPostUploaded: Bool = false
     @Published var friendPost: Post
     @Published var detailPost = Post()
-    @Published var pastFriendPost: Post
+    @Published var pastFriendPost: Post = Post()
     @Published var friendImage: UIImage? = nil
     @Published var postButtonsDisabled: Bool = false
     @Published var myComment: String = ""
     @Published var paletteShowingPost: Post = Post()
     @Published var isColorPaletteOpen: Bool = false
     @Published var isEmojiPaletteOpen: Bool = false
+    @Published var notifications: [AppNotification] = []
+    @Published var hasNewNotification: Bool = false
     @Published var shapes = ["circle.fill", "square.fill", "triangle.fill", "star.fill", "suit.heart.fill", "suit.spade.fill", "suit.club.fill"]
     @Published var colors: [Color] = [.yellow, .orange, .pink, .green, .mint, .teal, .purple, .brown, .blue, .indigo, .gray, .black]
     @Published var paletteKeys: [String] = ["기쁨", "분노", "불안", "슬픔", "커스텀"]
@@ -55,10 +57,6 @@ class HomeViewModel: ObservableObject {
         "슬픔": ["🥲", "😭", "😱", "🤕", "😵‍💫", "🫠","🤧", "🤢", "👎", "☠️"],
         "커스텀": []
     ]
-    @Published var notifications: [AppNotification] = []
-    @Published var hasNewNotification: Bool = false
-    @Published var todayPostId: String? //= ""
-    @Published var selectedPostId: String?
     
     private var db = Firestore.firestore()
     
@@ -462,6 +460,7 @@ class HomeViewModel: ObservableObject {
                 self.myComment = ""
             }
         }
+    }
         
     
     private func createNotification(forComment comment: Comment, postOwnerId: String, postId: String) {

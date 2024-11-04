@@ -111,17 +111,22 @@ struct FriendComments: View {
                             } else {
                                 viewModel.uploadComment(date: viewModel.selectedDate)
                             }
-                            .disabled(!viewModel.friendPostUploaded)
+                        }) {
+                            Image(systemName: "arrow.up.circle.fill")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .padding(.horizontal, 10)
+                                .foregroundStyle(.myGray)
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 40)
-                        .overlay(RoundedRectangle(cornerRadius: 10.0)
-                            .stroke(Color.myLightGray)
-                        )
+                        .disabled(!viewModel.friendPostUploaded)
                     }
-                    //.padding()
-                    .background(Color.white)
-
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 40)
+                    .overlay(RoundedRectangle(cornerRadius: 10.0)
+                        .stroke(Color.myLightGray)
+                    )
+                }
+                .background(Color.white)
             } 
         }
     }

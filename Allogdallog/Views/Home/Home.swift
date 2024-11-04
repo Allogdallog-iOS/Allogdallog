@@ -42,9 +42,9 @@ struct Home: View {
                         }
                         Divider()
                         ScrollView {
-                            MyFriends()
-                            Divider()
                             VStack {
+                                MyFriends()
+                                Divider()
                                 if viewModel.user.selectedUser == viewModel.user.id {
                                     VStack(alignment: .leading) {
                                         MyDailyRecord()
@@ -74,72 +74,70 @@ struct Home: View {
                         .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
                             viewModel.refreshData()
                             loadData() // 데이터 새로 고침
-                        }
+                        
                     }
-                    .padding(.horizontal, 15)
                 }
-                .refreshable {
-                    viewModel.refreshData()
-                    loadData() // 데이터 새로 고침
-                    .tabItem {
-                        Label("홈", systemImage: "house.fill")
-                    }
-                    .tag(0)
-                    VStack(spacing: 0) {
-                        HStack {
-                            Text("알록달록")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 12)
-                            Spacer()
-                        }
-                        Divider()
-                        ScrollView {
-                            MyFriends()
-                            Divider()
-                            GeometryReader { geometry in
-                                let maxHeight = geometry.size.height - 20
-                                VStack {
-                                    MyCalendar(user: viewModel.user)
-                                        .environmentObject(calendarViewModel)
-                                        .frame(height: maxHeight)
-                                }
-                            }.padding(.vertical, 15)
-                            .frame(height: 520)
-                        }
-                        .padding(.horizontal, 12)
-                        .refreshable {
-                            viewModel.refreshData()
-                            loadData() // 데이터 새로 고침
-                        }
-                    }
-                    .tabItem {
-                        Label("캘린더", systemImage: "calendar")
-                    }
-                    .tag(1)
-                    ScrollView {
-                        VStack(spacing: 0){
-                            MyPage(user: viewModel.user)
-                            Profile().environmentObject(profileViewModel)
-                            FriendsList(user: viewModel.user)
-                            Logout()
-                            Spacer()
-                        }.environmentObject(viewModel)
-                            //.padding(.horizontal, 15)
+                .tabItem {
+                    Label("홈", systemImage: "house.fill")
+                }
+                .tag(0)
+                VStack(spacing: 0) {
+                    HStack {
+                        Text("알록달록")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .padding(.horizontal, 15)
                             .padding(.vertical, 12)
-                            .frame(height: 735)
+                        Spacer()
                     }
+                    Divider()
+                    ScrollView {
+                        MyFriends()
+                        Divider()
+                        GeometryReader { geometry in
+                            let maxHeight = geometry.size.height - 20
+                            VStack {
+                                MyCalendar(user: viewModel.user)
+                                    .environmentObject(calendarViewModel)
+                                    .frame(height: maxHeight)
+                            }
+                        }.padding(.vertical, 15)
+                        .frame(height: 520)
+                    }
+                    .padding(.horizontal, 12)
                     .refreshable {
                         viewModel.refreshData()
                         loadData() // 데이터 새로 고침
                     }
-                        .tabItem {
-                            Label("마이페이지", systemImage: "person.fill")
-                        }
-                        .tag(2)
-                    
                 }
+                .tabItem {
+                    Label("캘린더", systemImage: "calendar")
+                }
+                .tag(1)
+                ScrollView {
+                    VStack(spacing: 0){
+                        MyPage(user: viewModel.user)
+                        Profile().environmentObject(profileViewModel)
+                        FriendsList(user: viewModel.user)
+                        Logout()
+                        Spacer()
+                    }.environmentObject(viewModel)
+                        //.padding(.horizontal, 15)
+                        .padding(.vertical, 12)
+                        .frame(height: 735)
+                }
+                .refreshable {
+                    viewModel.refreshData()
+                    loadData() // 데이터 새로 고침
+                }
+                    .tabItem {
+                        Label("마이페이지", systemImage: "person.fill")
+                    }
+                    .tag(2)
+                
+            }
+                
+                    
                 .tint(.black)
                 .environmentObject(viewModel)
                 .environmentObject(tabSelection)
