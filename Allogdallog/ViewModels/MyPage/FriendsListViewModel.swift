@@ -108,6 +108,8 @@ class FriendsListViewModel: ObservableObject {
                 let newFriend = Friend(id: request.fromUserId, nickname: request.fromUserNick, profileImageUrl: request.fromUserImgUrl)
                 self.user.friends.append(newFriend)
                 self.user.receivedRequests.removeAll(where: { $0.id == request.id })
+                
+                self.createNotificationForFriendAcceptance(friendId: request.fromUserId)
             }
         }
         
@@ -126,6 +128,24 @@ class FriendsListViewModel: ObservableObject {
         ]) { error in
             if let error = error {
                 print("Error updating friend's friend list: \(error)")
+            }
+        }
+    }
+    
+    private func createNotificationForFriendAcceptance(friendId: String) {
+        let notificationMessage = "\(user.nickname)님이 친구 요청을 수락했습니다."
+        db.collection("notifications").addDocument(data: [
+            "message": notificationMessage,
+            "timestamp": Timestamp(),
+            "userId": friendId, // 알림을 받을 사용자 ID
+            "fromUserId": user.id, // 수락한 사용자 ID
+            "notificationType": "friend_acceptance",
+            "isRead": false
+        ]) { error in
+            if let error = error {
+                print("Error adding friend acceptance notification: \(error)")
+            } else {
+                print("Friend acceptance notification added successfully.")
             }
         }
     }
