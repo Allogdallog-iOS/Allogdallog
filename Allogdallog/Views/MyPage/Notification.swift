@@ -11,6 +11,7 @@ struct Notification: View {
     
     @ObservedObject var viewModel: HomeViewModel
     @EnvironmentObject var tabSelection: TabSelectionManager
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,17 +27,43 @@ struct Notification: View {
             
             List(viewModel.notifications.sorted { $0.timestamp > $1.timestamp }) { notification in
                 
-            NavigationLink(destination: PostDetailView(viewModel: viewModel, postId: notification.postId ?? "")) {
-                    Text(notification.message)
-                        .font(.body)
-                        .padding(25)
-                        .background(Color.white)
-                        /*.onTapGesture {
-                            viewModel.markNotificationAsRead(notification: notification)
-                        }*/
-                }.padding(.trailing, 10)
+                if notification.notificationType == "comment" {
+                    
+                        NavigationLink(destination: PostDetailView(viewModel: viewModel, postId: notification.postId ?? "")) {
+                            Text(notification.message)
+                                .font(.body)
+                                .padding(.vertical, 15)
+                                .padding(.horizontal, 10)
+                                .background(Color.white)
+                        }
+                    } else if notification.notificationType == "friend_request" {
+                        Button(action: {
+                                tabSelection.selectedTab = 2
+                                dismiss()
+                            }) {
+                            Text(notification.message)
+                                .font(.body)
+                                .foregroundColor(.black)
+                                .padding(.vertical, 15)
+                                .padding(.horizontal, 10)
+                                .background(Color.white)
+                        }
+                    }
+                    else if notification.notificationType == "friend_acceptance" {
+                        Button(action: {
+                                tabSelection.selectedTab = 2
+                                dismiss()
+                            }) {
+                        Text(notification.message)
+                            .font(.body)
+                            .foregroundColor(.black)
+                            .padding(.vertical, 15)
+                            .padding(.horizontal, 10)
+                            .background(Color.white)
+                            }
+                    }
+                }
                 .listRowInsets(EdgeInsets())
-            }//.listStyle(PlainListStyle())
             .background(Color.white)
             
             .onAppear {

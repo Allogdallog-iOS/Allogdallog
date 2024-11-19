@@ -73,7 +73,7 @@ struct Home: View {
                         .padding(.horizontal, 12)
                         .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
                             viewModel.refreshData()
-                            loadData() // 데이터 새로 고침
+                            loadData()
                         
                     }
                 }
@@ -107,7 +107,7 @@ struct Home: View {
                     .padding(.horizontal, 12)
                     .refreshable {
                         viewModel.refreshData()
-                        loadData() // 데이터 새로 고침
+                        loadData()
                     }
                 }
                 .tabItem {
@@ -128,7 +128,7 @@ struct Home: View {
                 }
                 .refreshable {
                     viewModel.refreshData()
-                    loadData() // 데이터 새로 고침
+                    loadData()
                 }
                     .tabItem {
                         Label("마이페이지", systemImage: "person.fill")
