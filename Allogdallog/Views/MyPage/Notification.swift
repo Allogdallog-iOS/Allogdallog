@@ -17,9 +17,9 @@ struct Notification: View {
         VStack(spacing: 0) {
             HStack {
                 Text("알림")
-                    .gmarketSans(type: .medium, size: 18)
-                    .padding(.vertical, 5)
-                    .padding(.leading, 12)
+                    .gmarketSans(type: .medium, size: 19)
+                    .padding(.vertical, 12)
+                    .padding(.leading, 23)
                 Spacer()
             }
             Divider()
@@ -31,7 +31,7 @@ struct Notification: View {
                     
                         NavigationLink(destination: PostDetailView(viewModel: viewModel, postId: notification.postId ?? "")) {
                             Text(notification.message)
-                                .font(.body)
+                                .gmarketSans(type: .medium, size: 15)
                                 .padding(.vertical, 15)
                                 .padding(.horizontal, 10)
                                 .background(Color.white)
@@ -42,7 +42,7 @@ struct Notification: View {
                                 dismiss()
                             }) {
                             Text(notification.message)
-                                .font(.body)
+                                .gmarketSans(type: .medium, size: 15)
                                 .foregroundColor(.black)
                                 .padding(.vertical, 15)
                                 .padding(.horizontal, 10)
@@ -55,15 +55,15 @@ struct Notification: View {
                                 dismiss()
                             }) {
                         Text(notification.message)
-                            .font(.body)
+                            .gmarketSans(type: .medium, size: 15)
                             .foregroundColor(.black)
                             .padding(.vertical, 15)
                             .padding(.horizontal, 10)
                             .background(Color.white)
                             }
                     }
-                }
-                .listRowInsets(EdgeInsets())
+            }
+            .listRowInsets(EdgeInsets())
             .background(Color.white)
             
             .onAppear {

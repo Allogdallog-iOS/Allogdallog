@@ -141,7 +141,7 @@ struct FriendsList: View {
                         }
                     }
                     Divider()
-                        .padding(.bottom, 10)
+                        .padding(.vertical, 10)
                     
                     if !viewModel.user.friends.isEmpty {
                         ForEach(viewModel.user.friends) { friend in

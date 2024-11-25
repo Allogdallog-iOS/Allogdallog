@@ -27,8 +27,7 @@ struct DeleteAccount: View {
                 
                 HStack {
                     Text("회원 탈퇴")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                        .gmarketSans(type: .medium, size: 19)
                         .padding(.horizontal, 15)
                         .padding(.bottom, 5)
                     
@@ -43,8 +42,7 @@ struct DeleteAccount: View {
                                 }
                     }) {
                         Text("탈퇴")
-                            .font(.title3)
-                            //.foregroundStyle(.gray)
+                            .gmarketSans(type: .medium, size: 19)
                             .padding(.horizontal, 15)
                             .padding(.bottom, 5)
                     }
@@ -60,6 +58,7 @@ struct DeleteAccount: View {
                 
                 HStack{
                     Text("비밀번호 확인")
+                        .gmarketSans(type: .medium, size: 16)
                         .padding(.leading)
                         .fontWeight(.semibold)
                         .padding(.horizontal, 10)
