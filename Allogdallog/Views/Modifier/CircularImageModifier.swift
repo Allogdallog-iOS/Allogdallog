@@ -12,6 +12,7 @@ struct CircularImageModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+            .aspectRatio(contentMode: .fill)
             .frame(width: size, height: size)
             .clipShape(Circle())
     }

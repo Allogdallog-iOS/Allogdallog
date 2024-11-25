@@ -19,6 +19,7 @@ class MyCalendarViewModel: ObservableObject {
     @Published var readingPost: Post?
     @Published var clickedPost: Post?
     @Published var weekPosts: [Post] = []
+    @Published var lastMonthPosts: [Date: [Post]] = [:]
     
     private var db = Firestore.firestore()
     
@@ -48,8 +49,11 @@ class MyCalendarViewModel: ObservableObject {
     func fetchPostsDate(from startDate: Date, to endDate: Date, completion: @escaping([Date: [Post]]) -> Void) {
         let postRef = db.collection("posts").document(self.user.selectedUser).collection("posts")
         
+        let calendar = Calendar.current
+            let oneWeekBeforeStartDate = calendar.date(byAdding: .day, value: -7, to: startDate)!
+        
         postRef
-            .whereField("todayDate", isGreaterThanOrEqualTo: startDate)
+            .whereField("todayDate", isGreaterThanOrEqualTo: oneWeekBeforeStartDate)
             .whereField("todayDate", isLessThan: endDate)
             .getDocuments { snapshot, error in
                 guard let documents = snapshot?.documents, error == nil else {
@@ -58,20 +62,27 @@ class MyCalendarViewModel: ObservableObject {
                 }
                 
                 var posts: [Date: [Post]] = [:]
+                var lastMonthPosts: [Date: [Post]] = [:]
                 
                 for document in documents {
                     let post = Post(id: document.documentID, data: document.data())
                     let postDate = Calendar.current.startOfDay(for: post.todayDate)
                     
+                    if postDate < startDate {
+                        lastMonthPosts[postDate]?.append(post)
+                    }
                     if posts[postDate] != nil {
                         posts[postDate]?.append(post)
                     } else {
                         posts[postDate] = [post]
                     }
                 }
+                self.lastMonthPosts = lastMonthPosts
                 completion(posts)
             }
     }
+    
+    
     
     func deletePost() {
         self.posts.removeValue(forKey: self.clickedPost?.todayDate ?? Date())
@@ -196,6 +207,8 @@ class MyCalendarViewModel: ObservableObject {
         var calendar = Calendar.current
         calendar.firstWeekday = 2
         let today = Date()
+        let currentMonth = calendar.component(.month, from: today)
+        
         var weekPosts: [Post] = []
         
         let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
@@ -210,11 +223,20 @@ class MyCalendarViewModel: ObservableObject {
         }
         
         for weekDate in weekDates {
+            let monthOfWeekDate = calendar.component(.month, from: weekDate)
             let hasPost = hasPosts(for: weekDate)
-            if hasPost {
-                weekPosts.append(self.posts[weekDate]!.first!)
+            
+            if monthOfWeekDate < currentMonth {
+                if hasPost {
+                    weekPosts.append(self.posts[weekDate]!.first!)
+                }
+            } else {
+                if hasPost {
+                    weekPosts.append(self.posts[weekDate]!.first!)
+                }
             }
         }
+        
         return weekPosts
     }
     

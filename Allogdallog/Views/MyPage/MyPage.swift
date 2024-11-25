@@ -24,31 +24,22 @@ struct MyPage: View {
         VStack {
             HStack {
                 Text("마이페이지")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 17)
-                    .padding(.vertical, 8)
-                
+                    .gmarketSans(type: .medium, size: 18)
+                    .padding(.horizontal, 15)
                 Spacer()
-                
                 NavigationLink(destination: Setting(viewModel: profileviewModel)) { Image(systemName: "gearshape")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
+                        .frame(width: 20, height: 20)
                         .foregroundStyle(.black)
-                        .padding(.vertical, 5)
                 }
-                
                 ZStack {
                     NavigationLink(destination: Notification(viewModel: homeviewModel).onAppear {
                         markNotificationsAsRead()
                     }) { Image(systemName: "bell")
                             .resizable()
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
+                            .frame(width: 20, height: 20)
                             .foregroundStyle(.black)
                             .padding(.horizontal, 15)
-                            .padding(.vertical, 5)
                     }
                     if homeviewModel.notifications.contains(where: { !$0.isRead }) {
                         Circle()
@@ -60,8 +51,9 @@ struct MyPage: View {
                 
             }
             Divider()
-            
-        } .onAppear {
+        }
+        .frame(height: 60)
+        .onAppear {
             print("MyPage appeared, checking for new notifications...")
             homeviewModel.listenForNotifications()
         }

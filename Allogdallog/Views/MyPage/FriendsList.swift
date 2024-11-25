@@ -21,9 +21,9 @@ struct FriendsList: View {
         VStack(alignment: .leading, spacing: 15) {
             HStack(alignment: .firstTextBaseline) {
                 Text("친구")
-                    .font(.headline)
+                    .gmarketSans(type: .medium, size: 15)
                 Text("\(viewModel.user.friends.count)명")
-                    .font(.subheadline)
+                    .gmarketSans(type: .medium, size: 13)
                     .foregroundStyle(.gray)
             
             Spacer()
@@ -31,24 +31,11 @@ struct FriendsList: View {
                 NavigationLink(destination: FriendSearch(user: homeViewModel.user)) {
                         Image(systemName: "person.badge.plus")
                         .resizable()
-                            //.scaledToFit()
-                            .frame(width: 23, height: 23)
-                            .offset(x:0,y:8)
+                            .frame(width: 20, height: 20)
+                            .offset(x:0, y:8)
                             .foregroundStyle(.black)
-                            //.clipped()
-                        //.padding(.horizontal, 15)
-                            //.padding(.vertical, 0)
+                }
             }
-                           }.padding(.top, 8)
-            /*VStack {
-                           FriendSearch(user: viewModel.user)
-                       }
-                       .tabItem {
-                           Label("검색", systemImage: "magnifyingglass")
-                       }
-                           .tag(2)
-             */
-            
             
             ScrollView {
                 VStack(alignment: .leading) {
@@ -67,7 +54,13 @@ struct FriendsList: View {
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fill)
                                                 .frame(width: 60, height: 60)
-                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(.black)
+                                                        .frame(width: 50, height: 50)
+                                                )
+                                            // 50x50 영역만 보여주도록 마스크 적용
                                         }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     } placeholder: {
                                         ZStack {
@@ -81,7 +74,13 @@ struct FriendsList: View {
                                                 .aspectRatio(contentMode: .fill)
                                                 .foregroundStyle(Color.myLightGray)
                                                 .frame(width: 60, height: 60)
-                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(.black)
+                                                        .frame(width: 50, height: 50)
+                                                )
+                                            // 50x50 영역만 보여주도록 마스크 적용
                                         }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     }
                                 } else {
@@ -97,14 +96,20 @@ struct FriendsList: View {
                                             .foregroundStyle(Color.myLightGray)
                                             .frame(width: 60, height: 60)
                                             .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50))
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 50, height: 50)
+                                            )
                                     }.frame(width: 50, height: 50)
                                 }
                                 
                                 VStack(alignment: .leading) {
                                     Text("친구 신청")
-                                        .font(.caption)
+                                        .gmarketSans(type: .medium, size: 12)
                                         .foregroundStyle(.gray)
                                     Text("\(request.fromUserNick)")
+                                        .gmarketSans(type: .medium, size: 12)
                                         .font(.subheadline)
                                 }
                                 
@@ -114,7 +119,7 @@ struct FriendsList: View {
                                     viewModel.rejectFriendRequest(request: request)
                                 }) {
                                     Text("거절")
-                                        .font(.caption)
+                                        .gmarketSans(type: .medium, size: 12)
                                         .padding()
                                         .frame(height: 30)
                                         .background(.myLightGray)
@@ -125,7 +130,7 @@ struct FriendsList: View {
                                     viewModel.acceptFriendRequest(request: request)
                                 }) {
                                     Text("수락")
-                                        .font(.caption)
+                                        .gmarketSans(type: .medium, size: 12)
                                         .padding()
                                         .frame(height: 30)
                                         .background(.black)
@@ -154,6 +159,11 @@ struct FriendsList: View {
                                                 .aspectRatio(contentMode: .fill)
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(.black)
+                                                        .frame(width: 50, height: 50)
+                                                )
                                         }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     } placeholder: {
                                         ZStack {
@@ -168,6 +178,11 @@ struct FriendsList: View {
                                                 .foregroundStyle(Color.myLightGray)
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(.black)
+                                                        .frame(width: 50, height: 50)
+                                                )
                                         }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                     }
                                 } else {
@@ -183,12 +198,17 @@ struct FriendsList: View {
                                             .foregroundStyle(Color.myLightGray)
                                             .frame(width: 60, height: 60)
                                             .clipShape(Circle()).mask(Circle().frame(width: 50, height: 50)) // 50x50 영역만 보여주도록 마스크 적용
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(.black)
+                                                    .frame(width: 50, height: 50)
+                                            )
                                         
                                     }.frame(width: 50, height: 50) // 최종적으로 ZStack의 크기 조정
                                 }
                                 
                                 Text(friend.nickname)
-                                    .font(.subheadline)
+                                    .gmarketSans(type: .medium, size: 13)
                                 
                                 Spacer()
                                 
@@ -197,19 +217,20 @@ struct FriendsList: View {
                                     homeViewModel.user.friends.removeAll(where: { $0.id == friend.id })
                                 }) {
                                     Text("친구 끊기")
-                                        .font(.caption)
+                                        .gmarketSans(type: .medium, size: 12)
                                         .padding()
                                         .frame(height: 30)
                                         .background(.myLightGray)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                             }
+                            .padding(.bottom, 5)
+                            .padding(.horizontal, 2)
                         }
                     }
                 }
             }
         }
-        .padding(.horizontal)
     }
 }
 

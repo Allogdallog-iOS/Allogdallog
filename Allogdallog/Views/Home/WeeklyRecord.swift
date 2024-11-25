@@ -27,13 +27,13 @@ struct WeeklyRecord: View {
                             .frame(width: 340, height: 95)
                         VStack(alignment: .center) {
                         Text("이번 주에는 아직 기록을 남기지 않았어요.")
-                            .gmarketSans(type: .medium, size: 15)
+                            .gmarketSans(type: .medium, size: 13)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity,
                                    alignment: .center)
                             //.padding()
                         Text("오늘의 기록을 남겨볼까요?")
-                            .gmarketSans(type: .medium, size: 15)
+                            .gmarketSans(type: .medium, size: 13)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity,
                                    alignment: .center)

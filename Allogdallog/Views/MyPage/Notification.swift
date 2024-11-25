@@ -16,10 +16,10 @@ struct Notification: View {
         VStack(spacing: 0) {
             HStack {
                 Text("알림")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 15)
+                    .gmarketSans(type: .medium, size: 18)
                     .padding(.vertical, 5)
+                    .padding(.leading, 12)
+                Spacer()
             }
             Divider()
                 .padding(.bottom, 0)
