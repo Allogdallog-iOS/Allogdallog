@@ -29,10 +29,13 @@ struct Profile: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 80, height: 80)
-                                    .clipShape(Circle()).mask(Circle().frame(width: 70, height: 70)) // 50x50 영역만 보여주도록 마스크 적용
-                            }.frame(width: 70, height: 70) // 최종적으로 ZStack의 크기 조정
-                                .padding(.top)
-                                .padding(.leading)
+                                    .clipShape(Circle()).mask(Circle().frame(width: 70, height: 70))
+                                    .overlay(
+                                        Circle()
+                                            .stroke(.black)
+                                            .frame(width: 70, height: 70)
+                                    )
+                            }.frame(width: 70, height: 70)
                         } placeholder: {
                             ZStack {
                                 // 원형 배경을 만들기
@@ -46,9 +49,12 @@ struct Profile: View {
                                     .foregroundStyle(Color.myLightGray)
                                     .frame(width: 80, height: 80)
                                     .clipShape(Circle()).mask(Circle().frame(width: 70, height: 70)) // 50x50 영역만 보여주도록 마스크 적용
+                                    .overlay(
+                                        Circle()
+                                            .stroke(.black)
+                                            .frame(width: 70, height: 70)
+                                    )
                             }.frame(width: 70, height: 70) // 최종적으로 ZStack의 크기 조정
-                                .padding(.top)
-                                .padding(.leading)
                         }
                     } else {
                         ZStack {
@@ -63,41 +69,38 @@ struct Profile: View {
                                 .foregroundStyle(Color.myLightGray)
                                 .frame(width: 80, height: 80)
                                 .clipShape(Circle()).mask(Circle().frame(width: 70, height: 70)) // 50x50 영역만 보여주도록 마스크 적용
+                                .overlay(
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 70, height: 70)
+                                )
                                 .padding(.top)
-                                .padding(.leading)
                         }.frame(width: 70, height: 70) // 최종적으로 ZStack의 크기 조정
                             .padding(.top)
-                            .padding(.leading)
-
                     }
                 }
-                //.foregroundColor(.gray)
-                //.frame(width: 60, height: 60)
-                //.font(.system(size: 50))
-                // .overlay(RoundedRectangle(cornerRadius: 40)
-                // .stroke(Color.gray, lineWidth: 2))
+
                 
                 VStack(alignment: .leading) {
-                    
                     Text(homeViewModel.user.nickname)
-                        .font(.system(size: 22))
-                        .padding(.top)
+                        .gmarketSans(type: .medium, size: 18)
                         .padding(.leading)
-                        .bold()
+                        .padding(.bottom, 3)
                     NavigationLink(destination: ProfileEdit(user: viewModel.user)){
-                            Text("프로필 편집 >")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.gray)
-                                    .padding(.leading)
-                            Spacer()
-                               }
+                        Text("프로필 편집 >")
+                            .gmarketSans(type: .medium, size: 15)
+                            .foregroundStyle(.gray)
+                            .padding(.leading)
+                        Spacer()
+                    }
                     
-                        }
+                }
             }
+            .padding(.horizontal, 2)
             Divider()
-                .padding(.top, 10)
-            }
+            .padding(.top, 10)
         }
     }
+}
     
 

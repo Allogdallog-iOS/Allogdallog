@@ -15,65 +15,64 @@ struct FriendComments: View {
         VStack {
             HStack {
                 Text("반응 \(viewModel.friendPost.todayComments.count)개")
-                    .gmarketSans(type: .medium, size: 12)
+                    .gmarketSans(type: .medium, size: 13)
                 Spacer()
             }
-            
             Divider()
-                ScrollView {
-                    VStack {
-                        if !viewModel.friendPost.todayComments.isEmpty {
-                            ForEach(viewModel.friendPost.todayComments) { comment in
-                                HStack {
-                                    if let url = URL(string: comment.fromUserImgUrl) {
-                                        AsyncImage(url: url) { image in
-                                            ZStack {
-                                                image
-                                                    .resizable()
-                                                    .circularImage(size: 40)
-                                                Circle()
-                                                    .stroke(.black)
-                                                    .frame(width: 40, height: 40)
-                                            }
-                                        } placeholder: {
-                                            ZStack {
-                                                Image(systemName: "person.crop.circle.fill")
-                                                    .circularImage(size: 40)
-                                                Circle()
-                                                    .stroke(.black)
-                                                    .frame(width: 40, height: 40)
-                                            }
+            ScrollView {
+                VStack {
+                    if !viewModel.friendPost.todayComments.isEmpty {
+                        ForEach(viewModel.friendPost.todayComments) { comment in
+                            HStack {
+                                if let url = URL(string: comment.fromUserImgUrl) {
+                                    AsyncImage(url: url) { image in
+                                        ZStack {
+                                            image
+                                                .resizable()
+                                                .circularImage(size: 40)
+                                            Circle()
+                                                .stroke(.black)
+                                                .frame(width: 40, height: 40)
                                         }
-                                    } else {
-                                        Image(systemName: "person.crop.circle.fill")
-                                            .circularImage(size: 40)
-                                        Circle()
-                                            .stroke(.black)
-                                            .frame(width: 40, height: 40)
-                                    }
-                                    VStack {
-                                        HStack {
-                                            Text("\(comment.fromUserNick)")
-                                                .gmarketSans(type: .bold, size: 12)
-                                            Spacer()
-                                        }
-                                        .padding(.bottom, 3)
-                                        HStack {
-                                            Text("\(comment.comment)")
-                                                .gmarketSans(type: .medium, size: 12)
-                                            Spacer()
+                                    } placeholder: {
+                                        ZStack {
+                                            Image(systemName: "person.crop.circle.fill")
+                                                .resizable()
+                                                .circularImage(size: 40)
+                                            Circle()
+                                                .stroke(.black)
+                                                .frame(width: 40, height: 40)
                                         }
                                     }
-                                    Spacer()
+                                } else {
+                                    Image(systemName: "person.crop.circle.fill")
+                                        .circularImage(size: 40)
+                                    Circle()
+                                        .stroke(.black)
+                                        .frame(width: 40, height: 40)
                                 }
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2)
+                                VStack {
+                                    HStack {
+                                        Text("\(comment.fromUserNick)")
+                                            .gmarketSans(type: .bold, size: 12)
+                                        Spacer()
+                                    }
+                                    .padding(.bottom, 3)
+                                    HStack {
+                                        Text("\(comment.comment)")
+                                            .gmarketSans(type: .medium, size: 12)
+                                        Spacer()
+                                    }
+                                }
+                                Spacer()
                             }
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
                         }
                     }
                 }
             }
-            .frame(height: 120)
+        }
             VStack {
                 Divider()
                 HStack {
@@ -95,10 +94,12 @@ struct FriendComments: View {
                                         .stroke(.black)
                                         .frame(width: 45, height: 45)
                                 )
+                                .foregroundStyle(.myGray)
                         }
                     } else {
                         Image(systemName: "person.crop.circle.fill")
                             .circularImage(size: 45)
+                            .foregroundStyle(.myGray)
                     }
                     HStack {
                         TextField("반응을 남겨주세요!", text: $viewModel.myComment)

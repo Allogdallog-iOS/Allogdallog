@@ -153,7 +153,7 @@ struct MyFriends: View {
                             }
                             
                             Text("\(viewModel.user.nickname)")
-                                .font(.caption)
+                                .gmarketSans(type: .medium, size: 10)
                                 .foregroundStyle(.black)
                         }
                     }
