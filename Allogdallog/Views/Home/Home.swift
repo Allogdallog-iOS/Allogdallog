@@ -78,14 +78,9 @@ struct Home: View {
                         .padding(.horizontal, 12)
                         .refreshable { // ScrollView에서 아래로 끌어내리면 호출되는 부분
                             viewModel.refreshData()
-<<<<<<< HEAD
                             loadData() // 데이터 새로 고침
                             
                         }
-=======
-                            loadData()
-                        
->>>>>>> 62794d3ab70808abc9752bf82b5a0d1ed84a7ca5
                     }
                     .tabItem {
                         Label("홈", systemImage: "house.fill")
@@ -117,15 +112,8 @@ struct Home: View {
                             loadData() // 데이터 새로 고침
                         }
                     }
-<<<<<<< HEAD
                     .tabItem {
                         Label("캘린더", systemImage: "calendar")
-=======
-                    .padding(.horizontal, 12)
-                    .refreshable {
-                        viewModel.refreshData()
-                        loadData()
->>>>>>> 62794d3ab70808abc9752bf82b5a0d1ed84a7ca5
                     }
                     .tag(1)
                     VStack(spacing: 0){
@@ -143,20 +131,7 @@ struct Home: View {
                         }
                         .padding(.horizontal, 12)
                     }.environmentObject(viewModel)
-<<<<<<< HEAD
                     .padding(.vertical, 12)
-          
-                
-=======
-                        //.padding(.horizontal, 15)
-                        .padding(.vertical, 12)
-                        .frame(height: 735)
-                }
-                .refreshable {
-                    viewModel.refreshData()
-                    loadData()
-                }
->>>>>>> 62794d3ab70808abc9752bf82b5a0d1ed84a7ca5
                     .tabItem {
                         Label("마이페이지", systemImage: "person.fill")
                     }
