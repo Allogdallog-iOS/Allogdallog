@@ -24,7 +24,7 @@ struct FriendDailyRecord: View {
                 }
                 Spacer()
             }
-            .padding()
+            .padding(10)
             if viewModel.friendPost.id.isEmpty {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)

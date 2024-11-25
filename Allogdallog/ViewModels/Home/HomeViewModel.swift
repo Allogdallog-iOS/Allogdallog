@@ -398,11 +398,13 @@ class HomeViewModel: ObservableObject {
                 print("Post does not exist")
                 return
             }
+            
             let postOwnerId = document!.data()?["userId"] as? String ?? ""
             guard !postOwnerId.isEmpty else {
                 print("Error: Post owner ID is not available.")
                 return
             }
+             
             
             let commentId = UUID().uuidString
             let newComment = Comment(id: commentId, postId: postId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
@@ -696,8 +698,9 @@ class HomeViewModel: ObservableObject {
         let calendar = Calendar.current
         let today = Date()
         
-        let weekdat = calendar.component(.weekday, from: today)
-        let weekStartDate = calendar.date(byAdding: .day, value: -(weekdat - 2), to: today)!
+        let weekday = calendar.component(.weekday, from: today)
+        let daysFromMonday = (weekday + 5) % 7
+        let weekStartDate = calendar.date(byAdding: .day, value: -daysFromMonday, to: today)!
         
         var weekDates: [Date] = []
         for i in 0..<7 {
@@ -709,7 +712,8 @@ class HomeViewModel: ObservableObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         
-        let weekDatesString: [String] = weekDates.map(formatter.string)
+        let weekDatesString: [String] = weekDates.map { formatter.string(from: $0) }
+        print(weekDatesString)
         return weekDatesString
     }
     

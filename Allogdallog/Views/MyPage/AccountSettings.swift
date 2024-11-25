@@ -19,13 +19,12 @@ struct AccountSettings: View {
         VStack {
             HStack {
                 Text("계정 관리")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 15)
+                    .gmarketSans(type: .medium, size: 18)
                     .padding(.vertical, 5)
             }
             Divider()
             //임시 연결 수정 필요
+<<<<<<< HEAD
             
             HStack{
                 
@@ -48,16 +47,39 @@ struct AccountSettings: View {
             NavigationLink(destination: DeleteAccount()) {
                 
                 HStack{
+=======
+            VStack {
+                NavigationLink(destination: DeleteAccount()) {
+>>>>>>> 040c3f11d06c18b194bb15292e552c1a577c3d67
                     
-                    Text("회원 탈퇴")
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .foregroundStyle(.black)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 5)
+                    HStack{
+                        Text("비밀번호 재설정")
+                            .gmarketSans(type: .medium, size: 15)
+                            .frame(maxWidth: .infinity,
+                                   alignment: .leading)
+                            .foregroundStyle(.black)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 5)
+                    }
                 }
+                Divider()
+                
+                NavigationLink(destination: DeleteAccount()) {
+                    
+                    HStack{
+                        
+                        Text("회원 탈퇴")
+                            .gmarketSans(type: .medium, size: 15)
+                            .frame(maxWidth: .infinity,
+                                   alignment: .leading)
+                            .foregroundStyle(.black)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 5)
+                    }
+                }
+                Divider()
             }
-            Divider()
+            .padding(.horizontal, 12)
         }
         
         Spacer()

@@ -21,34 +21,30 @@ struct Setting: View {
         VStack {
             HStack {
                 Text("설정")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 15)
+                    .gmarketSans(type: .medium, size: 18)
                     .padding(.vertical, 5)
+                    .padding(.leading, 12)
+                Spacer()
             }
             Divider()
-            
             VStack {
-                
                 NavigationLink(destination: AccountSettings()) {
-                    
                     HStack{
                         Text("계정 관리")
+                            .gmarketSans(type: .medium, size: 15)
                             .frame(maxWidth: .infinity,
                                    alignment: .leading)
                             .foregroundStyle(.black)
-                            .padding(.horizontal, 15)
                             .padding(.vertical, 5)
                         Spacer()
                         Text(viewModel.user.email)
-                            .padding(.horizontal, 15)
+                            .gmarketSans(type: .medium, size: 15)
                     }
                 }
                 Divider()
             }
-            
-            Spacer()
-            
+            .padding(.horizontal, 12)
+            Spacer()        
         }
     }
 }

@@ -20,18 +20,17 @@ struct FriendSearch: View {
             
             HStack {
                 Text("친구 추가")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 15)
+                    .gmarketSans(type: .medium, size: 18)
                     .padding(.vertical, 5)
+                    .padding(.leading, 15)
                 
                 Spacer()
             }
-            
             TextField("닉네임을 입력해보세요!", text: $viewModel.searchText, onCommit: {
                 viewModel.searchFriends()
             })
-            .padding(.leading, 30)  // 아이콘과 텍스트 사이 여백
+            .padding(.leading, 20)
+            .gmarketSans(type: .medium, size: 15)
             .customTextFieldStyle(height: 40)
             .overlay(
                 HStack {
@@ -49,23 +48,14 @@ struct FriendSearch: View {
             
             VStack {
                     Text("친구의 닉네임을 검색하여")
-                        .fontWeight(.ultraLight)
-                        //.padding(.horizontal, 15)
-                        //.padding(.vertical, 5)
-                        .frame(maxWidth: .infinity,
-                               //maxHeight: .infinity,
-                               alignment: .center)
+                        .gmarketSans(type: .light, size: 15)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         
                     Text("알록달록 친구로 추가해보세요.")
-                        .fontWeight(.ultraLight)
-                        //.padding(.horizontal, 15)
-                        //.padding(.vertical, 5)
-                        .frame(maxWidth: .infinity,
-                               //maxHeight: .infinity,
-                               alignment: .center)
+                        .gmarketSans(type: .light, size: 15)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         
                 }
-            //Spacer()
             
             ScrollView {
                 LazyVStack {
