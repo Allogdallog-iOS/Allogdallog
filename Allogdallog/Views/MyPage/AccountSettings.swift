@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct AccountSettings: View {
+    
+    @StateObject var viewModel: MyPageViewModel
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: MyPageViewModel())
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -19,18 +26,24 @@ struct AccountSettings: View {
             }
             Divider()
             //임시 연결 수정 필요
-            NavigationLink(destination: DeleteAccount()) {
+            
+            HStack{
                 
-                HStack{
-                    Text("비밀번호 재설정")
+                Button(action: {
+                    viewModel.signOut()
+                }) {
+                    Text("로그아웃")
                         .frame(maxWidth: .infinity,
                                alignment: .leading)
                         .foregroundStyle(.black)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
                 }
+                .navigationDestination(isPresented: $viewModel.isSignedOut) {
+                    SignIn()
+                }
             }
-                Divider()
+            Divider()
             
             NavigationLink(destination: DeleteAccount()) {
                 

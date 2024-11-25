@@ -28,7 +28,7 @@ struct MyPage: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 17)
-                    .padding(.vertical, 8)
+                    //.padding(.vertical, 8)
                 
                 Spacer()
                 
@@ -37,7 +37,7 @@ struct MyPage: View {
                         .scaledToFit()
                         .frame(width: 24, height: 24)
                         .foregroundStyle(.black)
-                        .padding(.vertical, 5)
+                        //.padding(.vertical, 5)
                 }
                 
                 ZStack {
@@ -51,7 +51,7 @@ struct MyPage: View {
                             .frame(width: 24, height: 24)
                             .foregroundStyle(.black)
                             .padding(.horizontal, 15)
-                            .padding(.vertical, 5)
+                            //.padding(.vertical, 5)
                     }
                     if homeviewModel.notifications.contains(where: { !$0.isRead }) {
                         Circle()

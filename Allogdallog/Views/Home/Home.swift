@@ -36,8 +36,10 @@ struct Home: View {
                             Image("image/logo")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 100, height: 42)
+                                .frame(width: 72, height: 27)
                                 .clipped()
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 10)
                             Spacer()
                         }
                         Divider()
@@ -48,7 +50,7 @@ struct Home: View {
                                 if viewModel.user.selectedUser == viewModel.user.id {
                                     VStack(alignment: .leading) {
                                         MyDailyRecord()
-                                            .frame(height: 340)
+                                            .frame(height: 330)
                                         Divider()
                                             .padding(.vertical, 5)
                                         Button(action: {
@@ -83,11 +85,18 @@ struct Home: View {
                 .tag(0)
                 VStack(spacing: 0) {
                     HStack {
-                        Text("알록달록")
+                        /* Image("image/logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 15)
+                            .clipped()
+                            .padding(.leading, 15)
+                            .padding(.vertical, 12)*/
+                        Text("캘린더")
                             .font(.title2)
                             .fontWeight(.semibold)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 12)
+                            .padding(.horizontal, 17)
+                            .padding(.vertical, 10)
                         Spacer()
                     }
                     Divider()
@@ -119,7 +128,7 @@ struct Home: View {
                         MyPage(user: viewModel.user)
                         Profile().environmentObject(profileViewModel)
                         FriendsList(user: viewModel.user)
-                        Logout()
+                        //Logout()
                         Spacer()
                     }.environmentObject(viewModel)
                         //.padding(.horizontal, 15)
