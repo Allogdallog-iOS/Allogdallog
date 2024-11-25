@@ -25,13 +25,25 @@ struct MyPage: View {
         VStack {
             HStack {
                 Text("마이페이지")
+<<<<<<< HEAD
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 17)
+                    //.padding(.vertical, 8)
+                
+=======
                     .gmarketSans(type: .medium, size: 18)
                     .padding(.horizontal, 15)
+>>>>>>> 040c3f11d06c18b194bb15292e552c1a577c3d67
                 Spacer()
                 NavigationLink(destination: Setting(viewModel: profileviewModel)) { Image(systemName: "gearshape")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundStyle(.black)
+<<<<<<< HEAD
+                        //.padding(.vertical, 5)
+=======
+>>>>>>> 040c3f11d06c18b194bb15292e552c1a577c3d67
                 }
                 ZStack {
                     NavigationLink(destination: Notification(viewModel: homeviewModel)
@@ -43,6 +55,10 @@ struct MyPage: View {
                             .frame(width: 20, height: 20)
                             .foregroundStyle(.black)
                             .padding(.horizontal, 15)
+<<<<<<< HEAD
+                            //.padding(.vertical, 5)
+=======
+>>>>>>> 040c3f11d06c18b194bb15292e552c1a577c3d67
                     }
                     if homeviewModel.notifications.contains(where: { !$0.isRead }) {
                         Circle()

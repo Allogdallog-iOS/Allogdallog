@@ -15,7 +15,7 @@ struct WeeklyRecord: View {
         VStack {
             Text("이번주")
                 .gmarketSans(type: .bold, size: 15)
-                .padding(.bottom, 10)
+                .padding(.vertical, 10)
                 .frame(maxWidth: .infinity,
                        alignment: .center)
             

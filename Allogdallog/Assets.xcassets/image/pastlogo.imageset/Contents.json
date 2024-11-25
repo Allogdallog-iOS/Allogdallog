@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "AllogdallodLogo.png",
+      "filename" : "logo.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "AllogdallodLogo@2x.png",
+      "filename" : "logo@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "AllogdallodLogo@3x.png",
+      "filename" : "logo@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

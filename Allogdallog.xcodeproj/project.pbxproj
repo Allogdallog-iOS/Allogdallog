@@ -31,7 +31,6 @@
 		35459A9A2BF5E64F0049A19C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35459A992BF5E64F0049A19C /* Assets.xcassets */; };
 		35459A9E2BF5E64F0049A19C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35459A9D2BF5E64F0049A19C /* Preview Assets.xcassets */; };
 		354F7D4D2CD30F53003581EA /* MyDailyRecordModify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F7D4C2CD30F53003581EA /* MyDailyRecordModify.swift */; };
-
 		3585377D2C20216100D65E23 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3585377C2C20216100D65E23 /* MyPage.swift */; };
 		35A5118B2C58D9EB00DA8668 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 35A5118A2C58D9EB00DA8668 /* .gitignore */; };
 		35A5118D2C5A313D00DA8668 /* MyDailyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5118C2C5A313D00DA8668 /* MyDailyRecord.swift */; };
@@ -74,7 +73,6 @@
 		97AD00512CC3A985007DB5EB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD00502CC3A962007DB5EB /* LoadingView.swift */; };
 		97AD00532CC3BEF3007DB5EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */; };
 		97AD005B2CC6A0F0007DB5EB /* DeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */; };
-		97AD005D2CC945D4007DB5EB /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005C2CC945D4007DB5EB /* Logout.swift */; };
 		97AD005F2CCB861E007DB5EB /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD005E2CCB861E007DB5EB /* Setting.swift */; };
 		97AD00612CCB9821007DB5EB /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD00602CCB9821007DB5EB /* AccountSettings.swift */; };
 		97AD00632CCBCAFC007DB5EB /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD00622CCBCAFC007DB5EB /* AppNotification.swift */; };
@@ -176,7 +174,6 @@
 		97AD00502CC3A962007DB5EB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		97AD00522CC3BEF3007DB5EB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97AD005A2CC6A0F0007DB5EB /* DeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccount.swift; sourceTree = "<group>"; };
-		97AD005C2CC945D4007DB5EB /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		97AD005E2CCB861E007DB5EB /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		97AD00602CCB9821007DB5EB /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		97AD00622CCBCAFC007DB5EB /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
@@ -393,7 +390,6 @@
 		35A511AB2C65DE8400DA8668 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				97AD005C2CC945D4007DB5EB /* Logout.swift */,
 				3585377C2C20216100D65E23 /* MyPage.swift */,
 				975FE89E2C9C984A007637CF /* Profile.swift */,
 				975FE8AC2C9D0E4C007637CF /* ProfileEdit.swift */,
@@ -594,7 +590,6 @@
 				3501B2562CB033EA00314C0F /* InstrumentSerif.swift in Sources */,
 				3501B25C2CB7EE9500314C0F /* MyDailyRecordDetail.swift in Sources */,
 				35A511B12C6600CA00DA8668 /* UserViewModel.swift in Sources */,
-				97AD005D2CC945D4007DB5EB /* Logout.swift in Sources */,
 				35459A962BF5E64D0049A19C /* AllogdallogApp.swift in Sources */,
 				35A511A02C65D16800DA8668 /* FriendRequest.swift in Sources */,
 				35E0B84A2CCFB0AD006EC116 /* FriendPastRecord.swift in Sources */,

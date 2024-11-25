@@ -28,8 +28,10 @@ struct PostDetailView: View {
                 Image("image/logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 42)
+                    .frame(width: 72, height: 27)
                     .clipped()
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 10)
                 Spacer()
             }
             Divider()
