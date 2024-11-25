@@ -12,6 +12,7 @@ struct MyPage: View {
     @ObservedObject var viewModel: MyPageViewModel
     @StateObject private var profileviewModel: ProfileViewModel
     @StateObject var homeviewModel: HomeViewModel
+    @StateObject private var tabSelection = TabSelectionManager()
     //@State private var hasNewNotification: Bool = false
     
     init(user: User) {
@@ -33,7 +34,9 @@ struct MyPage: View {
                         .foregroundStyle(.black)
                 }
                 ZStack {
-                    NavigationLink(destination: Notification(viewModel: homeviewModel).onAppear {
+                    NavigationLink(destination: Notification(viewModel: homeviewModel)
+                        .environmentObject(tabSelection)
+                        .onAppear {
                         markNotificationsAsRead()
                     }) { Image(systemName: "bell")
                             .resizable()
