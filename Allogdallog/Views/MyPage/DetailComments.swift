@@ -105,8 +105,8 @@ struct DetailComments: View {
                                 .frame(width: 25, height: 25)
                                 .padding(.horizontal, 10)
                                 .foregroundStyle(.myGray)
-                        }
-                        .disabled(!viewModel.friendPostUploaded)
+                        }.disabled(viewModel.myComment.isEmpty)
+                        //.disabled(!viewModel.friendPostUploaded)
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 40)

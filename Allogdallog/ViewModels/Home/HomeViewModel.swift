@@ -388,22 +388,24 @@ class HomeViewModel: ObservableObject {
         let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
         var postId  = ""
         
-        userPostRef.getDocument { (document, error) in
-            
-            if let document = document, document.exists {
-                let data = document.data()
-                postId = data?["id"] as? String ?? ""
-                
-            } else {
-                print("Post does not exist")
-                return
-            }
-            
-            let postOwnerId = document!.data()?["userId"] as? String ?? ""
-            guard !postOwnerId.isEmpty else {
-                print("Error: Post owner ID is not available.")
-                return
-            }
+        userPostRef.getDocument { [weak self] (document, error) in
+               guard let self = self else { return }
+               
+               // 문서 확인
+               guard let document = document, document.exists else {
+                   print("Error: Post does not exist.")
+                   return
+               }
+               
+               // 데이터 파싱
+               guard
+                   let data = document.data(),
+                   let postId = data["id"] as? String,
+                   let postOwnerId = data["userId"] as? String
+               else {
+                   print("Error: Missing post data.")
+                   return
+               }
              
             
             let commentId = UUID().uuidString
@@ -421,45 +423,13 @@ class HomeViewModel: ObservableObject {
                 ]])
             ]){ error in
                 if let error = error {
-                    print("Error adding comment: \(error)")
+                    print("Error adding comment: \(error.localizedDescription)")
                 } else {
-                    print("Post does not exist")
-                    return
+                    print("Comment added successfully.")
+                    self.friendPost.todayComments.append(newComment)
+                    self.createNotification(forComment: newComment, postOwnerId: postOwnerId, postId: postId)
+                    self.myComment = "" // 댓글 초기화
                 }
-                
-                let postOwnerId = document!.data()?["userId"] as? String ?? ""
-                guard !postOwnerId.isEmpty else {
-                    print("Error: Post owner ID is not available.")
-                    return
-                }
-                guard !postId.isEmpty else {
-                    print("Error: postId is empty.")
-                    return
-                }
-                
-                let commentId = UUID().uuidString
-                let newComment = Comment(id: commentId, postId: postId, fromUserId: self.user.id, fromUserNick: self.user.nickname, fromUserImgUrl: self.user.profileImageUrl ?? "", comment: self.myComment)
-                
-                self.friendPost.todayComments.append(newComment)
-                
-                userPostRef.updateData([
-                    "todayComments": FieldValue.arrayUnion([[
-                        "id": commentId,
-                        "postId": postId,
-                        "fromUserNick": self.user.nickname,
-                        "fromUserImgUrl": self.user.profileImageUrl ?? "",
-                        "comment": self.myComment
-                    ]])
-                ]){ error in
-                    if let error = error {
-                        print("Error adding comment: \(error)")
-                    } else {
-                        print("Post owner ID: \(postOwnerId)") // 포스트 소유자 ID 로그 추가
-                        self.createNotification(forComment: newComment, postOwnerId: postOwnerId, postId: postId)
-                    }
-                }
-                
-                self.myComment = ""
             }
         }
     }
