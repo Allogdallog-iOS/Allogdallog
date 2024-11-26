@@ -106,5 +106,6 @@ struct FriendDailyRecord: View {
             }
             Spacer()
         }
+        .padding(.vertical, 10)
     }
 }
