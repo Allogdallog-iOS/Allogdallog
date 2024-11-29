@@ -23,6 +23,7 @@ class HomeViewModel: ObservableObject {
     @Published var selectedColor: Color = Color.blue
     @Published var pastSelectedColor: Color = Color.blue
     @Published var selectedShape: String = "circle.fill"
+    @Published var pastSelecteShape: String = "circle.fill"
     @Published var selectedKeyword: String = "기쁨"
     @Published var selectedEmoji: String = "😊"
     @Published var clickedPost: Post = Post()
@@ -37,6 +38,7 @@ class HomeViewModel: ObservableObject {
     @Published var paletteShowingPost: Post = Post()
     @Published var isColorPaletteOpen: Bool = false
     @Published var isEmojiPaletteOpen: Bool = false
+    @Published var isInModify: Bool = false
     @Published var notifications: [AppNotification] = []
     @Published var hasNewNotification: Bool = false
     @Published var shapes = ["circle.fill", "square.fill", "triangle.fill", "star.fill", "suit.heart.fill", "suit.spade.fill", "suit.club.fill"]

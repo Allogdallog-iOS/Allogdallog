@@ -138,6 +138,7 @@ struct FriendComments: View {
             .ignoresSafeArea(.keyboard)
         }
     }
+}
 
 #Preview {
     FriendComments()

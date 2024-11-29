@@ -13,6 +13,8 @@ struct MyDailyRecordModify: View {
     @State private var currentShapeIndex = 0
     @State private var buttonDisabled = true
     
+    
+    
     var body: some View {
         VStack {
             Text(viewModel.getDateString(date: viewModel.clickedPost.todayDate))
@@ -45,7 +47,7 @@ struct MyDailyRecordModify: View {
                     
                 }
                 .sheet(isPresented: $viewModel.isColorPaletteOpen) {
-                    ColorPalette()
+                    ColorPaletteModify()
                 }
                 .frame(height: 290)
                 Spacer()
@@ -108,7 +110,7 @@ struct MyDailyRecordModify: View {
                     Spacer()
                 }
                 .sheet(isPresented: $viewModel.isEmojiPaletteOpen) {
-                    EmojiPalette()
+                    EmojiPaletteModify()
                 }
                 .frame(height: 290)
             }
@@ -133,7 +135,7 @@ struct MyDailyRecordModify: View {
                     Spacer()
                     Button(action: {
                         buttonDisabled.toggle()
-                        viewModel.uploadPastPost(date: viewModel.selectedDate)
+                        viewModel.uploadPastPost(date: viewModel.getDateString(date: viewModel.clickedPost.todayDate))
                     }) {
                         ZStack {
                             Ellipse()
@@ -159,8 +161,8 @@ struct MyDailyRecordModify: View {
         }
         ScrollView {
             VStack {
-                if !viewModel.todayPost.todayComments.isEmpty {
-                    ForEach(viewModel.todayPost.todayComments) { comment in
+                if !viewModel.clickedPost.todayComments.isEmpty {
+                    ForEach(viewModel.clickedPost.todayComments) { comment in
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(.black)
@@ -198,13 +200,12 @@ struct MyDailyRecordModify: View {
                                 VStack {
                                     HStack {
                                         Text("\(comment.fromUserNick)")
-                                            .font(.caption)
-                                            .fontWeight(.semibold)
+                                            .gmarketSans(type: .bold, size: 12)
                                         Spacer()
                                     }
                                     HStack {
                                         Text("\(comment.comment)")
-                                            .font(.caption)
+                                            .gmarketSans(type: .medium, size: 12)
                                         Spacer()
                                     }
                                 }
@@ -212,10 +213,15 @@ struct MyDailyRecordModify: View {
                             }
                             .padding(.leading, 10)
                         }
-                        .padding(.horizontal, 3)
+                        .padding(.horizontal, 7)
                     }
                 }
             }
         }
+        .onAppear {
+            viewModel.pastSelecteShape = viewModel.clickedPost.todayShape
+            currentShapeIndex = viewModel.shapes.firstIndex(of: viewModel.clickedPost.todayShape) ?? 0
+        }
     }
 }
+

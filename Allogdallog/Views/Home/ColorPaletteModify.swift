@@ -1,18 +1,17 @@
 //
-//  ColorPalette.swift
+//  ColorPaletteModify.swift
 //  Allogdallog
 //
-//  Created by 믕진희 on 10/15/24.
+//  Created by 믕진희 on 11/25/24.
 //
 
 import SwiftUI
 
-struct ColorPalette: View {
+struct ColorPaletteModify: View {
     
     @EnvironmentObject private var viewModel: HomeViewModel
     @State private var selectedColor: Color = Color.blue
     @State private var myNewColor: Color = Color.white
-    @State private var isShowingDeleteBubble: Bool = false
     
     let columns: [GridItem] = Array(repeating: GridItem(.flexible()), count:5)
     
@@ -37,18 +36,17 @@ struct ColorPalette: View {
             }
             Spacer()
             ZStack {
-                Image(systemName: viewModel.selectedShape)
+                Image(systemName: viewModel.pastSelecteShape)
                     .resizable()
                     .frame(width: 150, height: 150)
-                    .foregroundStyle(viewModel.selectedColor)
-                if viewModel.selectedColor == Color.white {
-                    let imageName = viewModel.selectedShape.replacingOccurrences(of: ".fill", with: "")
+                    .foregroundStyle(Color(hex: viewModel.clickedPost.todayColor))
+                if Color(hex: viewModel.clickedPost.todayColor) == Color.white {
+                    let imageName = viewModel.clickedPost.todayShape.replacingOccurrences(of: ".fill", with: "")
                     Image(systemName: imageName)
                         .resizable()
                         .frame(width: 150, height: 150)
                         .foregroundStyle(.myGray)
                 }
-                    
             }
             .frame(height: 190)
             Spacer()
@@ -102,7 +100,8 @@ struct ColorPalette: View {
                         LazyVGrid(columns: columns, spacing: 10) {
                             ForEach(selectedColors, id:\.self) { color in
                                 Button(action: {
-                                    viewModel.selectedColor = color
+                                    viewModel.pastSelectedColor = color
+                                    viewModel.clickedPost.todayColor = color.toHextString()
                                 }) {
                                     ZStack {
                                         Circle()
@@ -113,7 +112,7 @@ struct ColorPalette: View {
                                                 .stroke(.myGray)
                                                 .frame(width: 36, height: 36)
                                         }
-                                        if color == viewModel.selectedColor {
+                                        if color == viewModel.pastSelectedColor {
                                             if color.toHextString() == "#FFFFFF" {
                                                 Circle()
                                                     .stroke(.myGray, lineWidth: 2)
@@ -164,4 +163,8 @@ struct ColorPalette: View {
             .frame(height: 300)
         }
     }
+}
+
+#Preview {
+    ColorPaletteModify()
 }

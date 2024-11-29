@@ -181,7 +181,9 @@ struct MyCalendar: View {
                 VStack {
                     Button(action: {
                         if homeViewModel.user.id == homeViewModel.user.selectedUser {
-                            viewModel.clickedPost = viewModel.postForDate(for: self.date)
+                            homeViewModel.clickedPost = self.post
+                            homeViewModel.fetchPastPost()
+                            viewModel.clickedPost = self.post
                             isPopUpOpen.toggle()
                         } else {
                             homeViewModel.selectedDate = viewModel.getDateString(date: self.date)
