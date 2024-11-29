@@ -133,7 +133,7 @@
 
 - **개발자:** 김은진, 김유진
 - **이메일:** eunjin42767@example.com, youjin5587@gmail.com  
-- **GitHub:** [https://github.com/your-repo](https://github.com/your-repo)
+- **GitHub:** [https://github.com/Allogdallog-iOS/Allogdallog]
 
 ---
 
