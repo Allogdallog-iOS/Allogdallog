@@ -31,7 +31,7 @@
 
 | 마이페이지 화면    | 프로필 수정      | 친구 찾기    | 알림     |
 | ------------- | ------------- | ------------- | ------------- |
-| ![IMG_1323](https://github.com/user-attachments/assets/f682fc04-a130-4c1b-9271-8a0d654ede04) | ![IMG_1327](https://github.com/user-attachments/assets/7ad9ddd6-e84f-4c83-9a2f-cc26a6473102) | ![IMG_1324](https://github.com/user-attachments/assets/f922e481-d9fa-42a9-b7a4-ee5cc06fa392) | ![IMG_1326](https://github.com/user-attachments/assets/22310516-33fe-47eb-8e15-f72a967485b7) |
+| ![IMG_1323](https://github.com/user-attachments/assets/a388f390-b641-4cab-8ee4-56014cc8d9ee) | ![IMG_1327](https://github.com/user-attachments/assets/7ad9ddd6-e84f-4c83-9a2f-cc26a6473102) | ![IMG_1324](https://github.com/user-attachments/assets/f922e481-d9fa-42a9-b7a4-ee5cc06fa392) | ![IMG_1326](https://github.com/user-attachments/assets/22310516-33fe-47eb-8e15-f72a967485b7) |
 
 ---
 
