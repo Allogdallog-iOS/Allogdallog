@@ -255,7 +255,7 @@ class HomeViewModel: ObservableObject {
         
         guard let todayImageToUpload = todayImage else { return }
         
-        self.uploadImage(uid: currentUserId, image: todayImageToUpload) { url in
+        self.uploadImage(uid: currentUserId, image: todayImageToUpload, date: getDateString(date: Date())) { url in
             guard let url = url else {
                 self.errorMessage = "이미지 등록에 실패했습니다."
                 return
@@ -308,7 +308,7 @@ class HomeViewModel: ObservableObject {
         
         guard let pastImageToUpload = pastImage else { return }
         
-        self.uploadImage(uid: currentUserId, image: pastImageToUpload) { url in
+        self.uploadImage(uid: currentUserId, image: pastImageToUpload, date: date) { url in
             guard let url = url else {
                 self.errorMessage = "이미지 등록에 실패했습니다."
                 return
@@ -329,7 +329,6 @@ class HomeViewModel: ObservableObject {
     
     func uploadComment(date: String) {
         let userPostRef =  self.db.collection("posts/\(self.user.selectedUser)/posts").document(date)
-        var postId  = ""
         
         userPostRef.getDocument { [weak self] (document, error) in
                guard let self = self else { return }
@@ -369,7 +368,6 @@ class HomeViewModel: ObservableObject {
                     print("Error adding comment: \(error.localizedDescription)")
                 } else {
                     print("Comment added successfully.")
-                    self.friendPost.todayComments.append(newComment)
                     self.createNotification(forComment: newComment, postOwnerId: postOwnerId, postId: postId)
                     self.myComment = "" // 댓글 초기화
                 }
@@ -497,13 +495,13 @@ class HomeViewModel: ObservableObject {
         }.resume()
     }
     
-    private func uploadImage(uid: String, image: UIImage, completion: @escaping (URL?) -> Void) {
+    private func uploadImage(uid: String, image: UIImage, date: String, completion: @escaping (URL?) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             completion(nil)
             return
         }
         
-        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(getDateString(date: Date()))
+        let storageRef = Storage.storage().reference().child("post_images/\(uid)").child(date)
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         

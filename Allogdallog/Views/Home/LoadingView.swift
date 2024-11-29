@@ -36,7 +36,6 @@ struct LoadingView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity) // 부모 뷰의 중앙에 배치
             }
-            
         }
         .onAppear {
             startLoading()
