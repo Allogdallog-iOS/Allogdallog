@@ -69,7 +69,7 @@ struct Home: View {
                                     ScrollView {
                                         VStack(alignment: .leading) {
                                             FriendDailyRecord()
-                                                .frame(height: 250)
+                                                .frame(height: 270)
                                             FriendComments()
                                         }
                                     }
