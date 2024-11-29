@@ -72,65 +72,64 @@ struct FriendComments: View {
                     }
                 }
             }
-        }
-            VStack {
-                Divider()
-                HStack {
-                    if let url = URL(string: viewModel.user.profileImageUrl ?? "") {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .circularImage(size: 45)
-                                .overlay(
-                                    Circle()
-                                        .stroke(.black)
-                                        .frame(width: 45, height: 45)
-                                )
-                        } placeholder: {
-                            Image(systemName: "person.crop.circle.fill")
-                                .circularImage(size: 45)
-                                .overlay(
-                                    Circle()
-                                        .stroke(.black)
-                                        .frame(width: 45, height: 45)
-                                )
-                                .foregroundStyle(.myGray)
-                        }
-                    } else {
+            Spacer()
+            Divider()
+            HStack {
+                if let url = URL(string: viewModel.user.profileImageUrl ?? "") {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .circularImage(size: 45)
+                            .overlay(
+                                Circle()
+                                    .stroke(.black)
+                                    .frame(width: 45, height: 45)
+                            )
+                    } placeholder: {
                         Image(systemName: "person.crop.circle.fill")
                             .circularImage(size: 45)
+                            .overlay(
+                                Circle()
+                                    .stroke(.black)
+                                    .frame(width: 45, height: 45)
+                            )
                             .foregroundStyle(.myGray)
                     }
-                    HStack {
-                        TextField("반응을 남겨주세요!", text: $viewModel.myComment)
-                            .padding()
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .gmarketSans(type: .medium, size: 15)
-                        Button(action: {
-                            if viewModel.selectedDate.isEmpty {
-                                viewModel.uploadComment(date: viewModel.getDateString(date: Date()))
-                            } else {
-                                viewModel.uploadComment(date: viewModel.selectedDate)
-                            }
-                        }) {
-                            Image(systemName: "arrow.up.circle.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .padding(.horizontal, 10)
-                                .foregroundStyle(.myGray)
-                        }
-                        .disabled(!viewModel.friendPostUploaded)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 40)
-                    .overlay(RoundedRectangle(cornerRadius: 10.0)
-                        .stroke(Color.myLightGray)
-                    )
+                } else {
+                    Image(systemName: "person.crop.circle.fill")
+                        .circularImage(size: 45)
+                        .foregroundStyle(.myGray)
                 }
-                .background(Color.white)
-            } 
+                HStack {
+                    TextField("반응을 남겨주세요!", text: $viewModel.myComment)
+                        .padding()
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .gmarketSans(type: .medium, size: 15)
+                    Button(action: {
+                        if viewModel.selectedDate.isEmpty {
+                            viewModel.uploadComment(date: viewModel.getDateString(date: Date()))
+                        } else {
+                            viewModel.uploadComment(date: viewModel.selectedDate)
+                        }
+                    }) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .padding(.horizontal, 10)
+                            .foregroundStyle(.myGray)
+                    }
+                    .disabled(!viewModel.friendPostUploaded)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 40)
+                .overlay(RoundedRectangle(cornerRadius: 10.0)
+                    .stroke(Color.myLightGray)
+                )
+            }
+            .background(Color.white)
         }
     }
+}
 
 #Preview {
     FriendComments()

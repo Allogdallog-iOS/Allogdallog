@@ -121,7 +121,6 @@ struct MyDailyRecordDetail: View {
                         }
                         .frame(height: 290)
                     }
-                    .padding(.bottom, 10)
                     HStack {
                         Spacer()
                         HStack {
@@ -174,7 +173,7 @@ struct MyDailyRecordDetail: View {
                         .frame(width: 165)
                         Spacer()
                     }
-                    .padding(.bottom, 5 )
+                    .padding(.bottom, 5)
                     Text(viewModel.errorMessage ?? " ")
                         .foregroundStyle(.red)
                         .gmarketSans(type: .medium, size: 15)
@@ -222,13 +221,12 @@ struct MyDailyRecordDetail: View {
                                         VStack {
                                             HStack {
                                                 Text("\(comment.fromUserNick)")
-                                                    .font(.caption)
-                                                    .fontWeight(.semibold)
+                                                    .gmarketSans(type: .bold, size: 12)
                                                 Spacer()
                                             }
                                             HStack {
                                                 Text("\(comment.comment)")
-                                                    .font(.caption)
+                                                    .gmarketSans(type: .medium, size: 12)
                                                 Spacer()
                                             }
                                         }
@@ -236,7 +234,7 @@ struct MyDailyRecordDetail: View {
                                     }
                                     .padding(.leading, 10)
                                 }
-                                .padding(.horizontal, 3)
+                                .padding(.horizontal, 7)
                             }
                         }
                     }
