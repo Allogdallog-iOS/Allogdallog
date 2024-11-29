@@ -12,13 +12,26 @@
 - 감정 색상, 이모지, 사진을 추가하여 하루를 기록할 수 있습니다.
 - 홈화면 하단을 통해 주간기록을 확인할 수 있습니다
 
+| 홈화면      | 데일리 기록 화면      | 색상 선택 팔레트    | 이모지 선택 팔레트      |
+| ------------- | ------------- | ------------- | ------------- |
+| ![IMG_1254](https://github.com/user-attachments/assets/795e6de1-61e7-4f7c-bfdf-e110f1b93306) | ![IMG_1251](https://github.com/user-attachments/assets/07fda0fd-1a3a-4f94-9489-9414011eb376) | ![IMG_1257](https://github.com/user-attachments/assets/00ff683f-8d30-45be-9293-495ca5c82527) | ![IMG_1258](https://github.com/user-attachments/assets/944f4ee4-9c66-4114-90b1-77bf9f58108a) |
+
 ### 2. **캘린더 화면**
 - 한 달간 작성된 기록들을 캘린더 형식으로 한눈에 확인할 수 있습니다.
 - 날짜별 기록 요약 및 세부 정보 팝업을 제공합니다.
 
+| 캘린더 화면(접속자)    | 날짜 클릭시(접속자)      | 캘린더 화면(친구)    | 캘린더 클릭시(친구)      |
+| ------------- | ------------- | ------------- | ------------- |
+| ![IMG_1320](https://github.com/user-attachments/assets/1afe3390-c549-4369-a31a-0f6ae17ebb31) | ![IMG_1321](https://github.com/user-attachments/assets/eb91a468-6d71-41b6-a2c7-31ac57000afc) | ![IMG_5F129CE67F54-1](https://github.com/user-attachments/assets/770b8a7d-8f0a-48aa-b0ba-e5b94e868fb8) | ![IMG_1322](https://github.com/user-attachments/assets/26486b67-5499-40e3-a7ff-389b80d10769) |
+
+
 ### 3. **마이페이지**
 - 사용자 정보 및 설정을 관리할 수 있습니다.
 - 프로필 사진과 닉네임을 설정 및 변경 가능합니다.
+
+| 마이페이지 화면    | 프로필 수정      | 친구 찾기    | 알림     |
+| ------------- | ------------- | ------------- | ------------- |
+| ![IMG_1323](https://github.com/user-attachments/assets/f682fc04-a130-4c1b-9271-8a0d654ede04) | ![IMG_1327](https://github.com/user-attachments/assets/7ad9ddd6-e84f-4c83-9a2f-cc26a6473102) | ![IMG_1324](https://github.com/user-attachments/assets/f922e481-d9fa-42a9-b7a4-ee5cc06fa392) | ![IMG_1326](https://github.com/user-attachments/assets/22310516-33fe-47eb-8e15-f72a967485b7) |
 
 ---
 
