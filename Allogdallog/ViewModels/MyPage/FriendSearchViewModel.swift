@@ -175,59 +175,6 @@ class FriendSearchViewModel: ObservableObject {
         }
     }
     
-    /*func acceptFriendRequest(request: FriendRequest) {
-        let friendId = request.fromUserId
-        let friendNickname = request.fromUserNick
-        let friendProfileImageUrl = request.fromUserImgUrl
-        
-        // 수락 처리 로직
-        db.collection("users").document(user.id).updateData([
-            "friends": FieldValue.arrayUnion([[
-                "id": friendId,
-                "nickname": friendNickname,
-                "profileImageUrl": friendProfileImageUrl
-            ]])
-        ]) { error in
-            if let error = error {
-                print("Error accepting friend request: \(error)")
-            } else {
-                self.db.collection("users").document(friendId).updateData([
-                    "friends": FieldValue.arrayUnion([[
-                        "id": self.user.id,
-                        "nickname": self.user.nickname,
-                        "profileImageUrl": self.user.profileImageUrl ?? ""
-                    ]])
-                ]) { error in
-                    if let error = error {
-                        print("Error updating friend's data: \(error)")
-                    } else {
-                        print("Friend request accepted successfully.")
-                        
-                        self.createNotificationForFriendAcceptance(friendId: friendId)
-                    }
-                }
-            }
-        }
-    }
-
-    private func createNotificationForFriendAcceptance(friendId: String) {
-        let notificationMessage = "\(user.nickname)님이 친구 요청을 수락했습니다."
-        db.collection("notifications").addDocument(data: [
-            "message": notificationMessage,
-            "timestamp": Timestamp(),
-            "userId": friendId, // 알림을 받을 사용자 ID
-            "fromUserId": user.id, // 수락한 사용자 ID
-            "notificationType": "friend_acceptance",
-            "isRead": false
-        ]) { error in
-            if let error = error {
-                print("Error adding friend acceptance notification: \(error)")
-            } else {
-                print("Friend acceptance notification added successfully.")
-            }
-        }
-    }*/
-    
     func hasSentRequest(toUser user: User) -> Bool {
         return self.user.sentRequests.contains(where: { $0.toUserId == user.id && $0.status == .pending })
     }

@@ -230,65 +230,6 @@ class HomeViewModel: ObservableObject {
             }
         }
     
-    /*func navigateToPost(postId: String) {
-        let postRef = db.collection("posts/\(self.user.id)/posts\(postDate)").whereField("id", isEqualTo: postId)
-        
-        postRef.getDocuments { querySnapshot, error in
-              if let error = error {
-                  print("Error fetching document: \(error.localizedDescription)")
-                  return
-              }
-            
-            guard let document = querySnapshot?.documents.first else {
-                    DispatchQueue.main.async {
-                        self.user.postUploaded = false
-                        print("Post does not exist")
-                    }
-                    return
-                }
-            
-            //if let document = document, document.exists {
-            DispatchQueue.main.async {
-                    
-                    self.user.postUploaded = true
-                    self.postButtonsDisabled = true
-                    let data = document.data()
-                    
-                    self.todayPost.id = data["id"] as? String ?? ""
-                    self.todayPost.todayDate = data["todayDate"] as? Date ?? Date()
-                    self.todayPost.todayImgUrl = data["todayImgUrl"] as? String ?? ""
-                    self.todayPost.todayColor = data["todayColor"] as? String ?? ""
-                    self.todayPost.todayText = data["todayText"] as? String ?? ""
-                    self.todayPost.todayComments = (data["todayComments"] as? [[String: Any]] ?? []).compactMap { comment in
-                        Comment(id: comment["id"] as? String ?? "",
-                                postId: comment["postId"] as? String ?? "",
-                                fromUserId: comment["fromUserId"] as? String ?? "",
-                                fromUserNick: comment["fromUserNick"] as? String ?? "",
-                                fromUserImgUrl: comment["fromUserImgUrl"] as? String ?? "",
-                                comment: comment["comment"] as? String ?? "")
-                    }
-                    
-                    self.fetchImage(from: self.todayPost.todayImgUrl) { image in
-                        if let image = image {
-                            self.todayImage = image
-                        } else {
-                            print("Failed to load image")
-                        }
-                    }
-                    
-                    self.selectedColor = Color(hex: self.todayPost.todayColor)
-                    self.selectedEmoji = self.todayPost.todayText
-                }
-            }
-        
-        /*else {
-                DispatchQueue.main.async {
-                    self.user.postUploaded = false
-                    print("Post does not exist")
-                }
-            } */
-    }*/
-    
     func uploadPost() {
         self.todayPost.todayDate = Date()
         self.todayPost.todayColor = selectedColor.toHextString()
