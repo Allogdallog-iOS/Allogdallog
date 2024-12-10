@@ -145,7 +145,7 @@
 ## 📧 **문의**
 
 - **개발자:** 김은진, 김유진
-- **이메일:** eunjin42767@example.com, youjin5587@gmail.com  
+- **이메일:** eunjin42767@gmail.com, youjin1952@naver.com  
 - **GitHub:** [https://github.com/Allogdallog-iOS/Allogdallog]
 
 ---
