@@ -140,14 +140,14 @@
    - 사용자가 작성한 내용을 분석하여 감정 색상을 추천.
 3. **공유 기능**
    - 작성된 게시글을 이미지로 변환하여 SNS에 공유.
-   - 
+     
 
 ## 📧 **문의**
 
 - **개발자:** 김은진, 김유진
-- **이메일:** eunjin42767@gmail.com, youjin1952@naver.com  
+- **이메일:** eunjin42767@gmail.com, youjin5587@gmail.com  
 - **GitHub:** [https://github.com/Allogdallog-iOS/Allogdallog]
 
 ---
 
-이 README 파일은 앱의 개요와 구현 내용을 명확히 전달하기 위해 작성되었습니다. 필요한 경우 내용을 수정하거나 보완하여 배포에 활용하세요! 😊
+이 README 파일은 앱의 개요와 구현 내용을 명확히 전달하기 위해 작성되었습니다.😊
